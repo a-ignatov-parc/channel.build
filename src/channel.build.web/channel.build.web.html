@@ -1,14 +1,27 @@
 <head>
-  <title>channel.build.web</title>
+  <title>channel.build</title>
+  <link href="/vendor/bootstrap-social/css/font-awesome.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-social/bootstrap-social.css" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="home">
+  <div style="width: 400px; margin-left: auto; margin-right: auto; margin-top: 100px;">
+    <h1>Welcome!</h1>
+    <br>
+    {{> googleLogin}}
+    {{#if currentUser}}
+      {{currentUser.profile.login}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="googleLogin">
+  <div id="google-login-button" class="btn btn-block btn-social btn-google" style="background-image: none; text-shadow: none; padding-bottom: 6px; padding-top: 6px;">
+    <i class="fa fa-google">
+    </i>
+    Sign in with Google
+  </div>
 </template>

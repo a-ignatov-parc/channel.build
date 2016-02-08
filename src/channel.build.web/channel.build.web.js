@@ -1,23 +1,31 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+Router.route('/', function () {
+  this.render('home');
+});
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+if (Meteor.isClient) {
+  Template.googleLogin.events({
+    'click': function(event, template){
+      Meteor.loginWithGoogle({
+      }, function (err) {
+        if (err) alert('error : ' + err.message);
+      });
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
+  Template.home.events({
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+  });
+
+  ServiceConfiguration.configurations.remove({
+    service: "google"
+  });
+  ServiceConfiguration.configurations.insert({
+    service: "google",
+    clientId: "578510381054-1ihsp36ih3fmfrtg629pcok47fa9nh4d.apps.googleusercontent.com",
+    secret: "N5P4tjO5Z2akK_c1XlCZOU2X"
   });
 }
