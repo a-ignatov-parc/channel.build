@@ -6,13 +6,17 @@ if (Meteor.isClient) {
   Template.googleLogin.events({
     'click': function(event, template){
       Meteor.loginWithGoogle({
+        requestPermissions: ['email']
       }, function (err) {
         if (err) alert('error : ' + err.message);
       });
     }
   });
 
-  Template.home.events({
+  Template.home.helpers({
+    currentUser: function() {
+      return Meteor.user();
+    }
   });
 }
 
