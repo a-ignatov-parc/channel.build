@@ -1,1 +1,21 @@
 /* CSS declarations go here */
+
+.import-grouping {
+    padding: 30px;
+}
+
+.header-greeting {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 20px;
+  margin-right: 20px;
+  color: #4E4E4E;
+}
+
+.import-container {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
