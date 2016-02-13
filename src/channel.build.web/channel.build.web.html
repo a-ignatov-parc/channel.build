@@ -8,9 +8,9 @@
 </body>
 
 <template name="home">
-  <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
   <div class="import-container">
     {{#if currentUser}}
+      <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
       {{> import}}
     {{else}}
       {{> googleLogin}}
