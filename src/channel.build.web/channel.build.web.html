@@ -8,6 +8,9 @@
 </body>
 
 <template name="home">
+  <div class="preview-container">
+    {{> preview}}
+  </div>
   <div class="import-container">
     {{#if currentUser}}
       <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
