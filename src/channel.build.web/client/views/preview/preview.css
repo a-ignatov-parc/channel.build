@@ -1,0 +1,32 @@
+.preview-content {
+  display: flex;
+  width: 480px;
+  height: 290px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+}
+
+.preview-tv {
+  display: flex;
+  flex-grow: 1;
+  border: solid 13px #000;
+}
+
+.preview-tv-base {
+  width: 40%;
+  height: 4%;
+  vertical-align: top;
+}
+
+.preview-tv-base-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.preview-tv-content {
+  display: flex;
+  flex-grow: 1;
+  background-color: #97CC9C;
+  background: radial-gradient(#B1E4B5, #BCE2C6)
+}
