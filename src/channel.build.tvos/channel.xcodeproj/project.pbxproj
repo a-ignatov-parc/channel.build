@@ -177,7 +177,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 				TV_BASE_URL = "http://localhost:1337/";
-				TV_BOOT_URL = "$(TV_BASE_URL)js/app.js";
+				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
 			};
 			name = Debug;
 		};
@@ -215,7 +215,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 				TV_BASE_URL = "http://localhost:1337/";
-				TV_BOOT_URL = "$(TV_BASE_URL)js/app.js";
+				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -286,7 +286,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 				TV_BASE_URL = "https://channel-staging.herokuapp.com/";
-				TV_BOOT_URL = "$(TV_BASE_URL)js/app.js";
+				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
 			};
 			name = "Debug Staging";
 		};
@@ -336,7 +336,7 @@
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
 				TV_BASE_URL = "https://channel-staging.herokuapp.com/";
-				TV_BOOT_URL = "$(TV_BASE_URL)js/app.js";
+				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release Staging";
