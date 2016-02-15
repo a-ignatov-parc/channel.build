@@ -27,6 +27,6 @@
 .preview-tv-content {
   display: flex;
   flex-grow: 1;
-  background-color: #97CC9C;
-  background: radial-gradient(#B1E4B5, #BCE2C6)
+  background-color: #EFF5F1;
+  background: radial-gradient(#FDFFFD, #EFF5F1);
 }
