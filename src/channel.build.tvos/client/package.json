@@ -1,0 +1,15 @@
+{
+  "name": "channel",
+  "version": "1.0.0",
+  "description": "Channel app client for Apple TV.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./start.sh"
+  },
+  "author": "Michael Kalygin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
