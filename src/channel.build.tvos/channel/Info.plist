@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>TV Boot URL</key>
-	<string>http://localhost:1337/js/app.js</string>
+	<string>$(TV_BOOT_URL)</string>
 	<key>TV Base URL</key>
-	<string>http://localhost:1337/</string>
+	<string>$(TV_BASE_URL)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
