@@ -11,7 +11,7 @@ import UIKit
 // Helper structure to store app settings extracted from Info.plist.
 // NOTE: Some of the settings are different for different Xcode build schemes.
 struct Config {
-  static let baseURL = Config.getKey("TV Base URL") as! String
+  static let hostURL = Config.getKey("TV Host URL") as! String
   static let bootURL = Config.getKey("TV Boot URL") as! String
   
   private static func getKey(key: String) -> AnyObject? {
