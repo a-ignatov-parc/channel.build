@@ -1,7 +1,55 @@
 /* CSS declarations go here */
 
+html, body {
+    height: 100%;
+}
+
+iframe {
+  border: 0px;
+}
+
+div.main-menu {
+  width: 100%;
+  height: 45px;
+  position: absolute;
+  z-index: 100;
+  font-size: 35px;
+  color: #FFF;
+  right: 0px;
+  padding-top: 10px;
+  padding-right: 20px;
+  cursor: pointer;
+  text-shadow: 3px 1px 65px 0.65;
+  text-align: right;
+  cursor: pointer;
+}
+
+div.main-menu-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(90, 157, 191, 0.81);
+  position: absolute;
+}
+
+.main-menu-contents {
+  width: 300px;
+  height: 200px;
+  background: #FFF;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding: 50px 80px 50px 80px;
+  color: #000;
+  border-radius: 5%;
+}
+
+.landing-page {
+  width: 100%;
+  height: 100%;
+}
+
 .import-grouping {
-    padding: 30px;
+  padding: 30px;
 }
 
 .header-greeting {
@@ -23,4 +71,31 @@
 .preview-container {
   text-align: center;
   margin-top: 100px;
+}
+
+.google-login-button {
+  margin-top: 30px;
+  background-image: none;
+  text-shadow: none;
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+.not-invited-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(90, 157, 191, 0.81);
+  position: absolute;
+}
+
+.not-invited-block {
+  width: 300px;
+  height: 130px;
+  background: #FFF;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  padding: 50px 80px 50px 80px;
+  color: #000;
+  border-radius: 5%;
 }

@@ -18,6 +18,37 @@ if (Meteor.isClient) {
       return Meteor.user();
     }
   });
+
+  Template.mainMenu.events({
+    'click div': function () {
+      Session.set('showMenu', !Session.get('showMenu'));
+    }
+  });
+
+  Template.mainMenu.helpers({
+    showMenuContent: function() {
+      return Session.get('showMenu');
+    }
+  });
+
+  Template.notInvited.events({
+    'click .not-invited-wrapper, .click not-invited-block': function () {
+      document.cookie = "noInviteOnce=true";
+      Session.set('hideNoInvite', true);
+    }
+  });
+
+  Template.notInvited.helpers({
+    hideNoInviteContent: function() {
+      if (Session.get('hideNoInvite'))
+        return true;
+
+      if (document.cookie.match("noInviteOnce="))
+        return true;
+
+      return false;
+    }
+  });
 }
 
 if (Meteor.isServer) {

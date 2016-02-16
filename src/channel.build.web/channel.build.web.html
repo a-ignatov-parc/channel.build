@@ -8,17 +8,44 @@
 </body>
 
 <template name="home">
-  <div class="preview-container">
-    {{> preview}}
-  </div>
-  <div class="import-container">
-    {{#if currentUser}}
-      <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
-      {{> import}}
+  {{#if currentUser}}
+    {{#if showMenuContent}}
+      <div class="preview-container">
+        {{> preview}}
+      </div>
+      <div class="import-container">
+        <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
+        {{> import}}
+      </div>
     {{else}}
-      {{> googleLogin}}
+      {{> notInvited}}
     {{/if}}
+  {{else}}
+    {{> mainMenu}}
+    {{> landingPage}}
+  {{/if}}
+</template>
+
+<template name="mainMenu">
+  <div class="fa fa-bars main-menu">
   </div>
+  {{#if showMenuContent}}
+    <div class="main-menu-wrapper">
+      <div class="main-menu-contents">
+        <h3>Welcome to Channel</h3>
+        <p>
+          Please sign-in to manage your account. If you haven't been invited yet,
+          we will add you to our waiting list automatically.
+        </p>
+        {{> googleLogin}}
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="landingPage">
+  <iframe src="http://channel.caffeinelabs.co/" class="landing-page">
+  </iframe>
 </template>
 
 <template name="import">
@@ -28,9 +55,25 @@
 </template>
 
 <template name="googleLogin">
-  <div id="google-login-button" class="btn btn-block btn-social btn-google" style="background-image: none; text-shadow: none; padding-bottom: 6px; padding-top: 6px;">
+  <div class="btn btn-block btn-social btn-google google-login-button">
     <i class="fa fa-google">
     </i>
     Sign in with Google
   </div>
+</template>
+
+<template name="notInvited">
+  {{#unless hideNoInviteContent}}
+  <div class="not-invited-wrapper">
+    <div class="alert alert-success not-invited-block">
+      <h3>Hello {{currentUser.services.google.given_name}}!</h3>
+      <p>
+        You are currently not invited to this alpha program. We will give you an  update
+        very soon.
+      </p>
+    </div>
+  </div>
+  {{/unless}}
+  <iframe src="http://channel.caffeinelabs.co/" class="landing-page">
+  </iframe>
 </template>
