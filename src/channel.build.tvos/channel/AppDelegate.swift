@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TVApplicationControllerDe
     
     // Initialize settings for the app controller context.
     appControllerContext.javaScriptApplicationURL = javaScriptURL
-    appControllerContext.launchOptions["baseURL"] = Config.baseURL
+    appControllerContext.launchOptions["hostUrl"] = Config.hostURL
     
     // Create an app controller.
     appController = TVApplicationController(context: appControllerContext, window: window, delegate: self)

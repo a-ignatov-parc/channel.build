@@ -4,8 +4,8 @@
 <dict>
 	<key>TV Boot URL</key>
 	<string>$(TV_BOOT_URL)</string>
-	<key>TV Base URL</key>
-	<string>$(TV_BASE_URL)</string>
+	<key>TV Host URL</key>
+	<string>$(TV_HOST_URL)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

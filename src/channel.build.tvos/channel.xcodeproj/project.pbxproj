@@ -176,8 +176,8 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
-				TV_BASE_URL = "http://localhost:1337/";
-				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
+				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_HOST_URL = "http://localhost:1337/";
 			};
 			name = Debug;
 		};
@@ -214,8 +214,8 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
-				TV_BASE_URL = "http://localhost:1337/";
-				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
+				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_HOST_URL = "http://localhost:1337/";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -285,8 +285,8 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
-				TV_BASE_URL = "https://channel-staging.herokuapp.com/";
-				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
+				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_HOST_URL = "http://channel-staging.heroku.com/";
 			};
 			name = "Debug Staging";
 		};
@@ -335,8 +335,8 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
-				TV_BASE_URL = "https://channel-staging.herokuapp.com/";
-				TV_BOOT_URL = "$(TV_BASE_URL)app.js";
+				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_HOST_URL = "http://channel-staging.heroku.com/";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = "Release Staging";
