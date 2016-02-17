@@ -26,3 +26,4 @@ service-configuration
 iron:router
 meteorhacks:picker
 mizzao:bootstrap-3
+houston:admin
