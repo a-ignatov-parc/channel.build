@@ -90,11 +90,8 @@ if (Meteor.isServer) {
   });
 
   Accounts.onLogin(function(user){
-    console.log('User ID: ' + user.user._id);
-
     var myInvite = Invites.findOne({'userId': user.user._id});
     if (!myInvite) {
-      console.log("Adding Invitation for User ID: " + user.user._id);
       Invites.insert({
         'userId': user.user._id,
         'invited': false
