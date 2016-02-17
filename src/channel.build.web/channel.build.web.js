@@ -13,9 +13,17 @@ if (Meteor.isClient) {
     }
   });
 
+  Meteor.subscribe('myInvites');
+
   Template.home.helpers({
     currentUser: function() {
       return Meteor.user();
+    },
+    userIsInvited: function () {
+      if (!Meteor.user()) return false;
+
+      var myInvite = Invites.findOne();
+      return myInvite && myInvite.invited;
     }
   });
 
@@ -79,5 +87,18 @@ if (Meteor.isServer) {
         base + "Kia+VR+experience+in+self-driving+Soul+EV+hatchback-GewwoTOjjdE.mp4"
       ]
     }));
+  });
+
+  Accounts.onLogin(function(user){
+    console.log('User ID: ' + user.user._id);
+
+    var myInvite = Invites.findOne({'userId': user.user._id});
+    if (!myInvite) {
+      console.log("Adding Invitation for User ID: " + user.user._id);
+      Invites.insert({
+        'userId': user.user._id,
+        'invited': false
+      });
+    }
   });
 }

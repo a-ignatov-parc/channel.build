@@ -1,0 +1,35 @@
+<template name="app">
+  <div class="logoArea">
+    Channel.Build <i>(alpha)</i>
+  </div>
+  <div id="logout" class="logoutLink">Log Out</div>
+  <div class="appWrapper">
+    <h3>Welcome {{currentUser.services.google.given_name}}!</h3>
+    <p>
+      Use this page to update your application. Once you are done, click save at the bottom
+      of this page to update the application. The update can takes a couple weeks
+      to accomodate time for the app store to review and process your submission.
+    </p>
+    <form class="app-form">
+      <div class="form-group">
+          <label class="app-label">Name</label>
+          <input type="text"
+                 name="name"
+                 class="app-text-input form-control text-name"
+                 placeholder="Your application name"
+                 value="{{name}}">
+      </div>
+
+      <div class="form-group">
+          <label>Description</label>
+          <input type="text"
+                 name="description"
+                 class="app-text-input form-control"
+                 placeholder="Description for your app"
+                 value="{{description}}">
+      </div>
+
+      <button type="submit" class="btn btn-success btn-block pull-right save-button">Save</button>
+    </form>
+  </div>
+</template>
