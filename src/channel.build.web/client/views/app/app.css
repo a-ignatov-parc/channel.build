@@ -1,0 +1,49 @@
+.logoArea {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-left: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.logoArea > i {
+  vertical-align: super;
+  font-weight: normal;
+}
+
+.logoutLink {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin-right: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.appWrapper {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+.app-label {
+  width: 100%;
+}
+
+input[type=text].app-text-input {
+  height: 35px;
+}
+
+.app-form {
+  margin-top: 50px;
+}
+
+.text-name {
+  width: 200px;
+}
+
+.save-button {
+  width: 120px;
+}
