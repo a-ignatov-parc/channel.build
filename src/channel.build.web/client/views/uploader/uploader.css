@@ -1,0 +1,44 @@
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.uploader-button {
+  padding-right: 4px;
+}
+
+.uploader-picture {
+  border: solid 1px #CCC;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-size: cover;
+  background-color: #E6E6E6;
+}
+
+.uploader-progress {
+  height: 10px;
+  margin-bottom: 5px;
+}
+
+.uploader-dimensions {
+  display: inline;
+  color: #FFF;
+  padding-left: 5px;
+  padding-top: 3px;
+  text-shadow: 0px 0px 12px #AFAFAF;
+}

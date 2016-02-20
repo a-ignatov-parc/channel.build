@@ -10,7 +10,9 @@ Template.app.events({
       description: event.target.description.value
     };
 
-    Apps.update(appId, appInfo);
+    Apps.update(appId, {
+      $set: appInfo
+    });
   },
   "click #logout": function(event) {
     Meteor.logout(function() {
@@ -34,6 +36,10 @@ Template.app.helpers({
   },
   description: function() {
     return Apps.findOne().description;
+  },
+  developer: function () {
+    var myInvite = Invites.findOne();
+    return myInvite && myInvite.developer;
   }
 });
 

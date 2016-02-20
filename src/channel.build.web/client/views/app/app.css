@@ -25,7 +25,7 @@
   width: 800px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
+  margin-top: 60px;
 }
 
 .app-label {
@@ -37,7 +37,7 @@ input[type=text].app-text-input {
 }
 
 .app-form {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .text-name {
@@ -46,4 +46,18 @@ input[type=text].app-text-input {
 
 .save-button {
   width: 120px;
+}
+
+.uploader-block {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.uploader-icon-small {
+}
+
+.uploader-icon-big {
+}
+
+.uploader-banner {
 }
