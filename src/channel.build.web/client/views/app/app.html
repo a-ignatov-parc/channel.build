@@ -12,22 +12,41 @@
     </p>
     <form class="app-form">
       <div class="form-group">
-          <label class="app-label">Name</label>
-          <input type="text"
-                 name="name"
-                 class="app-text-input form-control text-name"
-                 placeholder="Your application name"
-                 value="{{name}}">
+        <label class="app-label">Name</label>
+        <input type="text"
+               name="name"
+               class="app-text-input form-control text-name"
+               placeholder="Your application name"
+               value="{{name}}">
       </div>
 
       <div class="form-group">
-          <label>Description</label>
-          <input type="text"
-                 name="description"
-                 class="app-text-input form-control"
-                 placeholder="Description for your app"
-                 value="{{description}}">
+        <label class="app-label">Description</label>
+        <textarea name="description"
+                  cols="40"
+                  rows="5"
+                  class="app-text-input form-control"
+                  placeholder="Description for your app">{{description}}</textarea>
       </div>
+
+      <div class="form-group">
+        <label class="app-label">Visual Assets</label>
+        <div class="uploader-block uploader-icon-small">
+          {{> uploaderInstance id="1" width="400" height="240" name="assets_icon_small" button="Small Icon"}}
+        </div>
+        <div class="uploader-block uploader-icon-big">
+          {{> uploaderInstance id="2" width="1280" height="768" name="assets_icon_big" button="Big Icon"}}
+        </div>
+        <div class="uploader-block uploader-banner">
+          {{> uploaderInstance id="3" width="1920" height="720" name="assets_banner" button="Banner"}}
+        </div>
+      </div>
+
+      {{#if developer}}
+      <div class="form-group">
+        <label class="app-label">Video Content</label>
+      </div>
+      {{/if}}
 
       <button type="submit" class="btn btn-success btn-block pull-right save-button">Save</button>
     </form>

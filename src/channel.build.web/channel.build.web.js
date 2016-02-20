@@ -91,10 +91,20 @@ if (Meteor.isServer) {
 
   Accounts.onLogin(function(user){
     var myInvite = Invites.findOne({'userId': user.user._id});
-    if (!myInvite) {
+    if (myInvite) {
+      if (myInvite.developer == undefined) {
+        Invites.update(myInvite._id, {
+          'userId': user.user._id,
+          'invited': myInvite.invited,
+          'developer': false
+        });
+      }
+    }
+    else {
       Invites.insert({
         'userId': user.user._id,
-        'invited': false
+        'invited': false,
+        'developer': false
       });
     }
   });

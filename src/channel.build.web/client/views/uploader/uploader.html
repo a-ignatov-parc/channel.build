@@ -1,0 +1,15 @@
+<template name="uploaderInstance">
+  <div>
+    <div class="uploader-picture" style="background-image: url('{{url}}'); height: {{sampleHeight}}px; width: {{sampleWidth}}px">
+      <div class="uploader-dimensions">{{width}}  x {{height}}</div>
+    </div>
+    <div class="progress uploader-progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+      </div>
+    </div>
+    <span class="btn btn-primary btn-file">
+      <input id="upload" type="file" accept="image/jpeg,image/png">
+      <i class="fa fa-cloud-upload uploader-button"></i>{{button}}
+    </span>
+  </div>
+</template>
