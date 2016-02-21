@@ -16,3 +16,9 @@ Meteor.publish("myInvites", function () {
     {'userId': this.userId}
   );
 });
+
+Meteor.publish("myVideos", function () {
+  return Videos.find(
+    {'userId': this.userId}
+  );
+});

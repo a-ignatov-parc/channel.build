@@ -1,11 +1,4 @@
 Meteor.methods({
-  getTest: function() {
-    return [
-      {id: 1},
-      {id: 2},
-      {id: 3}
-    ]
-  },
   getYoutubeUserPlaylists: function (name) {
     var userResult = Meteor.http.get("" +
       "https://www.googleapis.com/youtube/v3/channels?forUsername=" +
@@ -39,6 +32,26 @@ Meteor.methods({
         title: x.snippet.title,
         description: x.snippet.description,
         thumbnail: x.snippet.thumbnails.medium.url
+      };
+    });
+  },
+  addYoutubePlaylist: function (playlistId) {
+    var playlistResult = Meteor.http.get("" +
+      "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
+      playlistId +
+      "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I");
+
+    if(playlistResult.statusCode != 200) {
+      throw new Meteor.Error(400, "Failed to communicate with youtube to read playlist.");
+    }
+
+    return playlistResult.data.items.map(function(x) {
+      return {
+        importType: 'youtube',
+        importId: x.id,
+        title: x.snippet.title,
+        description: x.snippet.description,
+        thumbnails: x.snippet.thumbnails
       };
     });
   }
