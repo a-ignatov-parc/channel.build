@@ -1,0 +1,34 @@
+<template name="youtube">
+  <form>
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-youtube youtube-icon"></i>
+      </span>
+      <input id="username" type="text" class="form-control" placeholder="YouTube user...">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </span>
+    </div>
+  </form>
+  <div class="playlist-picker">
+    {{#if loading}}
+      {{>loader}}
+    {{else}}
+      {{#each playlists}}
+        <div class="playlist-item">
+          <table>
+            <tr>
+              <td class="playlist-thumbnail-cell">
+                <img src="{{thumbnail}}" class="playlist-thumbnail">
+              </td>
+              <td class="playlist-info">
+                <div class="playlist-info-title">{{title}}</div>
+                {{description}}
+              </td>
+            </tr>
+          </table>
+        </div>
+      {{/each }}
+    {{/if}}
+  </div>
+</template>

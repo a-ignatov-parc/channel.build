@@ -1,5 +1,3 @@
-var appId = null;
-
 Template.app.events({
   'submit form': function(event) {
     event.preventDefault();
@@ -31,6 +29,9 @@ Template.app.helpers({
   destroyed: function(){
 
   },
+  userName: function() {
+    return Meteor.user() ? Meteor.user().services.google.given_name : "";
+  },
   name: function() {
     return Apps.findOne().name;
   },
@@ -40,6 +41,9 @@ Template.app.helpers({
   developer: function () {
     var myInvite = Invites.findOne();
     return myInvite && myInvite.developer;
+  },
+  error: function () {
+    return Session.get('error');
   }
 });
 
