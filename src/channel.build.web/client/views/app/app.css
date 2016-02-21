@@ -1,51 +1,53 @@
-.logoArea {
+.app-header {
+  width: 100%;
+  height: 50px;
+  top: 0px;
+  position: fixed;
+  background-color: #FFF;
+  border-bottom: solid 1px #FDD;
+  z-index: 100
+}
+
+.logo-area {
   position: absolute;
   top: 0px;
   left: 0px;
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 12px;
   font-weight: bold;
 }
 
-.logoArea > i {
+.logo-area > i {
   vertical-align: super;
   font-weight: normal;
 }
 
-.logoutLink {
+.logout-link {
   position: absolute;
   top: 0px;
   right: 0px;
   margin-right: 20px;
-  margin-top: 20px;
+  margin-top: 15px;
   cursor: pointer;
 }
 
-.appWrapper {
+.app-wrapper {
   width: 800px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .app-label {
   width: 100%;
-}
-
-input[type=text].app-text-input {
-  height: 35px;
+  margin-top: 20px;
 }
 
 .app-form {
-  margin-top: 40px;
 }
 
-.text-name {
+input.text-name {
   width: 200px;
-}
-
-.save-button {
-  width: 120px;
 }
 
 .uploader-block {
@@ -60,4 +62,37 @@ input[type=text].app-text-input {
 }
 
 .uploader-banner {
+}
+
+.app-video-group {
+  min-height: calc(100vh - 50px);
+}
+
+.app-footer {
+  width: 100%;
+  height: 80px;
+  bottom: 0px;
+  left: 0px;
+  position: fixed;
+  background-color: #FFF;
+  border-top: solid 1px #FDD;
+  z-index: 100
+}
+
+.app-footer-center {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+}
+
+button.save-button {
+  width: 120px;
+}
+
+div.app-alert-error {
+  width: 550px;
+  display: inline-block;
+  height: 35px;
+  padding-top: 6px;
 }

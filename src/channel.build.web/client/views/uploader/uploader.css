@@ -30,7 +30,7 @@
   background-color: #E6E6E6;
 }
 
-.uploader-progress {
+div.uploader-progress {
   height: 10px;
   margin-bottom: 5px;
 }
