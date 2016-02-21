@@ -1,0 +1,7 @@
+.video-thumbnail {
+  width: 180px;
+  border-right: solid 1px #DDD;
+  border-radius: 5px;
+  margin: 5px;
+  border: solid 1px #DDD;
+}

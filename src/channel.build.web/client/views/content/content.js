@@ -1,5 +1,8 @@
 Template.content.helpers({
-  create: function(){
+  create: function() {
 
+  },
+  videos: function() {
+    return Videos.find().fetch();
   }
 });

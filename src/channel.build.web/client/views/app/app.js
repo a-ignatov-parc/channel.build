@@ -30,7 +30,8 @@ Template.app.helpers({
 
   },
   userName: function() {
-    return Meteor.user() ? Meteor.user().services.google.given_name : "";
+    return Meteor.user() && Meteor.user().services && Meteor.user().services.google ?
+      Meteor.user().services.google.given_name : "";
   },
   name: function() {
     return Apps.findOne().name;
@@ -48,6 +49,7 @@ Template.app.helpers({
 });
 
 Meteor.subscribe('myApp');
+Meteor.subscribe('myVideos');
 
 Template.app.created = function() {
   var usersApp = Apps.findOne();
