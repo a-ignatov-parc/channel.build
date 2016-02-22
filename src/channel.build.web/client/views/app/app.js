@@ -1,3 +1,5 @@
+var appId = null;
+
 Template.app.events({
   'submit form': function(event) {
     event.preventDefault();
@@ -44,6 +46,9 @@ Template.app.helpers({
   },
   error: function () {
     return Session.get('error');
+  },
+  appId: function () {
+    return appId;
   }
 });
 
