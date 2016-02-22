@@ -108,4 +108,14 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  Accounts.onCreateUser(function (options, user) {
+    if (options.profile) {
+      user.profile = options.profile;
+      user.profile.givenName = user.services.google.given_name;
+      user.profile.userName = user.services.google.email.split('@')[0]
+    }
+
+    return user;
+  });
 }

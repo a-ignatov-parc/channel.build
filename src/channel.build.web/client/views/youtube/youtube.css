@@ -18,6 +18,7 @@
   padding-top: 5px;
   vertical-align: top;
   font-size: 10px;
+  width: 100%;
 }
 
 .playlist-info-title {
@@ -27,28 +28,33 @@
   vertical-align: top;
 }
 
+.playlist-info-text {
+  height: 30px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .playlist-thumbnail-cell {
-  width: 180px;
+  width: 120px;
 }
 
 .playlist-thumbnail {
-  width: 180px;
+  width: 120px;
   border-right: solid 1px #DDD;
-  -webkit-filter: grayscale(1.0);
-  filter: grayscale(1.0);
-  cursor: pointer;
-}
-
-.playlist-thumbnail:hover {
-  -webkit-filter: grayscale(0.0);
-  filter: grayscale(0.0);
-  cursor: pointer;
 }
 
 .playlist-picker {
   margin-top: 10px;
 }
 
-.youtube-icon {
+i.youtube-icon {
   font-size: 18px;
+}
+
+.playlist-add-cell {
+  vertical-align: bottom;
+  padding: 8px;
+}
+
+.playlist-add {
 }

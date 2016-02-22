@@ -10,10 +10,10 @@ Template.youtube.events({
     event.preventDefault();
 
     Session.set('error', null);
-    Session.set('loading', true);
+    Session.set('playlistLoading', true);
 
     Meteor.call('getYoutubeUserPlaylists', event.target.username.value, function(err, response) {
-      Session.set('loading', false);
+      Session.set('playlistLoading', false);
 
       if (err) {
         Session.set('error', err.message);
@@ -23,13 +23,13 @@ Template.youtube.events({
 			Session.set('playlists', response);
 		});
   },
-  'click .playlist-item': function(event) {
+  'click .playlist-add': function(event) {
     Session.set('error', null);
-    Session.set('loading', true);
+    Session.set('videosLoading', true);
 
     var playlistId = event.target.attributes.data.value;
     Meteor.call('addYoutubePlaylist', playlistId, function(err, response) {
-      Session.set('loading', false);
+      Session.set('videosLoading', false);
 
       if (err) {
         Session.set('error', err.message);
@@ -63,6 +63,10 @@ Template.youtube.events({
           Videos.insert(videoInfo);
         }
       });
+
+      Session.set('playlists', Session.get('playlists').filter(function(e){
+        return e.id != playlistId;
+      }));
 		});
   }
 });
@@ -71,7 +75,10 @@ Template.youtube.helpers({
   playlists: function () {
     return Session.get('playlists');
   },
-  loading: function () {
-    return Session.get('loading');
+  playlistLoading: function () {
+    return Session.get('playlistLoading');
+  },
+  userName: function () {
+    return Meteor.user().profile ? Meteor.user().profile.userName : "";
   }
 })
