@@ -89,6 +89,20 @@ if (Meteor.isServer) {
     }));
   });
 
+  Picker.route("/api/admin/", function(params, req, res) {
+    var apps = Apps.find().fetch();
+
+    apps.forEach(function(app) {
+      var videos = Videos.find({
+        userId: app.userId
+      }).fetch();
+
+      app.videos = videos;
+    });
+
+    res.end(JSON.stringify(apps));
+  });
+
   Accounts.onLogin(function(user){
     var myInvite = Invites.findOne({'userId': user.user._id});
     if (myInvite) {
