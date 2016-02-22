@@ -44,9 +44,11 @@
         </div>
       </div>
 
-      {{#if developer}}
       <div class="form-group">
         <label class="app-label">Import Content</label>
+        <p>
+          Using your YouTube user, you can import content directly into Channel.
+        </p>
         {{>youtube}}
       </div>
 
@@ -54,6 +56,8 @@
         <label class="app-label">Video Content</label>
         {{>content}}
       </div>
+
+      {{#if developer}}
       {{/if}}
 
       <div class="app-footer">

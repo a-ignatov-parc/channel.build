@@ -30,8 +30,7 @@ Template.app.helpers({
 
   },
   userName: function() {
-    return Meteor.user() && Meteor.user().services && Meteor.user().services.google ?
-      Meteor.user().services.google.given_name : "";
+    return Meteor.user() ? Meteor.user().profile.givenName : "";
   },
   name: function() {
     return Apps.findOne().name;

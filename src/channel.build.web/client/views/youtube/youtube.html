@@ -4,14 +4,14 @@
       <span class="input-group-addon">
         <i class="fa fa-youtube youtube-icon"></i>
       </span>
-      <input id="username" type="text" class="form-control" placeholder="YouTube user...">
+      <input id="username" type="text" class="form-control" placeholder="YouTube user..." value="{{userName}}">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="submit">Search</button>
       </span>
     </div>
   </form>
   <div class="playlist-picker">
-    {{#if loading}}
+    {{#if playlistLoading}}
       {{>loader}}
     {{else}}
       {{#each playlists}}
@@ -19,11 +19,19 @@
           <table>
             <tr>
               <td class="playlist-thumbnail-cell">
-                <img src="{{thumbnail}}" class="playlist-thumbnail" data="{{id}}">
+                <img src="{{thumbnail}}" class="playlist-thumbnail">
               </td>
               <td class="playlist-info">
                 <div class="playlist-info-title">{{title}}</div>
-                {{description}}
+                <div class="playlist-info-text">
+                  {{description}}
+                </div>
+              </td>
+              <td class="playlist-add-cell">
+                <span class="btn btn-primary btn-xs playlist-add" data="{{id}}">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  Add Videos
+                </span>
               </td>
             </tr>
           </table>

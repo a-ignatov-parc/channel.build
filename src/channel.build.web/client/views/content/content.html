@@ -1,5 +1,15 @@
 <template name="content">
-  {{#each videos}}
-    <img src="{{thumbnails.medium.url}}" class="video-thumbnail">
-  {{/each }}
+  <div class="content-toolbar">
+    <span class="btn btn-danger btn-xs content-delete-all" data="{{id}}">
+      <i class="glyphicon glyphicon-minus"></i>
+      Delete All
+    </span>
+  </div>
+  {{#if videosLoading}}
+    {{>loader}}
+  {{else}}
+    {{#each videos}}
+      <img src="{{thumbnails.medium.url}}" class="video-thumbnail">
+    {{/each }}
+  {{/if}}
 </template>

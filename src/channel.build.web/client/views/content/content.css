@@ -1,7 +1,19 @@
 .video-thumbnail {
-  width: 180px;
+  width: 120px;
   border-right: solid 1px #DDD;
   border-radius: 5px;
   margin: 5px;
   border: solid 1px #DDD;
+
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.content-toolbar {
+  width: 100%;
+  text-align: right;
 }
