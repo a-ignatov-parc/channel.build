@@ -36,6 +36,7 @@ Template.youtube.events({
         return;
       }
 
+      var app = Apps.findOne();
       var lastVideo = Videos.findOne({
         userId: Meteor.userId()
       }, {
@@ -46,12 +47,18 @@ Template.youtube.events({
       response.forEach(function(videoInfo, idx) {
         originalKey = {
           userId: Meteor.userId(),
+          appId: app._id,
           importType: 'youtube',
           importId: videoInfo.importId
         };
 
         videoInfo.position = videoOffset + idx;
         videoInfo.userId = Meteor.userId();
+        videoInfo.appId = app._id;
+
+        // NYI: This will change once we start processing videos
+        videoInfo.video = "https://s3-us-west-2.amazonaws.com/channel.build.oregon/gwces2016/" +
+          "Team+GeekWire+arrives+at+CES+2016-woNBwkaL18M.mp4";
 
         var video = Videos.findOne(originalKey);
         if (video) {
