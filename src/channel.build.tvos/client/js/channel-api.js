@@ -2,8 +2,6 @@
  * Web API for Channel App.
  */
 
-import NetworkController from './network-controller';
-
 class ChannelApi {
   constructor(networkController, channelId) {
     this.networkController = networkController;

@@ -34,7 +34,7 @@ class NetworkController {
       req.open(method, url);
 
       req.onload = () => {
-        console.log(`Response for ${method} ${url} with status ${req.status} (${req.statusText}): ${req.response}`);
+        console.log(`Received response for ${method} ${url} with status ${req.status} (${req.statusText}): ${req.response}`);
         if (req.status === 200) {
           resolve(req.response);
         } else {

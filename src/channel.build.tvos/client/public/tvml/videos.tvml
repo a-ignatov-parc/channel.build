@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <head>
+    <style>
+      .imageWithGradient {
+        tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,64,0,0.7), rgba(0,64,0,1.0));
+      }
+      .showTextOnHighlight {
+        tv-text-highlight-style: show-on-highlight;
+      }
+    </style>
+  </head>
+
+  <stackTemplate>
+    <!-- Featured content. -->
+    <collectionList>
+      <carousel>
+        <section>
+          {{#.}}
+            <lockup>
+              {{#thumbnails.maxres}}
+              <img src="{{url}}" width="{{width}}" height="{{height}}" />
+              {{/thumbnails.maxres}}
+              <overlay>
+                <title>{{title}}</title>
+              </overlay>
+            </lockup>
+          {{/.}}
+        </section>
+      </carousel>
+
+      <!-- All videos content. -->
+      <grid>
+        <header>
+          <title>All Videos</title>
+        </header>
+        <section>
+          {{#.}}
+            <lockup>
+              {{#thumbnails.high}}
+              <img src="{{url}}" width="{{width}}" height="{{height}}" />
+              {{/thumbnails.high}}
+              <title class="showTextOnHighlight">{{title}}</title>
+            </lockup>
+          {{/.}}
+        </section>
+      </grid>
+    </collectionList>
+  </stackTemplate>
+</document>

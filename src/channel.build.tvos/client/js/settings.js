@@ -3,7 +3,7 @@
  */
 
 const Settings = {
-  root: 'root.tvml',
+  rootTemplate: 'root.tvml',
   tvmlPath: 'tvml/'
 };
 

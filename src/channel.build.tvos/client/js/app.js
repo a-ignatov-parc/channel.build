@@ -5,6 +5,7 @@ import Utility from './utility';
 import NetworkController from './network-controller';
 import ResourceLoader from './resource-loader';
 import ChannelApi from './channel-api';
+import DataController from './data-controller';
 import Presenter from './presenter';
 
 App.onLaunch = ({hostUrl, apiUrl, channelId}) => {
@@ -12,14 +13,12 @@ App.onLaunch = ({hostUrl, apiUrl, channelId}) => {
   const channelApiNetworkController = new NetworkController(apiUrl);
   const resourceLoader = new ResourceLoader(resourceLoaderNetworkController);
   const channelApi = new ChannelApi(channelApiNetworkController, channelId);
-  const presenter = new Presenter(resourceLoader);
+  const dataController = new DataController(resourceLoader, channelApi);
+  const presenter = new Presenter(resourceLoader, dataController);
 
   channelApi.getVideos().then((videos) => {
     console.log(videos);
   });
 
-  presenter.presentModal('alert.tvml', {
-    title: 'Hello, World!',
-    description: 'App infrastructure is ready!'
-  });
+  presenter.presentRoot(Settings.rootTemplate);
 };
