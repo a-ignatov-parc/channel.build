@@ -27,11 +27,14 @@ class NetworkController {
    */
   ajax(method, url, data) {
     url = Utility.isUrl(url) ? url : this.pathToUrl(url);
+    console.log(`Sending ${method} ${url} request with data: ${data}...`);
+
     return new Promise((resolve, reject) => {
       let req = new XMLHttpRequest();
       req.open(method, url);
 
       req.onload = () => {
+        console.log(`Response for ${method} ${url} with status ${req.status} (${req.statusText}): ${req.response}`);
         if (req.status === 200) {
           resolve(req.response);
         } else {

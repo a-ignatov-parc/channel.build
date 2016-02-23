@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>TV Channel ID</key>
+	<string>$(TV_CHANNEL_ID)</string>
+	<key>TV API URL</key>
+	<string>$(TV_API_URL)</string>
 	<key>TV Boot URL</key>
 	<string>$(TV_BOOT_URL)</string>
 	<key>TV Host URL</key>

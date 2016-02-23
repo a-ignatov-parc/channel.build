@@ -3,7 +3,8 @@
  */
 
 const Settings = {
-  tvmlPath: '/tvml/'
+  root: 'root.tvml',
+  tvmlPath: 'tvml/'
 };
 
 module.exports = Settings;

@@ -176,7 +176,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TV_API_URL = "http://channel.build/api/";
 				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_CHANNEL_ID = Wok55EFCerwSna5PR;
 				TV_HOST_URL = "http://localhost:1337/";
 			};
 			name = Debug;
@@ -214,7 +216,9 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TV_API_URL = "http://channel.build/api/";
 				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_CHANNEL_ID = Wok55EFCerwSna5PR;
 				TV_HOST_URL = "http://localhost:1337/";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -285,7 +289,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TV_API_URL = "http://channel.build/api/";
 				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_CHANNEL_ID = Wok55EFCerwSna5PR;
 				TV_HOST_URL = "http://channel-staging.heroku.com/";
 			};
 			name = "Debug Staging";
@@ -335,7 +341,9 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.1;
+				TV_API_URL = "http://channel.build/api/";
 				TV_BOOT_URL = "$(TV_HOST_URL)app.js";
+				TV_CHANNEL_ID = Wok55EFCerwSna5PR;
 				TV_HOST_URL = "http://channel-staging.heroku.com/";
 				VALIDATE_PRODUCT = YES;
 			};
