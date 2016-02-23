@@ -13,6 +13,8 @@ import UIKit
 struct Config {
   static let hostURL = Config.getKey("TV Host URL") as! String
   static let bootURL = Config.getKey("TV Boot URL") as! String
+  static let APIURL = Config.getKey("TV API URL") as! String
+  static let channelID = Config.getKey("TV Channel ID") as! String
   
   private static func getKey(key: String) -> AnyObject? {
     return NSBundle.mainBundle().objectForInfoDictionaryKey(key)
