@@ -16,9 +16,5 @@ App.onLaunch = ({hostUrl, apiUrl, channelId}) => {
   const dataController = new DataController(resourceLoader, channelApi);
   const presenter = new Presenter(resourceLoader, dataController);
 
-  channelApi.getVideos().then((videos) => {
-    console.log(videos);
-  });
-
   presenter.presentRoot(Settings.rootTemplate);
 };
