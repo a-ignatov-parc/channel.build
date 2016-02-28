@@ -1,5 +1,5 @@
 # Usage
-```
+```shell
 $ sudo gem install bundler
 $ bundle install
 $ ./chan help create
