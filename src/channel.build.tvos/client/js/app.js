@@ -8,9 +8,9 @@ import ChannelApi from './channel-api';
 import DataController from './data-controller';
 import Presenter from './presenter';
 
-App.onLaunch = ({hostUrl, apiUrl, channelId}) => {
-  const resourceLoaderNetworkController = new NetworkController(hostUrl);
-  const channelApiNetworkController = new NetworkController(apiUrl);
+App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId}) => {
+  const resourceLoaderNetworkController = new NetworkController(tvjsClientUrl);
+  const channelApiNetworkController = new NetworkController(webApiUrl);
   const resourceLoader = new ResourceLoader(resourceLoaderNetworkController);
   const channelApi = new ChannelApi(channelApiNetworkController, channelId);
   const dataController = new DataController(resourceLoader, channelApi);

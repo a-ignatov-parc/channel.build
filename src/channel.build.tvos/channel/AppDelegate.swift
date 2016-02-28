@@ -23,14 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TVApplicationControllerDe
     let appControllerContext = TVApplicationControllerContext()
     
     // Safely get URL of JS main app file.
-    guard let javaScriptURL = NSURL(string: Config.bootURL) else {
+    guard let javaScriptURL = NSURL(string: Config.TVJSAppURL) else {
       fatalError("Unable to create NSURL!")
     }
     
     // Initialize settings for the app controller context.
     appControllerContext.javaScriptApplicationURL = javaScriptURL
-    appControllerContext.launchOptions["hostUrl"] = Config.hostURL
-    appControllerContext.launchOptions["apiUrl"] = Config.APIURL
+    appControllerContext.launchOptions["tvjsClientUrl"] = Config.TVJSClientURL
+    appControllerContext.launchOptions["webApiUrl"] = Config.webAPIURL
     appControllerContext.launchOptions["channelId"] = Config.channelID
     
     // Create an app controller.

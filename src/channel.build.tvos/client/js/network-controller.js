@@ -5,8 +5,8 @@
 import Utility from './utility';
 
 class NetworkController {
-  constructor(hostUrl) {
-    this.hostUrl = hostUrl;
+  constructor(host) {
+    this.host = host;
   }
 
   /**
@@ -15,7 +15,7 @@ class NetworkController {
    * @return {string}      Corresponding URL.
    */
   pathToUrl(path) {
-    return `${this.hostUrl}${path}`;
+    return `${this.host}${path}`;
   }
 
   /**
