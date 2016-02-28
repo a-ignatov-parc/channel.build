@@ -283,13 +283,13 @@ module CaffeineLabs
         debug_staging_settings = project.build_configuration_list['Debug Staging'].build_settings
         release_staging_settings = project.build_configuration_list['Release Staging'].build_settings
         development_project_settings = {
-          'TV_CHANNEL_ID' => channel_id,
-          'TV_HOST_URL' => @@config.project_settings.local_client_url,
-          'TV_BOOT_URL' => "$(TV_HOST_URL)#{tvjs_app_path}",
-          'TV_API_URL' => web_api_url
+          'CL_CHANNEL_ID' => channel_id,
+          'CL_TVJS_CLIENT_URL' => @@config.project_settings.local_client_url,
+          'CL_TVJS_APP_PATH' => tvjs_app_path,
+          'CL_WEB_API_URL' => web_api_url
         }
         staging_project_settings = development_project_settings.merge({
-          'TV_HOST_URL' => tvjs_client_url
+          'CL_TVJS_CLIENT_URL' => tvjs_client_url
         })
 
         debug_settings.merge!(development_project_settings)
