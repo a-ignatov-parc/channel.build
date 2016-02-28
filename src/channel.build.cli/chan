@@ -117,6 +117,7 @@ module CaffeineLabs
         raise ArgumentError.new("--- Channel with ID #{channel_id} is not found in response to GET #{all_channels_url}!")
       end
       channel = all_channels[channel_index]
+      ap channel
 
       # Create content of manifest file from Web API response and provided options.
       puts "--- Found a channel with ID #{channel_id}. Generating a manifest...".yellow
@@ -137,30 +138,28 @@ module CaffeineLabs
       output_path = output_path.join("#{recipe_filename}#{@@config.recipe_extname}") if output_path.directory?
       puts "--- Saving the recipe to #{output_path}...".yellow
 
-      # Create the directory and temp folder for zip archive.
-      temp_path = output_path.dirname.join(output_path.basename(output_path.extname))
-      assets_path = temp_path.join(@@config.assets_dirname)
-      manifest_path = temp_path.join(@@config.manifest_filename)
-      FileUtils.mkpath(temp_path)
-      FileUtils.mkpath(assets_path)
-      File.write(manifest_path, manifest_content)
+      # Use temp directory to create an archive.
+      Dir.mktmpdir do |path|
+        temp_path = Pathname.new(path).expand_path
+        assets_path = temp_path.join(@@config.assets_dirname)
+        manifest_path = temp_path.join(@@config.manifest_filename)
+        FileUtils.mkpath(temp_path)
+        FileUtils.mkpath(assets_path)
+        File.write(manifest_path, manifest_content)
 
-      # Create zip archive with manifest and assets - the recipe.
-      Zip::Archive.open(output_path.to_s, Zip::CREATE | Zip::TRUNC) do |ar|
-        Dir.glob(temp_path.join('**/*').to_s).each do |path|
-          absolute_path = Pathname.new(path).expand_path
-          relative_path = absolute_path.relative_path_from(temp_path)
-          if absolute_path.directory?
-            ar.add_dir(relative_path.to_s)
-          else
-            ar.add_file(relative_path.to_s, absolute_path.to_s)
+        # Create zip archive with manifest and assets - the recipe.
+        Zip::Archive.open(output_path.to_s, Zip::CREATE | Zip::TRUNC) do |ar|
+          Dir.glob(temp_path.join('**/*').to_s).each do |p|
+            absolute_path = Pathname.new(p).expand_path
+            relative_path = absolute_path.relative_path_from(temp_path)
+            if absolute_path.directory?
+              ar.add_dir(relative_path.to_s)
+            else
+              ar.add_file(relative_path.to_s, absolute_path.to_s)
+            end
           end
         end
       end
-
-      # Remove temp directory.
-      puts "--- Cleaning up...".yellow
-      FileUtils.rmtree(temp_path)
 
       puts "--- Done!".green
       exit 0
