@@ -44,7 +44,7 @@ module CaffeineLabs
     # TODO: Move config to external yaml file.
     @@config = OpenStruct.new(
       :api_url => ENV['CHAN_API_URL'] || 'http://channel.build/api/',
-      :manifest_filename => 'manifest.plist',
+      :manifest_basename => 'manifest.plist',
       :assets_dirname => 'assets',
       :recipe_extname => '.chr',
 
@@ -62,7 +62,13 @@ module CaffeineLabs
         :output_path => Dir.getwd(),
         :tvjs_client_url => 'http://channel-staging.heroku.com/',
         :tvjs_app_path => 'app.js',
-        :web_api_url => 'http://channel.build/api/'
+        :web_api_url => 'http://channel.build/api/',
+        :icon_small_url => 'placehold.it/400x240',
+        :icon_large_url => 'placehold.it/1280x768',
+        :icon_topshelf_url => 'placehold.it/1920x720',
+        :icon_small_filename => 'icon-small',
+        :icon_large_filename => 'icon-large',
+        :icon_topshelf_filename => 'icon-topshelf'
       ),
 
       :generate => OpenStruct.new(
@@ -131,6 +137,34 @@ module CaffeineLabs
         :web_api_url => options[:apiurl]
       )
 
+      # Request images and save them in memory.
+      assets_urls = OpenStruct.new(
+        :icon_small => channel['assets_icon_small'] || @@config.create.icon_small_url,
+        :icon_large => channel['assets_icon_big'] || @@config.create.icon_large_url,
+        :icon_topshelf => channel['assets_banner'] || @@config.create.icon_topshelf_url
+      )
+
+      puts "--- Requesting small icon GET #{assets_urls.icon_small}...".yellow
+      icon_small_response = RestClient.get(assets_urls.icon_small, :accept => 'image/*')
+      icon_small = OpenStruct.new(
+        :content => icon_small_response.body,
+        :basename => "#{@@config.create.icon_small_filename}.#{icon_small_response.headers[:content_type][/image\/(.*)/, 1]}"
+      )
+
+      puts "--- Requesting large icon GET #{assets_urls.icon_large}...".yellow
+      icon_large_response = RestClient.get(assets_urls.icon_large, :accept => 'image/*')
+      icon_large = OpenStruct.new(
+        :content => icon_large_response.body,
+        :basename => "#{@@config.create.icon_large_filename}.#{icon_large_response.headers[:content_type][/image\/(.*)/, 1]}"
+      )
+
+      puts "--- Requesting top shelf icon GET #{assets_urls.icon_topshelf}...".yellow
+      icon_topshelf_response = RestClient.get(assets_urls.icon_topshelf, :accept => 'image/*')
+      icon_topshelf = OpenStruct.new(
+        :content => icon_topshelf_response.body,
+        :basename => "#{@@config.create.icon_topshelf_filename}.#{icon_topshelf_response.headers[:content_type][/image\/(.*)/, 1]}"
+      )
+
       # Form the path for the recipe. If filename is not presented in the path parameter,
       # use name of the channel without spaces as filename.
       recipe_filename = channel['name'].gsub(/\s+/, '')
@@ -142,10 +176,13 @@ module CaffeineLabs
       Dir.mktmpdir do |path|
         temp_path = Pathname.new(path).expand_path
         assets_path = temp_path.join(@@config.assets_dirname)
-        manifest_path = temp_path.join(@@config.manifest_filename)
+        manifest_path = temp_path.join(@@config.manifest_basename)
         FileUtils.mkpath(temp_path)
         FileUtils.mkpath(assets_path)
         File.write(manifest_path, manifest_content)
+        File.write(assets_path.join(icon_small.basename), icon_small.content)
+        File.write(assets_path.join(icon_large.basename), icon_large.content)
+        File.write(assets_path.join(icon_topshelf.basename), icon_topshelf.content)
 
         # Create zip archive with manifest and assets - the recipe.
         Zip::Archive.open(output_path.to_s, Zip::CREATE | Zip::TRUNC) do |ar|
@@ -178,7 +215,7 @@ module CaffeineLabs
       Dir.mktmpdir do |path|
         temp_path = Pathname.new(path).expand_path
         assets_path = temp_path.join(@@config.assets_dirname)
-        manifest_path = temp_path.join(@@config.manifest_filename)
+        manifest_path = temp_path.join(@@config.manifest_basename)
         puts "--- Unpacking the recipe #{recipe_path} to temp directory #{temp_path}...".yellow
 
         # Unzip recipe into temp directory.
@@ -196,11 +233,11 @@ module CaffeineLabs
 
         # Throw an error if there is no manifest in the archive.
         if !manifest_path.exist?
-          raise ArgumentError.new("--- Manifest file `#{@@config.manifest_filename}` is missing in the recipe!")
+          raise ArgumentError.new("--- Manifest file `#{@@config.manifest_basename}` is missing in the recipe!")
         end
 
         # Read the manifest.
-        puts "--- Found a manifest `#{@@config.manifest_filename}`. Reading the manifest...".yellow
+        puts "--- Found a manifest `#{@@config.manifest_basename}`. Reading the manifest...".yellow
         manifest = Plist::parse_xml(manifest_path)
         channel_properties = manifest['Channel Properties']
         channel_id, tvjs_client_url, tvjs_app_path, web_api_url =
