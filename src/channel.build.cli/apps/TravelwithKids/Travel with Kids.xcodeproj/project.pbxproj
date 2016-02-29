@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F3DE6AD1C720DEF007F630C /* TravelwithKids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelwithKids.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F3DE6AD1C720DEF007F630C /* Travel with Kids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Travel with Kids.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F3DE6B01C720DF0007F630C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F3DE6B71C720DF0007F630C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F3DE6B91C720DF0007F630C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		2F3DE6AE1C720DEF007F630C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F3DE6AD1C720DEF007F630C /* TravelwithKids.app */,
+				2F3DE6AD1C720DEF007F630C /* Travel with Kids.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2F3DE6AC1C720DEF007F630C /* TravelwithKids */ = {
+		2F3DE6AC1C720DEF007F630C /* Travel with Kids */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F3DE6BC1C720DF0007F630C /* Build configuration list for PBXNativeTarget "TravelwithKids" */;
+			buildConfigurationList = 2F3DE6BC1C720DF0007F630C /* Build configuration list for PBXNativeTarget "Travel with Kids" */;
 			buildPhases = (
 				2F3DE6A91C720DEF007F630C /* Sources */,
 				2F3DE6AA1C720DEF007F630C /* Frameworks */,
@@ -73,9 +73,9 @@
 			);
 			dependencies = (
 			);
-			name = TravelwithKids;
+			name = "Travel with Kids";
 			productName = TravelwithKids;
-			productReference = 2F3DE6AD1C720DEF007F630C /* TravelwithKids.app */;
+			productReference = 2F3DE6AD1C720DEF007F630C /* Travel with Kids.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -93,7 +93,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "channel" */;
+			buildConfigurationList = 2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "Travel with Kids" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -106,7 +106,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2F3DE6AC1C720DEF007F630C /* TravelwithKids */,
+				2F3DE6AC1C720DEF007F630C /* Travel with Kids */,
 			);
 		};
 /* End PBXProject section */
@@ -234,7 +234,7 @@
 				INFOPLIST_FILE = TravelwithKids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caffeinelabs.TravelwithKids;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Travel with Kids";
 			};
 			name = Debug;
 		};
@@ -246,7 +246,7 @@
 				INFOPLIST_FILE = TravelwithKids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caffeinelabs.TravelwithKids;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Travel with Kids";
 			};
 			name = Release;
 		};
@@ -307,7 +307,7 @@
 				INFOPLIST_FILE = TravelwithKids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caffeinelabs.TravelwithKids;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Travel with Kids";
 			};
 			name = "Debug Staging";
 		};
@@ -361,14 +361,14 @@
 				INFOPLIST_FILE = TravelwithKids/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.caffeinelabs.TravelwithKids;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Travel with Kids";
 			};
 			name = "Release Staging";
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "channel" */ = {
+		2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "Travel with Kids" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F3DE6BA1C720DF0007F630C /* Debug */,
@@ -379,7 +379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F3DE6BC1C720DF0007F630C /* Build configuration list for PBXNativeTarget "TravelwithKids" */ = {
+		2F3DE6BC1C720DF0007F630C /* Build configuration list for PBXNativeTarget "Travel with Kids" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F3DE6BD1C720DF0007F630C /* Debug */,
