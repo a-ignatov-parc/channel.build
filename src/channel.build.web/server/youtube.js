@@ -39,7 +39,7 @@ Meteor.methods({
     var playlistResult = Meteor.http.get("" +
       "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
       playlistId +
-      "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I");
+      "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I&maxResults=50");
 
     if(playlistResult.statusCode != 200) {
       throw new Meteor.Error(400, "Failed to communicate with youtube to read playlist.");
