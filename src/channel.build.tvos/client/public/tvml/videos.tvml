@@ -17,7 +17,8 @@
       <carousel>
         <section>
           {{#.}}
-            <lockup>
+            <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
+                    present-method="presentVideo">
               {{#thumbnails.maxres}}
               <img src="{{url}}" width="{{width}}" height="{{height}}" />
               {{/thumbnails.maxres}}

@@ -42,6 +42,7 @@ class Presenter {
 
   presentDoc(name, data) {
     return this.resourceLoader.getTvml(name, data).then((doc) => {
+      doc.addEventListener('select', (event) => this.onSelect(event));
       navigationDocument.pushDocument(doc);
     });
   }
@@ -54,6 +55,7 @@ class Presenter {
    */
   presentModal(name, data) {
     return this.resourceLoader.getTvml(name, data).then((doc) => {
+      doc.addEventListener('select', (event) => this.onSelect(event));
       navigationDocument.presentModal(doc);
     });
   }
@@ -64,9 +66,23 @@ class Presenter {
 
     return this.resourceLoader.getTvml(name, data).then((doc) => {
       if (feature && !feature.getDocument(menuItem)) {
+        doc.addEventListener('select', (event) => this.onSelect(event));
         feature.setDocument(doc, menuItem);
       }
     });
+  }
+
+  presentVideo(name, data) {
+    let player = new Player(),
+        video = new MediaItem('video', data.url);
+
+    video.title = data.title;
+    video.description = data.description;
+
+    player.playlist = new Playlist();
+    player.playlist.push(video);
+
+    player.play();
   }
 }
 
