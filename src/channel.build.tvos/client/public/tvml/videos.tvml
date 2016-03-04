@@ -37,7 +37,8 @@
         </header>
         <section>
           {{#.}}
-            <lockup>
+            <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
+                    present-method="presentVideo">
               {{#thumbnails.high}}
               <img src="{{url}}" width="{{width}}" height="{{height}}" />
               {{/thumbnails.high}}
