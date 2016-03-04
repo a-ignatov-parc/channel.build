@@ -1,3 +1,5 @@
+import fuzzysearch from 'fuzzysearch';
+
 class DataController {
   constructor(resourceLoader, channelApi) {
     this.resourceLoader = resourceLoader;
@@ -16,6 +18,11 @@ class DataController {
     return this[method] ? this[method](args) :
                           this.channelApi[method] ? this.channelApi[method](args) :
                                                     Promise.resolve({});
+  }
+
+  fuzzySearchVideos(query, videos) {
+    query = query.toLowerCase();
+    return videos.filter((video) => fuzzysearch(query, video.title.toLowerCase()));
   }
 }
 

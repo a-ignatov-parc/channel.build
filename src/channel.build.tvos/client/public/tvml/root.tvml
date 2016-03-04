@@ -2,10 +2,12 @@
 <document>
   <menuBarTemplate>
     <menuBar>
-      <menuItem template="videos.tvml" data-method="getVideos" present-method="presentMenuBarItem">
+      <menuItem template="videos.tvml" data-method="getVideos"
+                present-method="presentMenuBarItem">
         <title>Videos</title>
       </menuItem>
-      <menuItem template="search.tvml" present-method="presentMenuBarItem">
+      <menuItem template="search.tvml" data-method="getVideos"
+                present-method="presentMenuBarItem" onrender="setVideoSearchEventHandler">
         <title>Search</title>
       </menuItem>
     </menuBar>
