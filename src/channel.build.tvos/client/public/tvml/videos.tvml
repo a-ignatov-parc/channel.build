@@ -17,15 +17,15 @@
       <carousel>
         <section>
           {{#.}}
+            {{#thumbnails.maxres}}
             <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
                     present-method="presentVideo">
-              {{#thumbnails.maxres}}
               <img src="{{url}}" width="{{width}}" height="{{height}}" />
-              {{/thumbnails.maxres}}
               <overlay>
                 <title>{{title}}</title>
               </overlay>
             </lockup>
+            {{/thumbnails.maxres}}
           {{/.}}
         </section>
       </carousel>
@@ -37,13 +37,13 @@
         </header>
         <section>
           {{#.}}
+            {{#thumbnails.high}}
             <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
                     present-method="presentVideo">
-              {{#thumbnails.high}}
               <img src="{{url}}" width="{{width}}" height="{{height}}" />
-              {{/thumbnails.high}}
               <title class="showTextOnHighlight">{{title}}</title>
             </lockup>
+            {{/thumbnails.high}}
           {{/.}}
         </section>
       </grid>

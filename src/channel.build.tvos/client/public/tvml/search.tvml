@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
   <searchTemplate>
-    <searchField></searchField>
+    <searchField result-partial="_search-result.tvml"></searchField>
     <collectionList>
       <grid>
         <header>
           <title>Search Results</title>
         </header>
-        <section>
+        <section id="search-results">
         </section>
       </grid>
     </collectionList>
