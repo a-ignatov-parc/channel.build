@@ -6,11 +6,12 @@ class Presenter {
   constructor(resourceLoader, dataController) {
     this.resourceLoader = resourceLoader;
     this.dataController = dataController;
+    this.onSelect = this.onSelect.bind(this);
   }
 
   presentRoot(name) {
     return this.resourceLoader.getTvml(name).then((doc) => {
-      doc.addEventListener('select', (event) => this.onSelect(event));
+      doc.addEventListener('select', this.onSelect);
       navigationDocument.pushDocument(doc);
     });
   }
@@ -42,7 +43,7 @@ class Presenter {
 
   presentDoc(name, data) {
     return this.resourceLoader.getTvml(name, data).then((doc) => {
-      doc.addEventListener('select', (event) => this.onSelect(event));
+      doc.addEventListener('select', this.onSelect);
       navigationDocument.pushDocument(doc);
     });
   }
@@ -55,7 +56,7 @@ class Presenter {
    */
   presentModal(name, data) {
     return this.resourceLoader.getTvml(name, data).then((doc) => {
-      doc.addEventListener('select', (event) => this.onSelect(event));
+      doc.addEventListener('select', this.onSelect);
       navigationDocument.presentModal(doc);
     });
   }
@@ -66,7 +67,7 @@ class Presenter {
 
     return this.resourceLoader.getTvml(name, data).then((doc) => {
       if (feature && !feature.getDocument(menuItem)) {
-        doc.addEventListener('select', (event) => this.onSelect(event));
+        doc.addEventListener('select', this.onSelect);
         feature.setDocument(doc, menuItem);
       }
     });
