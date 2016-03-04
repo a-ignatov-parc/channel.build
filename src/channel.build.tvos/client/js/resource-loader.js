@@ -22,6 +22,7 @@ class ResourceLoader {
     return this.networkController.get(path)
       .then(tvml => {
         const rendered = Mustache.render(tvml, data);
+        console.log(`Rendered document ${name}: ${rendered}`);
         return this.domParser.parseFromString(rendered, 'application/xml');
       });
   }
