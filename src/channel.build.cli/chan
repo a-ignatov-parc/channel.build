@@ -58,6 +58,9 @@ module CaffeineLabs
       :manifest_basename => 'manifest.plist',
       :assets_dirname => 'assets',
       :recipe_extname => '.chr',
+      :icon_small_basename => 'icon-small.png',
+      :icon_large_basename => 'icon-large.png',
+      :icon_topshelf_basename => 'icon-topshelf.png',
 
       :manifest_properties => {
         'Recipe Version' => '1.0',
@@ -76,10 +79,7 @@ module CaffeineLabs
         :web_api_url => 'http://channel.build/api/',
         :icon_small_url => 'placehold.it/400x240',
         :icon_large_url => 'placehold.it/1280x768',
-        :icon_topshelf_url => 'placehold.it/1920x720',
-        :icon_small_filename => 'icon-small',
-        :icon_large_filename => 'icon-large',
-        :icon_topshelf_filename => 'icon-topshelf'
+        :icon_topshelf_url => 'placehold.it/1920x720'
       ),
 
       :generate => OpenStruct.new(
@@ -105,6 +105,21 @@ module CaffeineLabs
           'TVJS Client URL' => options.fetch(:tvjs_client_url),
           'TVJS App Path'   => options.fetch(:tvjs_app_path),
           'Web API URL'     => options.fetch(:web_api_url)
+        },
+        'Assets' => {
+          'App Icons' => {
+            'App Icon - Small' => {
+              'Back'   => "#{@@config.assets_dirname}/#{@@config.icon_small_basename}",
+              'Middle' => "#{@@config.assets_dirname}/#{@@config.icon_small_basename}",
+              'Front'  => "#{@@config.assets_dirname}/#{@@config.icon_small_basename}"
+            },
+            'App Icon - Large' => {
+              'Back'   => "#{@@config.assets_dirname}/#{@@config.icon_large_basename}",
+              'Middle' => "#{@@config.assets_dirname}/#{@@config.icon_large_basename}",
+              'Front'  => "#{@@config.assets_dirname}/#{@@config.icon_large_basename}"
+            },
+            'Top Shelf Image' => "#{@@config.assets_dirname}/#{@@config.icon_topshelf_basename}"
+          }
         }
       }
 
@@ -159,21 +174,21 @@ module CaffeineLabs
       icon_small_response = RestClient.get(assets_urls.icon_small, :accept => 'image/*')
       icon_small = OpenStruct.new(
         :content => icon_small_response.body,
-        :basename => "#{@@config.create.icon_small_filename}.#{icon_small_response.headers[:content_type][/image\/(.*)/, 1]}"
+        :basename => "#{@@config.icon_small_basename}"
       )
 
       puts "--- Requesting large icon GET #{assets_urls.icon_large}...".yellow
       icon_large_response = RestClient.get(assets_urls.icon_large, :accept => 'image/*')
       icon_large = OpenStruct.new(
         :content => icon_large_response.body,
-        :basename => "#{@@config.create.icon_large_filename}.#{icon_large_response.headers[:content_type][/image\/(.*)/, 1]}"
+        :basename => "#{@@config.icon_large_basename}"
       )
 
       puts "--- Requesting top shelf icon GET #{assets_urls.icon_topshelf}...".yellow
       icon_topshelf_response = RestClient.get(assets_urls.icon_topshelf, :accept => 'image/*')
       icon_topshelf = OpenStruct.new(
         :content => icon_topshelf_response.body,
-        :basename => "#{@@config.create.icon_topshelf_filename}.#{icon_topshelf_response.headers[:content_type][/image\/(.*)/, 1]}"
+        :basename => "#{@@config.icon_topshelf_basename}"
       )
 
       # Form the path for the recipe. If filename is not presented in the path parameter,
