@@ -55,10 +55,7 @@ Template.youtube.events({
         videoInfo.position = videoOffset + idx;
         videoInfo.userId = Meteor.userId();
         videoInfo.appId = app._id;
-
-        // NYI: This will change once we start processing videos
-        videoInfo.video = "https://s3-us-west-2.amazonaws.com/channel.build.oregon/gwces2016/" +
-          "Team+GeekWire+arrives+at+CES+2016-woNBwkaL18M.mp4";
+        videoInfo.video = null;
 
         var video = Videos.findOne(originalKey);
         if (video) {
