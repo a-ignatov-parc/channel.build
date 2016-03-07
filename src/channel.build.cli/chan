@@ -59,6 +59,9 @@ module CaffeineLabs
       :icon_small_basename => 'icon-small.png',
       :icon_large_basename => 'icon-large.png',
       :icon_topshelf_basename => 'icon-topshelf.png',
+      :icon_small_size => '400x240',
+      :icon_large_size => '1280x768',
+      :icon_topshelf_size => '1920x720',
 
       :manifest_properties => {
         'Recipe Version' => '1.0',
@@ -74,10 +77,7 @@ module CaffeineLabs
         :output_path => Dir.getwd(),
         :tvjs_client_url => 'http://channel-staging.heroku.com/',
         :tvjs_app_path => 'app.js',
-        :web_api_url => 'http://channel.build/api/',
-        :icon_small_url => 'placehold.it/400x240',
-        :icon_large_url => 'placehold.it/1280x768',
-        :icon_topshelf_url => 'placehold.it/1920x720'
+        :web_api_url => 'http://channel.build/api/'
       ),
 
       :generate => OpenStruct.new(
@@ -164,31 +164,35 @@ module CaffeineLabs
       )
 
       # Request images and save them in memory.
+      # TODO: Use more general approach here (consider layered icons).
       assets_urls = OpenStruct.new(
-        :icon_small => channel['assets_icon_small'] || @@config.create.icon_small_url,
-        :icon_large => channel['assets_icon_big'] || @@config.create.icon_large_url,
-        :icon_topshelf => channel['assets_banner'] || @@config.create.icon_topshelf_url
+        :icon_small => channel['assets_icon_small'] || "placehold.it/#{@@config.icon_small_size}",
+        :icon_large => channel['assets_icon_big'] || "placehold.it/#{@@config.icon_large_size}",
+        :icon_topshelf => channel['assets_banner'] || "placehold.it/#{@@config.icon_topshelf_size}"
       )
 
       puts "--- Requesting small icon GET #{assets_urls.icon_small}...".yellow
       icon_small_response = RestClient.get(assets_urls.icon_small, :accept => 'image/*')
       icon_small = OpenStruct.new(
         :content => icon_small_response.body,
-        :basename => "#{@@config.icon_small_basename}"
+        :basename => @@config.icon_small_basename,
+        :size => @@config.icon_small_size
       )
 
       puts "--- Requesting large icon GET #{assets_urls.icon_large}...".yellow
       icon_large_response = RestClient.get(assets_urls.icon_large, :accept => 'image/*')
       icon_large = OpenStruct.new(
         :content => icon_large_response.body,
-        :basename => "#{@@config.icon_large_basename}"
+        :basename => @@config.icon_large_basename,
+        :size => @@config.icon_large_size
       )
 
       puts "--- Requesting top shelf icon GET #{assets_urls.icon_topshelf}...".yellow
       icon_topshelf_response = RestClient.get(assets_urls.icon_topshelf, :accept => 'image/*')
       icon_topshelf = OpenStruct.new(
         :content => icon_topshelf_response.body,
-        :basename => "#{@@config.icon_topshelf_basename}"
+        :basename => @@config.icon_topshelf_basename,
+        :size => @@config.icon_topshelf_size
       )
 
       # Form the path for the recipe. If filename is not presented in the path parameter,
@@ -204,12 +208,24 @@ module CaffeineLabs
         temp_path = Pathname.new(path).expand_path
         assets_path = temp_path.join(@@config.assets_dirname)
         manifest_path = temp_path.join(@@config.manifest_basename)
+
+        # Create recipe folder and save the manifest.
         FileUtils.mkpath(temp_path)
         FileUtils.mkpath(assets_path)
         File.write(manifest_path, manifest_content)
-        File.write(assets_path.join(icon_small.basename), icon_small.content)
-        File.write(assets_path.join(icon_large.basename), icon_large.content)
-        File.write(assets_path.join(icon_topshelf.basename), icon_topshelf.content)
+
+        # Save icons and format with ImageMagick.
+        [icon_small, icon_large, icon_topshelf].each do |icon|
+          icon.path = assets_path.join(icon.basename)
+          File.write(icon.path, icon.content)
+          MiniMagick::Tool::Convert.new do |convert|
+            convert << icon.path
+            convert << '-resize' << "#{icon.size}^"
+            convert << '-gravity' << 'center'
+            convert << '-extent' << icon.size
+            convert << icon.path
+          end
+        end
 
         # Create zip archive with manifest and assets - the recipe.
         Zip::Archive.open(output_path.to_s, Zip::CREATE | Zip::TRUNC) do |ar|
