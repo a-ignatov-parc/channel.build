@@ -23,10 +23,8 @@ module CaffeineLabs
 
     def self.files_replace(file_paths, regex, substitute)
       file_paths.select(&:file?).each do |path|
-        content = IO.readlines(path)
-                    .map { |line| line.gsub(regex, substitute) }
-                    .join('')
-        File.write(path, content)
+        content = File.read(path).gsub(regex, substitute)
+        File.write(path, content.force_encoding('UTF-8'))
       end
     end
 
@@ -85,7 +83,9 @@ module CaffeineLabs
       :generate => OpenStruct.new(
         :output_path => Dir.getwd(),
         :channel_project_path => './project',
-        :channel_project_name => 'channel'
+        :channel_project_name => 'channel',
+        :project_files_to_rename_pattern => '**/{*.swift,*.plist,*.pbxproj,*.xcscheme,*.xcworkspacedata}',
+        :channel_project_assets_path => 'Assets.xcassets/App Icon & Top Shelf Image.brandassets'
       )
     )
 
@@ -241,7 +241,6 @@ module CaffeineLabs
       # Create temp directory.
       Dir.mktmpdir do |path|
         temp_path = Pathname.new(path).expand_path
-        assets_path = temp_path.join(@@config.assets_dirname)
         manifest_path = temp_path.join(@@config.manifest_basename)
         puts "--- Unpacking the recipe #{recipe_path} to temp directory #{temp_path}...".yellow
 
@@ -279,6 +278,7 @@ module CaffeineLabs
         project_name = product_name.gsub(/\s+/, '')
         project_path = Pathname.new(options[:output]).expand_path.join(project_name)
         project_path = Utility.increment_path(project_path) if project_path.exist?
+        project_assets_path = project_path.join(project_name).join(@@config.generate.channel_project_assets_path)
         project_package_path = project_path.join("#{channel_project_name}.xcodeproj")
         puts "--- Copying Channel project from #{channel_project_path} to #{project_path}...".yellow
 
@@ -299,7 +299,7 @@ module CaffeineLabs
         # Replace all occurences of Channel project name with new project name in project files.
         puts "--- Renaming project from `#{channel_project_name}` to `#{project_name}`...".yellow
         replace_regex = /\b#{channel_project_name}\b/
-        project_paths = Dir.glob(project_path.join("**/*"))
+        project_paths = Dir.glob(project_path.join(@@config.generate.project_files_to_rename_pattern))
                            .map(&Pathname.method(:new))
         Utility.files_replace(project_paths, replace_regex, project_name)
 
@@ -336,6 +336,27 @@ module CaffeineLabs
         # Rename project files.
         rename_regex = /#{channel_project_name}/
         Utility.rename_recursive(project_path, rename_regex, project_name)
+
+        # Setup project icons.
+        puts "--- Setting up app icons...".yellow
+        manifest['Assets']['App Icons'].each do |key, value|
+          # Single icon.
+          if value.is_a? String
+            icon_path = temp_path.join(value)
+            project_icon_path = project_assets_path.join("#{key}.imageset/#{File.basename(value)}")
+            FileUtils.cp(icon_path, project_icon_path)
+          end
+
+          # Layered icon.
+          if value.is_a? Hash
+            value.each do |layer, icon|
+              icon_path = temp_path.join(icon)
+              project_icon_path = project_assets_path.join(
+                "#{key}.imagestack/#{layer}.imagestacklayer/Content.imageset/#{File.basename(icon)}")
+              FileUtils.cp(icon_path, project_icon_path)
+            end
+          end
+        end
       end
 
       puts "--- Done!".green
