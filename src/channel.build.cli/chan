@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'bundler/setup'
-Bundler.require(:default, ENV['CHAN_ENV']  || :development)
+Bundler.require(:default, ENV['CHAN_ENV'] || :development)
 
 # TODO:
 # - Move modules/classes to separate files, build src to single exe script.
@@ -37,6 +37,17 @@ module CaffeineLabs
       if new_path.directory?
         Dir.glob("#{new_path}/*").each { |p| rename_recursive(Pathname.new(p), regex, substitute) }
       end
+    end
+
+    def self.increment_path(path)
+      n = 1
+      new_path = path
+      while new_path.exist? do
+        new_path = path.file? ? path.parent.join("#{path.basename(path.extname)}_#{n}#{path.extname}") :
+                                path.parent.join("#{path.basename}_#{n}")
+        n += 1
+      end
+      new_path
     end
   end
 
@@ -170,6 +181,7 @@ module CaffeineLabs
       recipe_filename = channel['name'].gsub(/\s+/, '')
       output_path = Pathname.new(options[:output]).expand_path
       output_path = output_path.join("#{recipe_filename}#{@@config.recipe_extname}") if output_path.directory?
+      output_path = Utility.increment_path(output_path) if output_path.exist?
       puts "--- Saving the recipe to #{output_path}...".yellow
 
       # Use temp directory to create an archive.
@@ -248,8 +260,10 @@ module CaffeineLabs
         channel_project_name = @@config.generate.channel_project_name
         channel_project_path = Pathname.new(options[:project]).expand_path
         channel_project_files = Dir.glob(channel_project_path.join("#{channel_project_name}*"))
-        project_name = manifest['Channel Properties']['Name'].gsub(/\s+/, '')
+        product_name = manifest['Channel Properties']['Name']
+        project_name = product_name.gsub(/\s+/, '')
         project_path = Pathname.new(options[:output]).expand_path.join(project_name)
+        project_path = Utility.increment_path(project_path) if project_path.exist?
         project_package_path = project_path.join("#{channel_project_name}.xcodeproj")
         puts "--- Copying Channel project from #{channel_project_path} to #{project_path}...".yellow
 
@@ -296,6 +310,11 @@ module CaffeineLabs
         release_settings.merge!(development_project_settings)
         debug_staging_settings.merge!(staging_project_settings)
         release_staging_settings.merge!(staging_project_settings)
+
+        product = project.products[0]
+        target = project.targets[0]
+        target.name = target.product_name = product.name = product_name
+        product.path = "#{product_name}.app"
 
         project.save
 
