@@ -37,5 +37,34 @@
     <key>Web API URL</key>
     <string>http://channel.build/api/</string>
   </dict>
+
+  <key>Assets</key>
+  <dict>
+    <key>App Icons</key>
+    <dict>
+      <key>App Icon - Small</key>
+      <dict>
+        <key>Back</key>
+        <string>assets/icon-small.png</string>
+        <key>Middle</key>
+        <string>assets/icon-small.png</string>
+        <key>Front</key>
+        <string>assets/icon-small.png</string>
+      </dict>
+
+      <key>App Icon - Large</key>
+      <dict>
+        <key>Back</key>
+        <string>assets/icon-large.png</string>
+        <key>Middle</key>
+        <string>assets/icon-large.png</string>
+        <key>Front</key>
+        <string>assets/icon-large.png</string>
+      </dict>
+
+      <key>Top Shelf Image</key>
+      <string>assets/icon-topshelf.png</string>
+    </dict>
+  </dict>
 </dict>
 </plist>
