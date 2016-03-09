@@ -14,3 +14,6 @@ echo source ~/.rvm/scripts/rvm > ~/.${SHELL}rc
 rvm install ruby-${RUBY_VERSION}
 rvm use ruby-${RUBY_VERSION}
 gem install bundler
+
+# Install ImageMagick.
+apt-get install imagemagick
