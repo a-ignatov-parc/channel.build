@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'channel-cli'
+
+begin
+  CaffeineLabs::ChannelCli::Chan.start(ARGV)
+rescue => e
+  abort(e.message.red)
+end
