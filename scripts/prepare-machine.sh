@@ -13,3 +13,4 @@ curl -L https://get.rvm.io | bash -s stable --auto-dotfiles --autolibs=enable --
 echo source ~/.rvm/scripts/rvm > ~/.${SHELL}rc
 rvm install ruby-${RUBY_VERSION}
 rvm use ruby-${RUBY_VERSION}
+gem install bundler
