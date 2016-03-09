@@ -29,6 +29,12 @@ $ ./chan create Wok55EFCerwSna5PR # outputs ./MachineLearning.chr
 $ ./chan generate MachineLearning.chr # outputs Xcode project in ./MachineLearning
 ```
 
+## Configuration
+
+The following environment variables allow to setup CLI behavior:
+- `CHAN_API_URL` - Channel Web API URL. Default is `http://channel.build/api/`.
+- `CHAN_PROJECT_DIR` - Channel tvOS project directory. Default is `$HOME/Projects/channel.build/src/channel.build.tvos`.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
