@@ -32,7 +32,7 @@ module CaffeineLabs
 
         :generate => OpenStruct.new(
           :output_path => Dir.getwd(),
-          :channel_project_path => './project',
+          :channel_project_path => ENV['CHAN_PROJECT_DIR'] || "#{ENV['HOME']}/Projects/channel.build/src/channel.build.tvos",
           :channel_project_name => 'channel',
           :project_files_to_rename_pattern => '**/{*.swift,*.plist,*.pbxproj,*.xcscheme,*.xcworkspacedata}',
           :channel_project_assets_path => 'Assets.xcassets/App Icon & Top Shelf Image.brandassets'
