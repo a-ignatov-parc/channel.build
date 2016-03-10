@@ -1,3 +1,8 @@
+// Set body-parser npm package as a middleware for picker.
+var bodyParser = Meteor.npmRequire( 'body-parser' );
+Picker.middleware( bodyParser.json() );
+Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
+
 Router.route('/', function () {
   this.render('home');
 });
@@ -78,6 +83,22 @@ if (Meteor.isServer) {
       }).fetch();
 
       res.end(JSON.stringify(videos));
+  });
+
+  Picker.route("/api/channels/:_id/videos", function (params, req, res) {
+    switch (req.method) {
+    case "PUT":
+      // Body is an array of videos with fields to update.
+      // Make a bulk update of videos.
+      var bulk = Videos.rawCollection().initializeUnorderedBulkOp();
+      req.body.forEach(function (video) {
+        bulk.find({ appId: params._id, _id: video._id })
+            .update({ $set: video });
+      });
+      bulk.execute(function () {});
+      res.end();
+      break;
+    }
   });
 
   Picker.route("/api/admin/", function(params, req, res) {
