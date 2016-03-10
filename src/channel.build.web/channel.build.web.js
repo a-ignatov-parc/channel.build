@@ -1,11 +1,11 @@
-// Set body-parser npm package as a middleware for picker.
-var bodyParser = Meteor.npmRequire( 'body-parser' );
-Picker.middleware( bodyParser.json() );
-Picker.middleware( bodyParser.urlencoded( { extended: false } ) );
-
 Router.route('/', function () {
   this.render('home');
 });
+
+// Set body-parser npm package as a middleware for picker.
+var bodyParser = Meteor.npmRequire('body-parser');
+Picker.middleware(bodyParser.json());
+Picker.middleware(bodyParser.urlencoded({ extended: false }));
 
 if (Meteor.isClient) {
   Template.googleLogin.events({
