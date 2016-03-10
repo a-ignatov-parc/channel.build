@@ -3,6 +3,7 @@ require 'json'
 require 'uri'
 require 'fileutils'
 require 'pathname'
+require 'tempfile'
 
 require 'thor'
 require 'xcodeproj'

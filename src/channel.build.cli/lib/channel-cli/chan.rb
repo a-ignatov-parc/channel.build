@@ -288,7 +288,13 @@ module CaffeineLabs
         if invalid_videos.empty?
           puts '--- There are no any missing or broken videos!'.green
         else
-          ap invalid_videos
+          invalid_videos.each do |video|
+            video_id = video['_id']
+            video_import_id = video['importId']
+            puts "--- Downloading video #{video_id} with youtube-dl...".yellow
+            video_path = Chan.download_youtube_video(video_import_id)
+            puts video_path
+          end
         end
 
         puts "--- Done!".green

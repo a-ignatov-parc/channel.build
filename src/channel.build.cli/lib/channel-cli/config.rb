@@ -24,18 +24,22 @@ module CaffeineLabs
         ),
 
         :create => OpenStruct.new(
-          :output_path => Dir.getwd(),
+          :output_path => Dir.getwd,
           :tvjs_client_url => 'http://channel-staging.heroku.com/',
           :tvjs_app_path => 'app.js',
           :web_api_url => 'http://channel.build/api/'
         ),
 
         :generate => OpenStruct.new(
-          :output_path => Dir.getwd(),
+          :output_path => Dir.getwd,
           :channel_project_path => ENV['CHAN_PROJECT_DIR'] || "#{ENV['HOME']}/Projects/channel.build/src/channel.build.tvos",
           :channel_project_name => 'channel',
           :project_files_to_rename_pattern => '**/{*.swift,*.plist,*.pbxproj,*.xcscheme,*.xcworkspacedata}',
           :channel_project_assets_path => 'Assets.xcassets/App Icon & Top Shelf Image.brandassets'
+        ),
+
+        :import => OpenStruct.new(
+          :youtube_dl_command => "youtube-dl -ciw --restrict-filenames -o #{Dir.tmpdir}/%\\(title\\)s-%\\(id\\)s.%\\(ext\\)s"
         )
       )
 
