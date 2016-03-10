@@ -252,6 +252,48 @@ module CaffeineLabs
         puts "--- Done!".green
         exit 0
       end
+
+      desc 'import <channel_id>',
+           'Imports missing or broken videos for a channel to Amazon S3 storage.'
+      def import(channel_id)
+        # Get the videos array for the channel from Web API using channel ID.
+        get_channel_videos_url = URI.escape("#{@@config.api_url}channels/#{channel_id}").to_s
+        puts "--- Requesting GET #{get_channel_videos_url}...".yellow
+        channel_videos_response = RestClient.get(get_channel_videos_url)
+        channel_videos = JSON.parse(channel_videos_response.body)
+
+        # Filter videos array so that it contains only missing or broken videos.
+        puts '--- Looking for missing or broken videos...'.yellow
+        invalid_videos = channel_videos.select do |video|
+          video_id = video['_id']
+          video_url = video['video']
+
+          if video_url.nil? || video_url.empty?
+            puts "--- Video #{video_id} has no URL!".red
+            true
+          else
+            puts "--- Validating video #{video_id} with URL #{video_url}...".yellow
+            begin
+              RestClient.head(video_url)
+              puts "--- Video #{video_id} is OK!".green
+              false
+            rescue => e
+              puts "--- Video #{video_id} is missing or broken: #{e.message}!".red
+              true
+            end
+          end
+        end
+
+        # Upload missing or broken videos to Amazon S3 storage and update videos URLs in the DB.
+        if invalid_videos.empty?
+          puts '--- There are no any missing or broken videos!'.green
+        else
+          ap invalid_videos
+        end
+
+        puts "--- Done!".green
+        exit 0
+      end
     end
   end
 end
