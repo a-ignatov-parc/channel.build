@@ -48,7 +48,7 @@ Meteor.methods({
     return playlistResult.data.items.map(function(x) {
       return {
         importType: 'youtube',
-        importId: x.id,
+        importId: x.snippet.resourceId.videoId,
         title: x.snippet.title,
         description: x.snippet.description,
         thumbnails: x.snippet.thumbnails
