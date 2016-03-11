@@ -27,14 +27,15 @@ Gem::Specification.new do |s|
   s.executables   = %w(chan)
   s.require_paths = %w(lib)
 
-  s.add_dependency 'thor', '~>0.19'
-  s.add_dependency 'xcodeproj', '~>0.28'
-  s.add_dependency 'zipruby', '~>0.3'
-  s.add_dependency 'plist', '~>3.2'
-  s.add_dependency 'rest-client', '~>1.8'
-  s.add_dependency 'colorize', '~>0.7'
+  s.add_dependency 'thor',          '~>0.19'
+  s.add_dependency 'xcodeproj',     '~>0.28'
+  s.add_dependency 'zipruby',       '~>0.3'
+  s.add_dependency 'plist',         '~>3.2'
+  s.add_dependency 'rest-client',   '~>1.8'
+  s.add_dependency 'colorize',      '~>0.7'
   s.add_dependency 'awesome_print', '~>1.6'
-  s.add_dependency 'mini_magick', '~>4.4'
+  s.add_dependency 'mini_magick',   '~>4.4'
+  s.add_dependency 'aws-sdk',       '~>2'
 
   s.add_development_dependency 'bundler', '~> 1.11'
   s.add_development_dependency 'rake', '~> 10.0'
