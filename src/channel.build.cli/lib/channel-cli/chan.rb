@@ -255,7 +255,27 @@ module CaffeineLabs
 
       desc 'import <channel_id>',
            'Imports missing or broken videos for a channel to Amazon S3 storage.'
+      method_option 'aws-bucket', type: :string, desc: 'AWS S3 bucket name', aliases: '-b',
+                    default: @@config.import.aws_bucket
+      method_option 'aws-access-key-id', type: :string, desc: 'AWS access key ID', aliases: '-i',
+                    default: @@config.import.aws_access_key_id
+      method_option 'aws-secret-access-key', type: :string, desc: 'AWS secret access key', aliases: '-s',
+                    default: @@config.import.aws_secret_access_key
+      method_option 'aws-region', type: :string, desc: 'AWS region', aliases: '-r',
+                    default: @@config.import.aws_region
       def import(channel_id)
+        # Configure AWS.
+        aws_bucket = options['aws-bucket']
+        aws_region = options['aws-region']
+        puts "--- Using Amazon S3 bucket #{aws_bucket} in #{aws_region} region.".yellow
+        Aws.config.update({
+          region: aws_region,
+          credentials: Aws::Credentials.new(
+            options['aws-access-key-id'],
+            options['aws-secret-access-key']
+          )
+        })
+
         # Get the videos array for the channel from Web API using channel ID.
         get_channel_videos_url = URI.escape("#{@@config.api_url}channels/#{channel_id}").to_s
         puts "--- Requesting GET #{get_channel_videos_url}...".yellow
@@ -284,17 +304,58 @@ module CaffeineLabs
           end
         end
 
-        # Upload missing or broken videos to Amazon S3 storage and update videos URLs in the DB.
-        if invalid_videos.empty?
-          puts '--- There are no any missing or broken videos!'.green
-        else
+        # Fix missing or broken videos.
+        unless invalid_videos.empty?
+          s3 = Aws::S3::Client.new
+          updated_videos = []
+
+          # Upload missing or broken videos to Amazon S3 storage.
           invalid_videos.each do |video|
             video_id = video['_id']
             video_import_id = video['importId']
-            puts "--- Downloading video #{video_id} with youtube-dl...".yellow
+            puts "--- Downloading video #{video_id} with 'youtube-dl'...".yellow
             video_path = Chan.download_youtube_video(video_import_id)
-            puts video_path
+
+            unless video_path.nil?
+              aws_key = "#{channel_id}/#{video_path.basename}"
+              puts "--- Uploading video #{video_id} to Amazon S3 bucket #{aws_bucket} with key #{aws_key}".yellow
+
+              # Upload S3 object.
+              s3.put_object(
+                :bucket => aws_bucket,
+                :key => aws_key,
+                :body => File.read(video_path)
+              )
+
+              # Set public read access for the S3 object.
+              s3.put_object_acl(
+                :bucket => aws_bucket,
+                :key => aws_key,
+                :acl => 'public-read'
+              )
+
+              # Get new URL for the video and prepare the video for DB update.
+              s3_video_url = "https://s3-#{aws_region}.amazonaws.com/#{aws_bucket}/#{aws_key}"
+              updated_videos << {
+                '_id' => video_id,
+                'video' => s3_video_url
+              }
+            else
+              puts "--- Skipping video #{video_id} due to download issues! Please read 'youtube-dl' logs for more info.".red
+            end
           end
+
+          # Update videos in the DB.
+          put_channel_videos_url = URI.escape("#{@@config.api_url}channels/#{channel_id}/videos").to_s
+          puts "--- Requesting PUT #{put_channel_videos_url} with data:".yellow
+          ap updated_videos
+          RestClient.put(
+            put_channel_videos_url,
+            JSON.unparse(updated_videos),
+            :content_type => 'application/json'
+          )
+        else
+          puts '--- There are no any missing or broken videos!'.green
         end
 
         puts "--- Done!".green

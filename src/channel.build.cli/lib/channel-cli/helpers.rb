@@ -44,7 +44,7 @@ module CaffeineLabs
           puts line.strip.blue
           path ||= line[/\[download\].*(#{Dir.tmpdir}.*\.mp4).*/, 1]
         end
-        path
+        path.nil? ? nil : Pathname.new(path)
       end
     end
   end
