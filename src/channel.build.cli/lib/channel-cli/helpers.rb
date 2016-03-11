@@ -40,7 +40,9 @@ module CaffeineLabs
       def self.download_youtube_video(video_id)
         # youtube-dl -ciw --restrict-filenames -o \%\(title\)s-\%\(id\)s.\%\(ext\)s https://www.youtube.com/watch\?v\=woNBwkaL18M
         path = nil
-        IO.popen("#{@@config.import.youtube_dl_command} https://www.youtube.com/watch\?v\=#{video_id}").each_line do |line|
+        command = "#{@@config.import.youtube_dl_command} https://www.youtube.com/watch\?v\=#{video_id}"
+        puts command.gsub('\\', '').cyan
+        IO.popen(command).each_line do |line|
           puts line.strip.blue
           path ||= line[/\[download\].*(#{Dir.tmpdir}.*\.mp4).*/, 1]
         end
