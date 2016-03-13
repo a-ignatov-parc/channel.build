@@ -9,7 +9,16 @@
     {{>loader}}
   {{else}}
     {{#each videos}}
-      <img src="{{thumbnails.medium.url}}" class="video-thumbnail">
+      <div class="video-thumbnail-wrapper">
+        <img src="{{thumbnails.medium.url}}"
+             class="video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}">
+        <div class="content-select-video">
+          <span class="btn {{#if selected}}btn-success{{else}}btn-default{{/if}} btn-xs content-select-video-button" data="{{_id}}">
+            <i class="glyphicon glyphicon-ok {{#if selected}}video-light-glyphicon{{/if}}"
+               data="{{_id}}"></i>
+          </span>
+        </div>
+      </div>
     {{/each }}
   {{/if}}
 </template>

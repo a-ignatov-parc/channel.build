@@ -79,7 +79,8 @@ if (Meteor.isServer) {
 
   Picker.route("/api/channels/:_id/", function(params, req, res) {
       var videos = Videos.find({
-        appId: params._id
+        appId: params._id,
+        selected: true
       }).fetch();
 
       res.end(JSON.stringify(videos));

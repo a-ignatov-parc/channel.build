@@ -56,6 +56,7 @@ Template.youtube.events({
         videoInfo.userId = Meteor.userId();
         videoInfo.appId = app._id;
         videoInfo.video = null;
+        videoInfo.selected = true;
 
         var video = Videos.findOne(originalKey);
         if (video) {

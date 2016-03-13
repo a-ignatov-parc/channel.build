@@ -17,5 +17,14 @@ Template.content.events({
         _id: video._id
       });
     });
+  },
+  'click span.content-select-video-button': function(event) {
+    var videoId = event.target.attributes.data.value;
+    var video = Videos.findOne({'_id': videoId});
+    Videos.update(videoId, {
+      $set: {
+        'selected': !video.selected
+      }
+    });
   }
 })
