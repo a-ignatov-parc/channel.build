@@ -11,9 +11,37 @@
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+
+  -webkit-filter: grayscale(1.0);
+  -moz-filter: grayscale(1.0);
+  -ms-filter: grayscale(1.0);
+  -o-filter: grayscale(1.0);
+  filter: grayscale(1.0);
+}
+
+.video-light-glyphicon {
+  color: #F3EDED;
+}
+
+.video-thumbnail-active {
+  -webkit-filter: grayscale(0.0);
+  -moz-filter: grayscale(0.0);
+  -ms-filter: grayscale(0.0);
+  -o-filter: grayscale(0.0);
+  filter: grayscale(0.0);
+}
+
+.video-thumbnail-wrapper {
+  display: inline-block;
 }
 
 .content-toolbar {
   width: 100%;
   text-align: right;
+}
+
+.content-select-video {
+  position: absolute;
+  margin-left: 105px;
+  margin-top: -25px;
 }
