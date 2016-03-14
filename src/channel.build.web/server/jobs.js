@@ -1,9 +1,23 @@
 // TODO: Move workers code to a separate node.
 //       Docs: https://atmospherejs.com/vsivsi/job-collection.
-ChanJobs = JobCollection('chan');
-ChanJobs.setLogStream(process.stdout);
+// TODO: Use more robust logging solution.
+var fs = Meteor.npmRequire('fs'),
+    os = Meteor.npmRequire('os');
 
-ChanJobs.processJobs('import',
+var logsPath = `${process.env.HOME}/logs/channel.build`;
+shell.mkdir('-p', logsPath);
+var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
+ChanJobs.setLogStream(chanJobsLogStream);
+
+ChanJobs.allow({
+  admin: function (userId, method, params) {
+    return (userId ? true : false);
+  }
+});
+
+ChanJobs.processJobs('import', {
+    concurrency: os.cpus().length
+  },
   function (job, callback) {
     channelId = job.data.channelId;
     command = `chan import ${channelId}`;
