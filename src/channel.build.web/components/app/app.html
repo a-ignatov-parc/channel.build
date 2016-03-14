@@ -34,13 +34,13 @@
       <div class="form-group">
         <label class="app-label">Visual Assets</label>
         <div class="uploader-block uploader-icon-small">
-          {{> uploaderInstance id="1" width="400" height="240" name="assets_icon_small" button="Small Icon"}}
+          {{> imageUploader id="1" width="400" height="240" name="assets_icon_small" button="Small Icon"}}
         </div>
         <div class="uploader-block uploader-icon-big">
-          {{> uploaderInstance id="2" width="1280" height="768" name="assets_icon_big" button="Big Icon"}}
+          {{> imageUploader id="2" width="1280" height="768" name="assets_icon_big" button="Big Icon"}}
         </div>
         <div class="uploader-block uploader-banner">
-          {{> uploaderInstance id="3" width="1920" height="720" name="assets_banner" button="Banner"}}
+          {{> imageUploader id="3" width="1920" height="720" name="assets_banner" button="Banner"}}
         </div>
       </div>
 
@@ -52,13 +52,20 @@
         {{>youtube}}
       </div>
 
+      {{#if developer}}
+      <div class="form-group">
+        <label class="app-label">Upload Content</label>
+        <p>
+          Drag and drop media content to start the upload.
+        </p>
+        {{>videoUploader}}
+      </div>
+      {{/if}}
+
       <div class="form-group app-video-group">
         <label class="app-label">Video Content</label>
         {{>content}}
       </div>
-
-      {{#if developer}}
-      {{/if}}
 
       <div class="app-footer">
         <div class="app-footer-center">

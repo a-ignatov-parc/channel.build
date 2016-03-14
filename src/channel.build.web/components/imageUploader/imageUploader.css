@@ -18,11 +18,11 @@
   display: block;
 }
 
-.uploader-button {
+.image-uploader-button {
   padding-right: 4px;
 }
 
-.uploader-picture {
+.image-uploader-picture {
   border: solid 1px #CCC;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -30,12 +30,12 @@
   background-color: #E6E6E6;
 }
 
-div.uploader-progress {
+div.image-uploader-progress {
   height: 10px;
   margin-bottom: 5px;
 }
 
-.uploader-dimensions {
+.image-uploader-dimensions {
   display: inline;
   color: #FFF;
   padding-left: 5px;

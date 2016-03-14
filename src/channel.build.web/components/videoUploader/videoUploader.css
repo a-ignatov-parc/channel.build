@@ -1,0 +1,24 @@
+.video-uploader-drop {
+  min-height: 150px;
+  width: 100%;
+  border: 1px dashed #CCCCCC;
+  border-radius: 5px;
+  margin: 2px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #CCCCCC;
+}
+
+.video-uploader-button {
+  padding-right: 4px;
+}
+
+div.video-uploader-progress {
+  height: 10px;
+  margin-bottom: 5px;
+}
