@@ -16,4 +16,11 @@ rvm use ruby-${RUBY_VERSION}
 gem install bundler
 
 # Install ImageMagick.
-apt-get install imagemagick
+apt-get install -y imagemagick
+
+# Install MongoDB.
+apt-get install -y mongodb-org
+
+# Install youtube-dl.
+curl https://yt-dl.org/downloads/2016.03.14/youtube-dl -o /usr/local/bin/youtube-dl
+chmod a+rx /usr/local/bin/youtube-dl
