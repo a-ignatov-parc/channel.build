@@ -37,10 +37,14 @@ module CaffeineLabs
         ).to_plist
       end
 
+      def self.get_youtube_video_temp_path(video_id)
+        Pathname.new(`#{@@config.import.simulate_youtube_dl_command} #{@@config.import.youtube_video_url}#{video_id}`)
+      end
+
       def self.download_youtube_video(video_id)
         # youtube-dl -ciw --restrict-filenames -o \%\(title\)s-\%\(id\)s.\%\(ext\)s https://www.youtube.com/watch\?v\=woNBwkaL18M
         path = nil
-        command = "#{@@config.import.youtube_dl_command} https://www.youtube.com/watch\?v\=#{video_id}"
+        command = "#{@@config.import.youtube_dl_command} #{@@config.import.youtube_video_url}#{video_id}"
         puts command.gsub('\\', '').cyan
         IO.popen(command).each_line do |line|
           puts line.strip.blue

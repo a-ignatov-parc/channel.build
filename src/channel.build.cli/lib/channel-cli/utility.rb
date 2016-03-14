@@ -39,6 +39,15 @@ module CaffeineLabs
         end
         new_path
       end
+
+      def self.test_resource(url)
+        begin
+          RestClient.head(url)
+          yield(OpenStruct.new(:exist? => true))
+        rescue => e
+          yield(OpenStruct.new(:exist? => false, :error => e))
+        end
+      end
     end
   end
 end
