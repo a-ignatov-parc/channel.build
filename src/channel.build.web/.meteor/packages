@@ -33,3 +33,4 @@ meteorhacks:npm
 npm-container
 percolate:synced-cron
 izzilab:shelljs
+vsivsi:job-collection
