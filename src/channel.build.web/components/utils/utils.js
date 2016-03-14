@@ -32,5 +32,12 @@ if (Meteor.isClient) {
         Videos.insert(videoInfo);
       }
     });
+
+    // Update videos with 'chan import' if this is not schedulet yet.
+    var jobData = { channelId: app._id },
+        jobQuery = { type: 'import', status: /waiting|ready|running/, data: jobData };
+    if (!ChanJobs.find(jobQuery).count()) {
+      Job(ChanJobs, 'import', jobData).save();
+    }
   };
 }
