@@ -282,70 +282,63 @@ module CaffeineLabs
         channel_videos_response = RestClient.get(get_channel_videos_url)
         channel_videos = JSON.parse(channel_videos_response.body)
 
-        # Filter videos array so that it contains only missing or broken videos.
-        puts '--- Looking for missing or broken videos...'.yellow
-        invalid_videos = channel_videos.select do |video|
-          video_id = video['_id']
-          video_url = video['video']
+        s3 = Aws::S3::Client.new
+        updated_videos = []
+        channel_videos.each do |video|
+          begin
+            video_id = video['_id']
+            video_import_id = video['importId']
+            video_path = Chan.get_youtube_video_temp_path(video_import_id)
+            aws_key = "#{channel_id}/#{video_path.basename}".strip
+            s3_video_url = "https://s3-#{aws_region}.amazonaws.com/#{aws_bucket}/#{aws_key}"
+            video_url = video['video']
+            has_no_url = video_url.nil? || video_url.empty?
+            video_url ||= s3_video_url
 
-          if video_url.nil? || video_url.empty?
-            puts "--- Video #{video_id} has no URL!".red
-            true
-          else
+            puts("--- Video #{video_id} has no URL! Assuming it is #{s3_video_url}.".red) if has_no_url
             puts "--- Validating video #{video_id} with URL #{video_url}...".yellow
-            begin
-              RestClient.head(video_url)
-              puts "--- Video #{video_id} is OK!".green
-              false
-            rescue => e
-              puts "--- Video #{video_id} is missing or broken: #{e.message}!".red
-              true
+            Utility.test_resource(video_url) do |res|
+              if res.exist? && !has_no_url
+                puts "--- Video #{video_id} is OK!".green
+              elsif res.exist? && has_no_url
+                puts "--- Video #{video_id} is OK! But the URL must be updated in the database.".green
+              else
+                puts "--- Video #{video_id} is missing or broken: #{res.error.message}!".red
+                puts "--- Downloading video #{video_id} with 'youtube-dl'...".yellow
+                video_path = Chan.download_youtube_video(video_import_id)
+                raise StandardError.new("'youtube-dl' failed to download the video!") if video_path.nil?
+                puts "--- Uploading video #{video_id} to Amazon S3 bucket #{aws_bucket} with key #{aws_key}".yellow
+
+                # Upload S3 object.
+                s3.put_object(
+                  :bucket => aws_bucket,
+                  :key => aws_key,
+                  :body => File.read(video_path)
+                )
+
+                # Set public read access for the S3 object.
+                s3.put_object_acl(
+                  :bucket => aws_bucket,
+                  :key => aws_key,
+                  :acl => 'public-read'
+                )
+
+                # Get new URL for the video and prepare the video for DB update.
+                puts "--- Uploaded video #{video_id} to Amazon S3: #{video_url}.".yellow
+              end
+
+              updated_videos << {
+                '_id' => video_id,
+                'video' => video_url
+              } if !res.exist? || has_no_url
             end
+          rescue => e
+            puts "--- Something went wrong while processing video #{video_id}: #{e.message}.".red
           end
         end
 
-        # Fix missing or broken videos.
-        unless invalid_videos.empty?
-          s3 = Aws::S3::Client.new
-          updated_videos = []
-
-          # Upload missing or broken videos to Amazon S3 storage.
-          invalid_videos.each do |video|
-            video_id = video['_id']
-            video_import_id = video['importId']
-            puts "--- Downloading video #{video_id} with 'youtube-dl'...".yellow
-            video_path = Chan.download_youtube_video(video_import_id)
-
-            unless video_path.nil?
-              aws_key = "#{channel_id}/#{video_path.basename}"
-              puts "--- Uploading video #{video_id} to Amazon S3 bucket #{aws_bucket} with key #{aws_key}".yellow
-
-              # Upload S3 object.
-              s3.put_object(
-                :bucket => aws_bucket,
-                :key => aws_key,
-                :body => File.read(video_path)
-              )
-
-              # Set public read access for the S3 object.
-              s3.put_object_acl(
-                :bucket => aws_bucket,
-                :key => aws_key,
-                :acl => 'public-read'
-              )
-
-              # Get new URL for the video and prepare the video for DB update.
-              s3_video_url = "https://s3-#{aws_region}.amazonaws.com/#{aws_bucket}/#{aws_key}"
-              updated_videos << {
-                '_id' => video_id,
-                'video' => s3_video_url
-              }
-            else
-              puts "--- Skipping video #{video_id} due to download issues! Please read 'youtube-dl' logs for more info.".red
-            end
-          end
-
-          # Update videos in the DB.
+        # Update videos in the DB.
+        unless updated_videos.empty?
           put_channel_videos_url = URI.escape("#{@@config.api_url}channels/#{channel_id}/videos").to_s
           puts "--- Requesting PUT #{put_channel_videos_url} with data:".yellow
           ap updated_videos

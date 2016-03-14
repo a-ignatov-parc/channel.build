@@ -39,6 +39,8 @@ module CaffeineLabs
         ),
 
         :import => OpenStruct.new(
+          :youtube_video_url => "https://www.youtube.com/watch\?v\=",
+          :simulate_youtube_dl_command => "youtube-dl -s --get-filename -ciw --restrict-filenames -o #{Dir.tmpdir}/%\\(title\\)s-%\\(id\\)s.%\\(ext\\)s",
           :youtube_dl_command => "youtube-dl -ciw --restrict-filenames -o #{Dir.tmpdir}/%\\(title\\)s-%\\(id\\)s.%\\(ext\\)s",
           :aws_bucket => 'channel.build.oregon',
           :aws_region => ENV['AWS_REGION'] || 'us-west-2',
