@@ -1,5 +1,7 @@
 .video-thumbnail {
   width: 120px;
+  height: 68px;
+
   border-right: solid 1px #DDD;
   border-radius: 5px;
   margin: 5px;
@@ -19,6 +21,18 @@
   filter: grayscale(1.0);
 }
 
+.video-thumbnail-upload {
+  background-color: #337AB7;
+  font-size: 45px;
+  color: #F7FBFF;
+  text-align: center;
+  line-height: 0px;
+}
+
+.video-thumbnail-upload > i {
+  padding-top: 10px;
+}
+
 .video-light-glyphicon {
   color: #F3EDED;
 }
@@ -33,6 +47,7 @@
 
 .video-thumbnail-wrapper {
   display: inline-block;
+  vertical-align: top;
 }
 
 .content-toolbar {

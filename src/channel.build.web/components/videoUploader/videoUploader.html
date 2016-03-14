@@ -1,0 +1,13 @@
+<template name="videoUploader">
+  <div class="video-uploader-drop">
+    <div>Drag & Drop Files here</div>
+  </div>
+  <div class="progress video-uploader-progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+    </div>
+  </div>
+  <span class="btn btn-primary btn-file pull-right">
+    <input id="upload" type="file" accept="video/mp4">
+    <i class="fa fa-cloud-upload video-uploader-button"></i>Upload Video
+  </span>
+</template>
