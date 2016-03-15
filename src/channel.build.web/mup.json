@@ -6,7 +6,10 @@
       "username": "ubuntu",
       //"password": "password"
       // or pem file (ssh based authentication)
-      "pem": "../../secrets/channelbuild.pem"
+      "pem": "../../secrets/channelbuild.pem",
+      "env": {
+        "CLUSTER_WORKERS_COUNT": "auto"
+      }
     }
   ],
 
@@ -22,7 +25,7 @@
   // Install PhantomJS in the server
   "setupPhantom": true,
 
-  // Show a progress bar during the upload of the bundle to the server. 
+  // Show a progress bar during the upload of the bundle to the server.
   // Might cause an error in some rare cases if set to true, for instance in Shippable CI
   "enableUploadProgressBar": true,
 
