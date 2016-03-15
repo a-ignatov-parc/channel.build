@@ -4,10 +4,14 @@
 var fs = Meteor.npmRequire('fs'),
     os = Meteor.npmRequire('os');
 
-var logsPath = `${process.env.HOME}/log/channel.build`;
-shell.mkdir('-p', logsPath);
-var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
-ChanJobs.setLogStream(chanJobsLogStream);
+// TODO: The issue is that workers fail to run because they have no access to the opened file...
+// var logsPath = `${process.env.HOME}/log/channel.build`;
+// shell.mkdir('-p', logsPath);
+// var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
+// ChanJobs.setLogStream(chanJobsLogStream);
+ChanJobs.setLogStream(process.stdout);
+
+console.log(process.env);
 
 ChanJobs.allow({
   admin: function (userId, method, params) {
@@ -16,7 +20,7 @@ ChanJobs.allow({
 });
 
 ChanJobs.processJobs('import', {
-    concurrency: os.cpus().length
+    concurrency: 1
   },
   function (job, callback) {
     var chan = process.env.CHAN_PATH,
