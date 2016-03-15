@@ -11,7 +11,9 @@
         "HOME": "/home/ubuntu",
         "CLUSTER_WORKERS_COUNT": "auto",
         "MONGODUMP_PATH": "/usr/bin/mongodump",
-        "CHAN_PATH": "/usr/bin/chan"
+        "CHAN_PATH": "/usr/bin/chan",
+        "PATH": "/home/ubuntu/.rvm/gems/ruby-2.2.1/bin:/home/ubuntu/.rvm/gems/ruby-2.2.1@global/bin:/home/ubuntu/.rvm/rubies/ruby-2.2.1/bin:/home/ubuntu/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games",
+        "GEM_PATH": "/home/ubuntu/.rvm/gems/ruby-2.2.1:/home/ubuntu/.rvm/gems/ruby-2.2.1@global"
       }
     }
   ],
