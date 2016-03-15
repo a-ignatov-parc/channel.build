@@ -4,7 +4,7 @@
 var fs = Meteor.npmRequire('fs'),
     os = Meteor.npmRequire('os');
 
-var logsPath = `${process.env.HOME}/logs/channel.build`;
+var logsPath = `/var/log/channel.build`;
 shell.mkdir('-p', logsPath);
 var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
 ChanJobs.setLogStream(chanJobsLogStream);
