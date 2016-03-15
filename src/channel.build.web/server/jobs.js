@@ -4,7 +4,7 @@
 var fs = Meteor.npmRequire('fs'),
     os = Meteor.npmRequire('os');
 
-var logsPath = `/var/log/channel.build`;
+var logsPath = `${process.env.HOME}/log/channel.build`;
 shell.mkdir('-p', logsPath);
 var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
 ChanJobs.setLogStream(chanJobsLogStream);
@@ -19,9 +19,11 @@ ChanJobs.processJobs('import', {
     concurrency: os.cpus().length
   },
   function (job, callback) {
-    channelId = job.data.channelId;
-    command = `chan import ${channelId}`;
-    res = shell.exec(command);
+    var chan = process.env.CHAN_PATH,
+        channelId = job.data.channelId,
+        command = `${chan} import ${channelId}`;
+        res = shell.exec(command);
+
     job.log(`output: ${res.output}`);
     if (res.code === 0) { job.done(); } else { job.fail(); }
     callback();

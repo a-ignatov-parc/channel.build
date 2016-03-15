@@ -8,7 +8,10 @@
       // or pem file (ssh based authentication)
       "pem": "../../secrets/channelbuild.pem",
       "env": {
-        "CLUSTER_WORKERS_COUNT": "auto"
+        "HOME": "/home/ubuntu",
+        "CLUSTER_WORKERS_COUNT": "auto",
+        "MONGODUMP_PATH": "/usr/bin/mongodump",
+        "CHAN_PATH": "/usr/bin/chan"
       }
     }
   ],
