@@ -1,1 +1,1 @@
-ssh -i "../secrets/channelbuild.pem" ubuntu@52.87.254.234
+ssh -i "../secrets/channelbuild.pem" ubuntu@channel.build
