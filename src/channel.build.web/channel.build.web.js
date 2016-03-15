@@ -1,5 +1,10 @@
-Router.route('/', function () {
-  this.render('home');
+Router.route('/', {
+  action: function () {
+    this.render('home');
+  },
+  waitOn: function() {
+    Accounts.loginServicesConfigured();
+  }
 });
 
 if (Meteor.isClient) {
