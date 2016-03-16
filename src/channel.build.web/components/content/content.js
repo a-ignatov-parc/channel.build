@@ -5,7 +5,7 @@ if (Meteor.isClient) {
     },
     videos: function() {
       return Videos.find().fetch().map(function(e) {
-        e.hasThumbnail = e.thumbnails.medium.url ? true : false;
+        e.hasThumbnail = e.thumbnails && e.thumbnails.medium && e.thumbnails.medium.url ? true : false;
         return e;
       })
     },

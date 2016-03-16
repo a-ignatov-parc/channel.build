@@ -92,7 +92,7 @@ if (Meteor.isServer) {
           id: x.id,
           title: x.snippet.title,
           description: x.snippet.description,
-          thumbnail: x.snippet.thumbnails.medium.url
+          thumbnail: x.snippet.thumbnails && x.snippet.thumbnails.medium ? x.snippet.thumbnails.medium.url : null
         };
       });
     },

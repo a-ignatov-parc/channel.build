@@ -12,9 +12,11 @@
       <div class="video-thumbnail-wrapper">
         {{#if hasThumbnail}}
           <img src="{{thumbnails.medium.url}}"
-               class="video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}">
+               class="video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
+               title="{{title}}">
         {{else}}
-          <div class="video-thumbnail-upload video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}">
+          <div class="video-thumbnail-upload video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
+               title="{{title}}">
             <i class="fa fa-play-circle"></i>
           </div>
         {{/if}}
