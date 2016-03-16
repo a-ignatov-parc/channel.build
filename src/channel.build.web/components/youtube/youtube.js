@@ -64,7 +64,9 @@ if (Meteor.isServer) {
       var userResult = Meteor.http.get("" +
         "https://www.googleapis.com/youtube/v3/channels?forUsername=" +
         name +
-        "&part=contentDetails&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I&maxResults=50");
+        "&part=contentDetails" +
+        "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I" +
+        "&maxResults=50");
 
       if(userResult.statusCode != 200) {
         throw new Meteor.Error(400, "Failed to communicate with youtube to read users.");
@@ -77,7 +79,9 @@ if (Meteor.isServer) {
       playlistsResult = Meteor.http.get("" +
         "https://www.googleapis.com/youtube/v3/playlists?channelId=" +
         userResult.data.items[0].id +
-        "&part=contentDetails,snippet&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I&maxResults=50");
+        "&part=contentDetails,snippet" +
+        "&maxResults=50" +
+        "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I");
 
       if(playlistsResult.statusCode != 200) {
         throw new Meteor.Error(400, "Failed to communicate with youtube to read playlists.");
@@ -100,6 +104,7 @@ if (Meteor.isServer) {
       var playlistResult = Meteor.http.get("" +
         "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
         playlistId +
+        "&maxResults=50" +
         "&key=AIzaSyB90nW3IGhRXI-XdR3A1v0bPQoGEc7m80I");
 
       if(playlistResult.statusCode != 200) {
