@@ -68,6 +68,10 @@ input.text-name {
   min-height: calc(100vh - 50px);
 }
 
+#app-form {
+  margin-bottom: 100px;
+}
+
 .app-footer {
   width: 100%;
   height: 80px;
