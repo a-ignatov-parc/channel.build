@@ -35,7 +35,7 @@ ChanJobs.processJobs('import', {
 );
 
 Meteor.startup(function () {
-  ChanJobs.startJobServer();
+  // ChanJobs.startJobServer();
   // Example:
   // Job(ChanJobs, 'import', { channelId: 'cXYen6PdzBnoEPGqK' }).save();
 });
