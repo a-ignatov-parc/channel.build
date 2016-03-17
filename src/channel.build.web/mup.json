@@ -10,6 +10,7 @@
       "env": {
         "HOME": "/home/ubuntu",
         "CLUSTER_WORKERS_COUNT": "auto",
+        "MONGO_DATABASE": "channelbuild",
         "MONGODUMP_PATH": "/usr/bin/mongodump",
         "CHAN_PATH": "/usr/bin/chan",
         "PATH": "/home/ubuntu/.rvm/gems/ruby-2.2.1/bin:/home/ubuntu/.rvm/gems/ruby-2.2.1@global/bin:/home/ubuntu/.rvm/rubies/ruby-2.2.1/bin:/home/ubuntu/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games",

@@ -10,7 +10,7 @@ SyncedCron.add({
   },
   job: function () {
     var mongodump = process.env.MONGODUMP_PATH,
-        database = 'meteor',
+        database = process.env.MONGO_DATABASE || 'meteor',
         appname = 'channel.build',
         mongoUrl = process.env.MONGO_URL,
         host = mongoUrl.match(/mongodb:\/\/(.*)\/meteor/)[1],
