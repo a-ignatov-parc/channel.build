@@ -39,7 +39,7 @@
       "host": "jobs.channel.build",
       "ref": "origin/master",
       "repo": "git@github.com:caffeinelabs/channel.build.git",
-      "path": "/var/www/channel.build.worker",
+      "path": "/home/ubuntu/app/channel.build",
       "post-deploy": "npm install; pm2 startOrRestart ecosystem.json --env production"
     }
   }
