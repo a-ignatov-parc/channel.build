@@ -1,0 +1,46 @@
+{
+  /**
+   * Application configuration section
+   * http://pm2.keymetrics.io/docs/usage/application-declaration/
+   */
+  "apps": [
+    {
+      "name": "channel.build.worker",
+      "script": "chan-worker.js",
+      "env": {
+        "NODE_ENV": "development",
+        "WORKER_HOST": "localhost",
+        "WORKER_PORT": "3000",
+        "WORKER_ACCOUNT": "caffeinator",
+        "WORKER_PASS": "#C0FF33",
+        "CHAN_PATH": `${process.env.GEM_HOME}/bin/chan`,
+        "CHAN_API_URL": "http://localhost:3000/api/"
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "WORKER_HOST": "channel.build",
+        "WORKER_PORT": "80",
+        "WORKER_ACCOUNT": "caffeinator",
+        "WORKER_PASS": "#C0FF33",
+        "CHAN_PATH": `${process.env.GEM_HOME}/bin/chan`,
+        "CHAN_API_URL": "http://channel.build/api/"
+      }
+    }
+  ],
+
+  /**
+   * Deployment section
+   * http://pm2.keymetrics.io/docs/usage/deployment/
+   */
+  "deploy": {
+    "production": {
+      "key": "../../secrets/channelbuild.pem",
+      "user": "ubuntu",
+      "host": "jobs.channel.build",
+      "ref": "origin/master",
+      "repo": "git@github.com:caffeinelabs/channel.build.git",
+      "path": "/var/www/channel.build.worker",
+      "post-deploy": "npm install; pm2 startOrRestart ecosystem.json --env production"
+    }
+  }
+}

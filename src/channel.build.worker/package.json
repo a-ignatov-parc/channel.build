@@ -1,0 +1,25 @@
+{
+  "name": "channel.build.worker",
+  "version": "1.0.0",
+  "description": "Channel app web worker to process background jobs.",
+  "main": "worker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caffeinelabs/channel.build.git.git"
+  },
+  "author": "Michael Kalygin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caffeinelabs/channel.build.git/issues"
+  },
+  "homepage": "https://github.com/caffeinelabs/channel.build.git#readme",
+  "dependencies": {
+    "ddp": "^0.11.0",
+    "ddp-login": "^1.0.9",
+    "meteor-job": "^1.3.2",
+    "shelljs": "^0.6.0"
+  }
+}

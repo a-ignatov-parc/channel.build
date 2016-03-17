@@ -11,31 +11,14 @@ var fs = Meteor.npmRequire('fs'),
 // ChanJobs.setLogStream(chanJobsLogStream);
 ChanJobs.setLogStream(process.stdout);
 
-console.log(process.env);
-
 ChanJobs.allow({
   admin: function (userId, method, params) {
     return (userId ? true : false);
   }
 });
 
-ChanJobs.processJobs('import', {
-    concurrency: 1
-  },
-  function (job, callback) {
-    var chan = process.env.CHAN_PATH,
-        channelId = job.data.channelId,
-        command = `${chan} import ${channelId}`;
-        res = shell.exec(command);
-
-    job.log(`output: ${res.output}`);
-    if (res.code === 0) { job.done(); } else { job.fail(); }
-    callback();
-  }
-);
-
 Meteor.startup(function () {
-  // ChanJobs.startJobServer();
+  ChanJobs.startJobServer();
   // Example:
   // Job(ChanJobs, 'import', { channelId: 'cXYen6PdzBnoEPGqK' }).save();
 });
