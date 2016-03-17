@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/caffeinelabs/channel.build.git.git"
+    "url": "git+https://github.com/caffeinelabs/channel.build.git"
   },
   "author": "Michael Kalygin",
   "license": "ISC",
