@@ -24,3 +24,7 @@ apt-get install -y mongodb-org
 # Install youtube-dl.
 curl https://yt-dl.org/downloads/2016.03.14/youtube-dl -o /usr/local/bin/youtube-dl
 chmod a+rx /usr/local/bin/youtube-dl
+
+# Install ffmpeg.
+apt-add-repository ppa:mc3man/trusty-media && apt-get update
+apt-get install -y ffmpeg
