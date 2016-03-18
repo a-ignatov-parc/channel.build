@@ -10,9 +10,10 @@
     return Job.processJobs('chan', 'import', {
         concurrency: 1
       }, function (job, callback) {
+        console.log(`[${new Date()}] Processing job with ID ${job._doc._id} and Run ID ${job._doc.runId}...`);
         var chan = process.env.CHAN_PATH,
             channelId = job.data.channelId,
-            command = `${chan} import ${channelId}`;
+            command = `${chan} import ${channelId}`,
             res = Shell.exec(command);
 
         job.log(`output: ${res.output}`);
