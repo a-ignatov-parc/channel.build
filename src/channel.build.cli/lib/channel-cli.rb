@@ -13,6 +13,7 @@ require 'rest-client'
 require 'colorize'
 require 'awesome_print'
 require 'mini_magick'
+require 'streamio-ffmpeg'
 require 'aws-sdk'
 
 require 'channel-cli/version'

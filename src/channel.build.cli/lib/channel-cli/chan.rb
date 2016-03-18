@@ -286,27 +286,31 @@ module CaffeineLabs
         updated_videos = []
         channel_videos.each do |video|
           begin
+            # We only support mp4 videos, so check URL with mp4 extension.
+            # Convert video from other formats to mp4 if needed.
             video_id = video['_id']
             video_import_id = video['importId']
-            video_path = Chan.get_youtube_video_temp_path(video_import_id)
-            aws_key = "#{channel_id}/#{video_path.basename}".strip
+            video_path = Chan.get_youtube_video_temp_path_as_mp4(video_import_id)
+            aws_key = "#{channel_id}/#{video_path.basename}"
             s3_video_url = "https://s3-#{aws_region}.amazonaws.com/#{aws_bucket}/#{aws_key}"
             video_url = video['video']
-            has_no_url = video_url.nil? || video_url.empty?
-            video_url ||= s3_video_url
+            has_url = !video_url.nil? && !video_url.empty?
+            is_mp4 = has_url ? video_url.end_with?('.mp4') : false
+            video_url = s3_video_url if !has_url || !is_mp4
 
-            puts("--- Video #{video_id} has no URL! Assuming it is #{s3_video_url}.".red) if has_no_url
+            puts("--- Video #{video_id} has no URL! Assuming it is #{video_url}.".red) if !has_url
+            puts("--- Video #{video_id} is not mp4 video. Assuming there is existing mp4 video with URL #{video_url}.".red) if has_url && !is_mp4
             puts "--- Validating video #{video_id} with URL #{video_url}...".yellow
             Utility.test_resource(video_url) do |res|
-              if res.exist? && !has_no_url
+              if res.exist? && has_url && is_mp4
                 puts "--- Video #{video_id} is OK!".green
-              elsif res.exist? && has_no_url
+              elsif res.exist? && (!has_url || !is_mp4)
                 puts "--- Video #{video_id} is OK! But the URL must be updated in the database.".green
               else
                 puts "--- Video #{video_id} is missing or broken: #{res.error.message}!".red
-                puts "--- Downloading video #{video_id} with 'youtube-dl'...".yellow
-                video_path = Chan.download_youtube_video(video_import_id)
-                raise StandardError.new("'youtube-dl' failed to download the video!") if video_path.nil?
+                puts "--- Downloading video #{video_id} with 'youtube-dl' and converting it to mp4 with 'ffmpeg' if needed...".yellow
+                video_path = Chan.download_youtube_video_as_mp4(video_import_id)
+                raise StandardError.new("Failed to download video with 'youtube-dl' or convert it with 'ffmpeg'!") if video_path.nil?
                 puts "--- Uploading video #{video_id} to Amazon S3 bucket #{aws_bucket} with key #{aws_key}".yellow
 
                 # Upload S3 object.
@@ -330,7 +334,7 @@ module CaffeineLabs
               updated_videos << {
                 '_id' => video_id,
                 'video' => video_url
-              } if !res.exist? || has_no_url
+              } if !res.exist? || !has_url
             end
           rescue => e
             puts "--- Something went wrong while processing video #{video_id}: #{e.message}".red
