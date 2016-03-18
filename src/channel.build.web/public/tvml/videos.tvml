@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <head>
+    <style>
+      .imageWithGradient {
+        tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,64,0,0.7), rgba(0,64,0,1.0));
+      }
+      .showTextOnHighlight {
+        tv-text-highlight-style: show-on-highlight;
+      }
+    </style>
+  </head>
+
+  <stackTemplate>
+    <!-- Featured content. -->
+    <collectionList>
+      <carousel>
+        <section>
+          {{#.}}
+            {{#thumbnails.maxres}}
+            <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
+                    present-method="presentVideo">
+              <img src="{{url}}" width="{{width}}" height="{{height}}" />
+              <overlay>
+                <title>{{title}}</title>
+              </overlay>
+            </lockup>
+            {{/thumbnails.maxres}}
+          {{/.}}
+        </section>
+      </carousel>
+
+      <!-- All videos content. -->
+      <grid>
+        <header>
+          <title>All Videos</title>
+        </header>
+        <section>
+          {{#.}}
+            {{#thumbnails.high}}
+            <lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
+                    present-method="presentVideo">
+              <img src="{{url}}" width="{{width}}" height="{{height}}" />
+              <title class="showTextOnHighlight">{{title}}</title>
+            </lockup>
+            {{/thumbnails.high}}
+          {{/.}}
+        </section>
+      </grid>
+    </collectionList>
+  </stackTemplate>
+</document>
