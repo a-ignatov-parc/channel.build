@@ -48,7 +48,7 @@ module CaffeineLabs
         puts command.gsub('\\', '').cyan
         IO.popen(command).each_line do |line|
           puts line.strip.blue
-          path ||= line[/\[download\].*(#{Dir.tmpdir}.*\.mp4).*/, 1]
+          path ||= line[/\[download\].*(#{Dir.tmpdir}.*\.\S+).*/, 1]
         end
         path.nil? ? nil : Pathname.new(path)
       end

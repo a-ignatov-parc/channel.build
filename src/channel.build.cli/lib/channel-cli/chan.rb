@@ -333,7 +333,7 @@ module CaffeineLabs
               } if !res.exist? || has_no_url
             end
           rescue => e
-            puts "--- Something went wrong while processing video #{video_id}: #{e.message}.".red
+            puts "--- Something went wrong while processing video #{video_id}: #{e.message}".red
           end
         end
 
