@@ -53,7 +53,7 @@ module CaffeineLabs
         puts command.cyan
         IO.popen(command).each_line do |line|
           puts line.strip.blue
-          path ||= line[/\[ffmpeg\].*(#{Dir.tmpdir}.*\.[^\s\"]+)\"?.*/, 1]
+          path ||= line[/\[ffmpeg\] [Converting|Not converting].*(#{Dir.tmpdir}.*\.\S+)\"?.*/, 1]
         end
         path.nil? ? nil : Pathname.new(path)
       end
