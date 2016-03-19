@@ -20,8 +20,10 @@
         {{> import}}
       </div>
     {{/if}}
-    {{#unless hideNoInviteContent}}
-      {{> notInvited}}
+    {{#unless userIsInvited}}
+      {{#unless hideNoInviteContent}}
+        {{> notInvited}}
+      {{/unless}}
     {{/unless}}
   {{/if}}
   {{#if userIsInvited}}
