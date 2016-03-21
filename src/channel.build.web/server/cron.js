@@ -13,7 +13,7 @@ SyncedCron.add({
         database = process.env.MONGO_DATABASE || 'meteor',
         appname = 'channel.build',
         mongoUrl = process.env.MONGO_URL,
-        host = mongoUrl.match(/mongodb:\/\/(.*)\/meteor/)[1],
+        host = mongoUrl.match(new RegExp(`mongodb://(.*)/${database}`))[1],
         timestamp = shell.exec('date +%F-%H%M').output.trim(),
         backupsPath = `${process.env.HOME}/backups/${appname}`,
         archivePath = `${backupsPath}/${appname}-${timestamp}.gzip`;
