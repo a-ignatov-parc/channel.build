@@ -16,5 +16,11 @@ App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId}) => {
   const dataController = new DataController(resourceLoader, channelApi);
   const presenter = new Presenter(resourceLoader, dataController);
 
+  // Register app launch for analytics.
+  channelApi.postAnalytics({
+    deviceId: deviceId,
+    operation: 'launch'
+  });
+
   presenter.presentRoot(Settings.rootTemplate);
 };

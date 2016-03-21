@@ -15,6 +15,10 @@ class ChannelApi {
   getVideos() {
     return this.networkController.getJson(`channels/${this.channelId}`);
   }
+
+  postAnalytics(analytic) {
+    return this.networkController.postJson(`analytics/channels/${this.channelId}`, analytic);
+  }
 }
 
 module.exports = ChannelApi;

@@ -66,7 +66,7 @@ class NetworkController {
    * @param  {string}  data Data for the request.
    * @return {promise}      The result of promise contains response or an error.
    */
-  post(path, data) {
+  post(path, json) {
     return this.ajax('POST', path, json);
   }
 
