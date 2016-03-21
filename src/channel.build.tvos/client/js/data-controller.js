@@ -12,9 +12,7 @@ class DataController {
   }
 
   getDataFromMethod(method, args) {
-    console.log(method, args);
     args = args ? JSON.parse(args) : {};
-    console.log(method, args);
     return this[method] ? this[method](args) :
                           this.channelApi[method] ? this.channelApi[method](args) :
                                                     Promise.resolve({});
