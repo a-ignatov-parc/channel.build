@@ -11,3 +11,27 @@ Analytics.attachBehaviour('timestampable',{
   createdBy: false,
   updatedBy: false
 });
+
+// Define schemas for collections.
+var Schemas = {};
+Schemas.Analytic = new SimpleSchema({
+  appId: {
+    type: String,
+    label: 'Application ID'
+  },
+  deviceId: {
+    type: String,
+    label: 'Device ID'
+  },
+  operation: {
+    type: String,
+    label: 'Operation'
+  },
+  target: {
+    type: String,
+    label: 'Target ID',
+    optional: true
+  }
+});
+
+Analytics.attachSchema(Schemas.Analytic);
