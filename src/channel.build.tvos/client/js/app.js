@@ -12,13 +12,12 @@ App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId}) => {
   const resourceLoaderNetworkController = new NetworkController(tvjsClientUrl);
   const channelApiNetworkController = new NetworkController(webApiUrl);
   const resourceLoader = new ResourceLoader(resourceLoaderNetworkController);
-  const channelApi = new ChannelApi(channelApiNetworkController, channelId);
+  const channelApi = new ChannelApi(channelApiNetworkController, channelId, deviceId);
   const dataController = new DataController(resourceLoader, channelApi);
   const presenter = new Presenter(resourceLoader, dataController);
 
   // Register app launch for analytics.
   channelApi.postAnalytics({
-    deviceId: deviceId,
     operation: 'launch'
   });
 

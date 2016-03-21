@@ -114,6 +114,12 @@ class Presenter {
     player.playlist.push(video);
 
     player.play();
+
+    // Register video playback for analytics.
+    this.dataController.channelApi.postAnalytics({
+      operation: 'play',
+      target: data.id
+    });
   }
 
   setSelectEventHandler({doc}) {

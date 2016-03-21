@@ -3,9 +3,10 @@
  */
 
 class ChannelApi {
-  constructor(networkController, channelId) {
+  constructor(networkController, channelId, deviceId) {
     this.networkController = networkController;
     this.channelId = channelId;
+    this.deviceId = deviceId;
   }
 
   /**
@@ -17,6 +18,7 @@ class ChannelApi {
   }
 
   postAnalytics(analytic) {
+    analytic.deviceId = this.deviceId;
     return this.networkController.postJson(`analytics/channels/${this.channelId}`, analytic);
   }
 }
