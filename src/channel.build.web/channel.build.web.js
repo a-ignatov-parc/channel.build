@@ -102,9 +102,22 @@ if (Meteor.isServer) {
             .update({ $set: video });
       });
       bulk.execute(function () {});
-      res.end();
       break;
     }
+    res.end();
+  });
+
+  Picker.route("/api/analytics/channels/:_id", function (params, req, res) {
+    switch (req.method) {
+    case "POST":
+      var appId = params._id,
+          analytic = req.body,
+          appExists = !!Apps.findOne(appId);
+      analytic.appId = appId;
+      if (appExists) { Analytics.insert(analytic); }
+      break;
+    }
+    res.end();
   });
 
   Picker.route("/api/admin/", function(params, req, res) {
