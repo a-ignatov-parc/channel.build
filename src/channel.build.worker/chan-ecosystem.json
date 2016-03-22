@@ -40,9 +40,9 @@
       "ref": "origin/master",
       "repo": "git@github.com:caffeinelabs/channel.build.git",
       "path": "/home/ubuntu/app/channel.build",
-      "post-deploy": "cd src/channel.build.worker; npm install; " +
+      "post-deploy": "pushd src/channel.build.worker; npm install; " +
                      "pm2 startOrRestart chan-ecosystem.json --env production --log-date-format 'YYYY-MM-DD HH:mm Z'; " +
-                     "cd src/channel.build.cli; bundle install; rake install;"
+                     "popd; pushd src/channel.build.cli; bundle install; rake install;"
     }
   }
 }
