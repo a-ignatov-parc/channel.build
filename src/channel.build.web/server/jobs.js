@@ -9,7 +9,7 @@ var fs = Meteor.npmRequire('fs'),
 // shell.mkdir('-p', logsPath);
 // var chanJobsLogStream = fs.createWriteStream(`${logsPath}/chan.log`);
 // ChanJobs.setLogStream(chanJobsLogStream);
-ChanJobs.setLogStream(process.stdout);
+// ChanJobs.setLogStream(process.stdout);
 
 ChanJobs.allow({
   admin: function (userId, method, params) {
