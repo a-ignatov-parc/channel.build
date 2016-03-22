@@ -3,6 +3,12 @@
 module CaffeineLabs
   module ChannelCli
     class Chan < Thor
+      desc 'version',
+           'Shows current version of CLI.'
+      def version()
+        puts CaffeineLabs::ChannelCli::VERSION.magenta
+      end
+
       desc 'create <channel_id>',
            'Creates a channel recipe by fetching channel information from the Web API and saving it in the filesystem.'
       method_option 'output', type: :string, desc: 'Output path', aliases: '-o',
