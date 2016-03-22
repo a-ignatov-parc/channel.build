@@ -20,13 +20,13 @@ module CaffeineLabs
         },
 
         :project_settings => OpenStruct.new(
-          :local_client_url => 'http://localhost:1337/'
+          :local_client_url => 'http://localhost:3000/'
         ),
 
         :create => OpenStruct.new(
           :output_path => Dir.getwd,
-          :tvjs_client_url => 'http://channel-staging.heroku.com/',
-          :tvjs_app_path => 'app.js',
+          :tvjs_client_url => 'http://channel.build/',
+          :tvjs_app_path => 'tvjs/app.js',
           :web_api_url => 'http://channel.build/api/'
         ),
 
