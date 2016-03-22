@@ -13,6 +13,7 @@
         "MONGO_DATABASE": "channelbuild",
         "MONGODUMP_PATH": "/usr/bin/mongodump",
         "CHAN_PATH": "/usr/bin/chan",
+        "TVOS_CLIENT_PATH": "/home/ubuntu/app/channel.build.tvui",
         "PATH": "/home/ubuntu/.rvm/gems/ruby-2.2.1/bin:/home/ubuntu/.rvm/gems/ruby-2.2.1@global/bin:/home/ubuntu/.rvm/rubies/ruby-2.2.1/bin:/home/ubuntu/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games",
         "GEM_PATH": "/home/ubuntu/.rvm/gems/ruby-2.2.1:/home/ubuntu/.rvm/gems/ruby-2.2.1@global"
       }

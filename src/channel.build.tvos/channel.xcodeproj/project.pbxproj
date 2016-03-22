@@ -153,9 +153,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CL_CHANNEL_ID = wZXFDHbzCkhaqc6wx;
-				CL_TVJS_APP_PATH = app.js;
+				CL_TVJS_APP_PATH = tvjs/app.js;
 				CL_TVJS_APP_URL = "$(CL_TVJS_CLIENT_URL)$(CL_TVJS_APP_PATH)";
-				CL_TVJS_CLIENT_URL = "http://localhost:1337/";
+				CL_TVJS_CLIENT_URL = "http://localhost:3000/";
 				CL_WEB_API_URL = "http://localhost:3000/api/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -202,9 +202,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CL_CHANNEL_ID = wZXFDHbzCkhaqc6wx;
-				CL_TVJS_APP_PATH = app.js;
+				CL_TVJS_APP_PATH = tvjs/app.js;
 				CL_TVJS_APP_URL = "$(CL_TVJS_CLIENT_URL)$(CL_TVJS_APP_PATH)";
-				CL_TVJS_CLIENT_URL = "http://localhost:1337/";
+				CL_TVJS_CLIENT_URL = "http://localhost:3000/";
 				CL_WEB_API_URL = "http://localhost:3000/api/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -268,9 +268,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CL_CHANNEL_ID = MH5deEkwADsmEWYhC;
-				CL_TVJS_APP_PATH = app.js;
+				CL_TVJS_APP_PATH = tvjs/app.js;
 				CL_TVJS_APP_URL = "$(CL_TVJS_CLIENT_URL)$(CL_TVJS_APP_PATH)";
-				CL_TVJS_CLIENT_URL = "http://channel-staging.heroku.com/";
+				CL_TVJS_CLIENT_URL = "http://channel.build/";
 				CL_WEB_API_URL = "http://channel.build/api/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -329,9 +329,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CL_CHANNEL_ID = MH5deEkwADsmEWYhC;
-				CL_TVJS_APP_PATH = app.js;
+				CL_TVJS_APP_PATH = tvjs/app.js;
 				CL_TVJS_APP_URL = "$(CL_TVJS_CLIENT_URL)$(CL_TVJS_APP_PATH)";
-				CL_TVJS_CLIENT_URL = "http://channel-staging.heroku.com/";
+				CL_TVJS_CLIENT_URL = "http://channel.build/";
 				CL_WEB_API_URL = "http://channel.build/api/";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
