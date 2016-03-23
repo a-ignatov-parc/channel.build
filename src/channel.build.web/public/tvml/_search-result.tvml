@@ -1,7 +1,0 @@
-{{#thumbnails.high}}
-<lockup data='{"title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
-        present-method="presentVideo">
-  <img src="{{url}}" width="{{width}}" height="{{height}}" />
-  <title class="showTextOnHighlight">{{title}}</title>
-</lockup>
-{{/thumbnails.high}}
