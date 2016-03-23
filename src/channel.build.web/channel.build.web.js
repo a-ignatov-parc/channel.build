@@ -86,7 +86,8 @@ if (Meteor.isServer) {
       var videos = Videos.find({
         appId: params._id,
         selected: true
-      }).fetch();
+      },
+      {sort: {position: 1}}).fetch();
 
       res.end(JSON.stringify(videos));
   });
