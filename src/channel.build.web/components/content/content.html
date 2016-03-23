@@ -8,25 +8,27 @@
   {{#if videosLoading}}
     {{>loader}}
   {{else}}
-    {{#each videos}}
-      <div class="video-thumbnail-wrapper">
-        {{#if hasThumbnail}}
-          <img src="{{thumbnails.medium.url}}"
-               class="video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
-               title="{{title}}">
-        {{else}}
-          <div class="video-thumbnail-upload video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
-               title="{{title}}">
-            <i class="fa fa-play-circle"></i>
+    <div class="video-drag-area">
+      {{#each videos}}
+        <div class="video-thumbnail-wrapper" data="{{_id}}">
+          {{#if hasThumbnail}}
+            <img src="{{thumbnails.medium.url}}"
+                 class="video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
+                 title="{{title}}">
+          {{else}}
+            <div class="video-thumbnail-upload video-thumbnail {{#if selected}}video-thumbnail-active{{/if}}"
+                 title="{{title}}">
+              <i class="fa fa-play-circle"></i>
+            </div>
+          {{/if}}
+          <div class="content-select-video">
+            <span class="btn {{#if selected}}btn-success{{else}}btn-default{{/if}} btn-xs content-select-video-button" data="{{_id}}">
+              <i class="glyphicon video-checkbox {{#if selected}}glyphicon-ok video-light-glyphicon{{/if}}"
+                 data="{{_id}}"></i>
+            </span>
           </div>
-        {{/if}}
-        <div class="content-select-video">
-          <span class="btn {{#if selected}}btn-success{{else}}btn-default{{/if}} btn-xs content-select-video-button" data="{{_id}}">
-            <i class="glyphicon video-checkbox {{#if selected}}glyphicon-ok video-light-glyphicon{{/if}}"
-               data="{{_id}}"></i>
-          </span>
         </div>
-      </div>
-    {{/each }}
+      {{/each }}
+    </div>
   {{/if}}
 </template>
