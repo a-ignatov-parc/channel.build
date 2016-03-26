@@ -3,6 +3,8 @@
 
 // Global Styles
 
+@navbar-height: 50px;
+
 body {
   background-color: @sidebar-background;
 }
@@ -15,7 +17,7 @@ body {
 
 #page-wrapper {
   padding: 0 15px;
-  min-height: 568px;
+  min-height: ~"calc(100% - " @navbar-height ~")";
   background-color: @page-background;
 }
 
@@ -39,6 +41,7 @@ body {
 
 .navbar-brand {
   color: darken(@brand-primary, 6.5%) !important;
+  font-size: @brand-font-size;
   &:hover {
     color: @brand-primary !important;
   }
@@ -92,7 +95,7 @@ body {
 
 .navbar-top-links li a {
   padding: 15px;
-  min-height: 50px;
+  min-height: @navbar-height;
 }
 
 .navbar-top-links .dropdown-menu li {
