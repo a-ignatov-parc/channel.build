@@ -1,0 +1,47 @@
+template(name="dashboardLayout")
+  +head
+  +topbar
+  +container
+
+template(name="head")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="description", content="")
+    meta(name="author", content="")
+    title Channel Dashboard
+
+template(name="topbar")
+  #wrapper
+    nav.navbar.navbar-default.navbar-static-top(role="navigation", style="margin-bottom: 0")
+      .navbar-header
+        a.navbar-brand(href="/dashboard") Channel Dashboard
+
+template(name="container")
+  +sidebar
+  +page
+
+template(name="sidebar")
+  .navbar-default.sidebar(role="navigation")
+    .sidebar-nav.navbar-collapse
+      ul#side-menu.nav
+        each navElements
+          +navElement
+
+template(name="navElement")
+  li
+    a(href=path class=isActive)
+      if icon
+        i.fa.fa-fw(class=icon)
+      | #{label}
+      if children
+        span.fa.arrow
+    if children
+      ul.nav.nav-second-level
+        each children
+          +navElement
+
+template(name="page")
+  +yield
+
