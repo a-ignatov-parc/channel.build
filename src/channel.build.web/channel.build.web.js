@@ -1,6 +1,15 @@
+function isUserInvited() {
+  return Meteor.user() ? !!Invites.findOne({ userId: Meteor.user()._id, invited: true })
+                       : false;
+}
+
 Router.route('/', {
   action: function () {
-    this.render('home');
+    if (isUserInvited()) {
+      this.redirect('/dashboard');
+    } else {
+      this.render('home');
+    }
   },
   waitOn: function() {
     Accounts.loginServicesConfigured();
