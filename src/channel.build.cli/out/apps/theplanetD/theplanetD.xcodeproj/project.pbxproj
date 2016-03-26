@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F3DE6AD1C720DEF007F630C /* theplanetD */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = theplanetD; path = theplanetD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F3DE6AD1C720DEF007F630C /* theplanetD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theplanetD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F3DE6B01C720DF0007F630C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F3DE6B71C720DF0007F630C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F3DE6B91C720DF0007F630C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 		2F3DE6AE1C720DEF007F630C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F3DE6AD1C720DEF007F630C /* theplanetD */,
+				2F3DE6AD1C720DEF007F630C /* theplanetD.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,7 +75,7 @@
 			);
 			name = theplanetD;
 			productName = theplanetD;
-			productReference = 2F3DE6AD1C720DEF007F630C /* theplanetD */;
+			productReference = 2F3DE6AD1C720DEF007F630C /* theplanetD.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -93,7 +93,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "channel" */;
+			buildConfigurationList = 2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "theplanetD" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -368,7 +368,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "channel" */ = {
+		2F3DE6A81C720DEF007F630C /* Build configuration list for PBXProject "theplanetD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F3DE6BA1C720DF0007F630C /* Debug */,
