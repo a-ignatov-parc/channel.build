@@ -31,6 +31,14 @@ Template.editPage.helpers({
     var app =  Apps.findOne()
     return app ? Apps.findOne().category : "";
   },
+  keywords: function() {
+    var app = Apps.findOne()
+    return app ? Apps.findOne().keywords : "";
+  },
+  copyright: function() {
+    var app = Apps.findOne()
+    return app ? Apps.findOne().copyright : "";
+  },
   error: function () {
     return Session.get('error');
   },
