@@ -19,17 +19,17 @@ Meteor.subscribe('myApp', {
 });
 
 Template.editPage.helpers({
-  userName: function() {
-    return Meteor.user() ? Meteor.user().profile.givenName : "";
-  },
   name: function() {
-    return Apps.findOne().name;
+    var app =  Apps.findOne()
+    return app ? app.name : "";
   },
   description: function() {
-    return Apps.findOne().description;
+    var app =  Apps.findOne()
+    return app ? Apps.findOne().description : "";
   },
   category: function() {
-    return Apps.findOne().category;
+    var app =  Apps.findOne()
+    return app ? Apps.findOne().category : "";
   },
   error: function () {
     return Session.get('error');
