@@ -20,7 +20,7 @@ Meteor.startup(() ->
 
 Template.topbar.helpers(
   userName: () ->
-    if Meteor.user() != null
+    if Meteor.user() && Meteor.user().profile
       return Meteor.user().profile.givenName
     else
       return ""
