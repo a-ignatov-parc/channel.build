@@ -10,11 +10,49 @@ Template.editPage.helpers({
   description: function() {
     return Apps.findOne().description;
   },
+  category: function() {
+    return Apps.findOne().category;
+  },
   error: function () {
     return Session.get('error');
   },
   appId: function () {
     return appId;
+  },
+  categories: function () {
+    return [
+      "None",
+      "Books",
+      "Business",
+      "Catalogs",
+      "Education",
+      "Entertainment",
+      "Finance",
+      "Food & Drink",
+      "Games",
+      "Health & Fitness",
+      "Lifestyle",
+      "Magazines & Newspapers",
+      "Medical",
+      "Music",
+      "Navigation",
+      "News",
+      "Photo &amp; Video",
+      "Productivity",
+      "Reference",
+      "Shopping",
+      "Social Networking",
+      "Sports",
+      "Travel",
+      "Utilities",
+      "Weather"
+    ];
+  }
+});
+
+Template.editPage.helpers({
+  equals: function (a, b) {
+    return a === b;
   }
 });
 
@@ -24,6 +62,7 @@ Template.editPage.created = function() {
     Apps.insert({
       'userId': Meteor.userId(),
       'name': '',
+      'category': '',
       'description': ''
     });
   }
