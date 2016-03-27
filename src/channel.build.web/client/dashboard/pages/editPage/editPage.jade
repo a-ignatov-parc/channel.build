@@ -27,3 +27,16 @@ template(name="editPage")
               placeholder="Description for your app"
             )
               | #{description}
+            label.app-label
+              | Category
+            select(
+              name="category"
+            )
+              option(value="None")
+              each selection in categories
+                if equals category selection
+                  option(value="#{category}", selected="true")
+                    | #{selection}
+                else
+                  option(value="#{category}")
+                    | #{selection}
