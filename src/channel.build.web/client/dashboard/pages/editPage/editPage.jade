@@ -28,15 +28,26 @@ template(name="editPage")
             )
               | #{description}
             label.app-label
-              | Category
+              | Primary Category
             select(
-              name="category"
+              name="categoryPrimary"
             )
-              option(value="None")
               each selection in categories
                 if equals category selection
-                  option(value="#{category}", selected="true")
+                  option(value="#{categoryPrimary}", selected="true")
                     | #{selection}
                 else
-                  option(value="#{category}")
+                  option(value="#{categoryPrimary}")
+                    | #{selection}
+            label.app-label
+              | Secondary Category (optional)
+            select(
+              name="categorySeconday"
+            )
+              each selection in categories
+                if equals category selection
+                  option(value="#{categorySeconday}", selected="true")
+                    | #{selection}
+                else
+                  option(value="#{categorySeconday}")
                     | #{selection}
