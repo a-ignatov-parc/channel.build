@@ -1,0 +1,19 @@
+template(name="assetsPage")
+  #page-wrapper
+    .row
+      .col-lg-12
+        h1.page-header
+          | Import Assets
+        p
+          | Use this page to update your application assets. These assets will be
+          | used in the app store page.
+        form.app-form
+          .form-group
+            label.app-label
+              | 
+            .uploader-block.uploader-icon-small
+              +imageUploader(id="1" width="400" height="240" name="assets_icon_small" button="Small Icon")
+            .uploader-block.uploader-icon-big
+              +imageUploader(id="2" width="1280" height="768" name="assets_icon_big" button="Big Icon")
+            .uploader-block.uploader-banner
+              +imageUploader(id="3" width="1920" height="720" name="assets_banner" button="Banner")

@@ -1,4 +1,4 @@
-DEFAULT_MAIN_LAYOUT = 'dashboardLayout'
+DEFAULT_MAIN_LAYOUT = 'dashboardPage'
 
 class NavRoute
   constructor: (@name, @icon, @config) ->

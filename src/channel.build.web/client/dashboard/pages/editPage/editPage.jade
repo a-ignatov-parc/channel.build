@@ -1,0 +1,29 @@
+template(name="editPage")
+  #page-wrapper
+    .row
+      .col-lg-12
+        h1.page-header
+          | Edit Application
+        p
+          | Use this page to update your application properties. This information
+          | will be used in the app store details.
+        form.app-form
+          .form-group
+            label.app-label
+              | Name
+            input.app-text-input.form-control.text-name(
+              type="text"
+              name="name"
+              placeholder="Your application name"
+              value="#{name}"
+            )
+          .form-group
+            label.app-label
+              | Description
+            textarea.app-text-input.form-control(
+              name="description"
+              cols="40"
+              rows="5"
+              placeholder="Description for your app"
+            )
+              | #{description}

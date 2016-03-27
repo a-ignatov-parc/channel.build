@@ -18,6 +18,14 @@ Meteor.startup(() ->
   )
 )
 
+Template.topbar.helpers(
+  userName: () ->
+    if Meteor.user() != null
+      return Meteor.user().profile.givenName
+    else
+      return ""
+)
+
 Template.sidebar.helpers(
   navElements: () ->
     return Session.get('navRoots')
