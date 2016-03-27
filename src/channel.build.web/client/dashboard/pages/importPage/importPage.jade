@@ -1,0 +1,16 @@
+template(name="importPage")
+  #page-wrapper
+    .row
+      .col-lg-12
+        h1.page-header
+          | Import Content
+        form.app-form
+          .form-group
+            p
+              | Using your YouTube user, you can import content directly into Channel.
+            +youtube
+
+          .form-group
+            p
+              | Drag and drop media content to start the upload.
+            +videoUploader

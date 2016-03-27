@@ -1,4 +1,4 @@
-template(name="dashboardLayout")
+template(name="dashboardPage")
   +head
   +topbar
   +container
@@ -17,6 +17,7 @@ template(name="topbar")
     nav.navbar.navbar-default.navbar-static-top(role="navigation", style="margin-bottom: 0")
       .navbar-header
         a.navbar-brand(href="/dashboard") Channel Dashboard
+        div.navbar-login Welcome #{userName}
 
 template(name="container")
   +sidebar
@@ -44,4 +45,3 @@ template(name="navElement")
 
 template(name="page")
   +yield
-
