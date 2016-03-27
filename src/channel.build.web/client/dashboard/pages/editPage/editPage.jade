@@ -19,6 +19,24 @@ template(name="editPage")
             )
           .form-group
             label.app-label
+              | Keywords
+            input.app-text-input.form-control.text-medium(
+              type="text"
+              name="keywords"
+              placeholder="Keywords separated by commas"
+              value="#{keywords}"
+            )
+          .form-group
+            label.app-label
+              | Copyright
+            input.app-text-input.form-control.text-medium(
+              type="text"
+              name="copyright"
+              placeholder="2008 Acme Inc."
+              value="#{copyright}"
+            )
+          .form-group
+            label.app-label
               | Description
             textarea.app-text-input.form-control(
               name="description"

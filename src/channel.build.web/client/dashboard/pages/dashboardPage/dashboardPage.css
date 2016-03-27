@@ -7,6 +7,10 @@ input.text-name {
   width: 200px;
 }
 
+input.text-medium {
+  width: 400px;
+}
+
 .uploader-block {
   display: inline-block;
   padding-right: 20px;
