@@ -24,12 +24,10 @@
       {{/unless}}
     {{/unless}}
   {{/if}}
-  {{#if userIsInvited}}
-    {{> app}}
-  {{else}}
+  {{#unless userIsInvited}}
     {{> mainMenu}}
     {{> landingPage}}
-  {{/if}}
+  {{/unless}}
 
   {{> googleAnalytics}}
 </template>
