@@ -62,11 +62,11 @@ if (Meteor.isClient) {
       appId = usersApp._id;
     }
     else {
-      appId = Apps.insert({
+      /*appId = Apps.insert({
         'userId': Meteor.userId(),
         'name': '',
         'description': ''
-      });
+      });*/
     }
   }
 }
