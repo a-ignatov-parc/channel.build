@@ -1,5 +1,5 @@
 function isUserInvited() {
-  return Meteor.user() ? !!Invites.findOne({ userId: Meteor.user()._id, invited: true })
+  return Meteor.user() ? !!Invites.findOne({ userId: Meteor.userId(), invited: true })
                        : false;
 }
 

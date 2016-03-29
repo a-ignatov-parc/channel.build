@@ -9,9 +9,19 @@ template(name="analyticsPage")
           .panel-heading
             | Unique Users Chart
           .panel-body
+            +chartUniqueUsers
     .row
       .col-lg-12
         .panel.panel-default
           .panel-heading
             | Video Views Chart
           .panel-body
+
+template(name="chartUniqueUsers")
+  if Template.subscriptionsReady
+    .chart-unique-users
+  else
+    +loadingChart
+
+template(name="loadingChart")
+  img.img-responsive.center-block(src="/img/loading.gif", alt="loading")

@@ -56,27 +56,28 @@ class NavRouteList
     return @routeIndex[name]
 
   setRouter: (layoutTemplate = DEFAULT_MAIN_LAYOUT, redirectTemplate = 'loading', notFoundTemplate = '404') ->
-    # assume that first route is default one
-    defaultRoute = @routes[0]
-    Router.route('/dashboard',
-      action: () ->
-        this.layout('dashboardPage')
-        this.redirect(defaultRoute.path)
+    Router.configure(
       waitOn: () ->
         Accounts.loginServicesConfigured()
+        return
+    )
+
+    # assume that first route is default one
+    defaultRoute = @routes[0]
+    Router.route('/dashboard', () ->
+      this.layout(DEFAULT_MAIN_LAYOUT)
+      this.redirect(defaultRoute.path)
     )
 
     # set regular routes
     for r in @routes
       if r.redirect?
-        Router.route(r.path,
-          action: () ->
-            this.redirect(r.redirect)
-          waitOn: () ->
-            Accounts.loginServicesConfigured()
+        Router.route(r.path, () ->
+          this.redirect(r.redirect)
         )
       else
         Router.route(r.path, r)
+
     Router.onAfterAction(() ->
       Session.set('active', @route.getName())
     )
