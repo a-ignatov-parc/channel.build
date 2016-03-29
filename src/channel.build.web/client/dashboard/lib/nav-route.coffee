@@ -6,7 +6,7 @@ class NavRoute
       throw new Error('Must provide a name for each NavRoute')
     unless @config?
       @config = {}
-    {@template, @isMainNav, @label, @path, @parentName, @layoutTemplate, @redirect} = @config
+    {@template, @isMainNav, @label, @path, @parentName, @layoutTemplate, @redirect, @onBeforeAction} = @config
     unless @template?
       @template = @name
     unless @isMainNav?
@@ -22,6 +22,12 @@ class NavRoute
       @icon = null
     unless @layoutTemplate?
       @layoutTemplate = DEFAULT_MAIN_LAYOUT
+    unless @onBeforeAction?
+      @onBeforeAction = () ->
+        unless Meteor.user()?
+          this.redirect('/')
+        this.next()
+        return
 
 class NavRouteList
   constructor: (navRoutes) ->
