@@ -1,23 +1,3 @@
-Meteor.subscribe('myApp', {
-  onReady: function () {
-    var userId = Meteor.userId();
-    if (userId) {
-      var usersApp = Apps.findOne();
-      if(!usersApp) {
-        Apps.insert({
-          'userId': Meteor.userId(),
-          'name': '',
-          'category': '',
-          'description': ''
-        });
-      }
-    }
-  },
-  onError: function (e) {
-    console.log("onError", e);
-  }
-});
-
 Template.editPage.helpers({
   name: function() {
     var app =  Apps.findOne()

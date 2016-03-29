@@ -1,4 +1,22 @@
 Meteor.startup(() ->
+  Meteor.subscribe('myApp',
+    onReady: () ->
+      userId = Meteor.userId()
+      if userId?
+        usersApp = Apps.findOne()
+        appId = usersApp?._id
+        if !usersApp?
+          appId = Apps.insert(
+            userId: Meteor.userId()
+            name: ''
+            category: ''
+            description: ''
+          )
+        Session.set('appId', appId)
+    onError: (e) ->
+      console.log("onError", e)
+  )
+
   new ResizeSensor()
 
   $(window).bind("load resize", () ->

@@ -9,7 +9,8 @@ ChanJobs = JobCollection('chan');
 // Configure timestamps fields for collections using 'zimme:collection-timestampable' package..
 Analytics.attachBehaviour('timestampable',{
   createdBy: false,
-  updatedBy: false
+  updatedBy: false,
+  updatedAt: false
 });
 
 // Define schemas for collections.
