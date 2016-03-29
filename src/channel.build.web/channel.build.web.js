@@ -6,7 +6,7 @@ function isUserInvited() {
 Router.route('/', {
   action: function () {
     if (isUserInvited()) {
-      this.redirect('/dashboard');
+      this.redirect('/dashboard/edit');
     } else {
       this.render('home');
     }
