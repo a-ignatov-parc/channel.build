@@ -1,3 +1,17 @@
+showChartTooltip = (event, pos, item) ->
+  $tooltip = $(this).data('tooltip')
+  offset = $(this).offset()
+  if item?
+    x = item.datapoint[0]
+    y = item.datapoint[1]
+
+    $tooltip
+      .html("#{y} on #{new Date(x).toDateString()}")
+      .css(top: item.pageY - offset.top, left: item.pageX - offset.left + 10)
+      .fadeIn(200)
+  else
+    $tooltip.hide()
+
 Template.analyticsPage.onCreated(() ->
   appId = Session.get('appId')
   this.subscribe('analytics', appId)
@@ -53,11 +67,15 @@ Template.chartUniqueUsers.onRendered(() ->
           tickColor: '#EEEEEE'
           borderWidth: 0
           margin: 10
+          hoverable: true
+          clickable: false
 
       Tracker.afterFlush(() ->
         $chart = $('.chart-unique-users')
+        $chart.data('tooltip', $('.chart-unique-users-tooltip'))
         if data.length > 0
           $.plot($chart, [data], options)
+          $chart.on('plothover', showChartTooltip)
         else
           $chart.text('Analytics data is not available yet.')
       )
@@ -115,11 +133,15 @@ Template.chartVideoViews.onRendered(() ->
           tickColor: '#EEEEEE'
           borderWidth: 0
           margin: 10
+          hoverable: true
+          clickable: false
 
       Tracker.afterFlush(() ->
         $chart = $('.chart-video-views')
+        $chart.data('tooltip', $('.chart-video-views-tooltip'))
         if data.length > 0
           $.plot($chart, [data], options)
+          $chart.on('plothover', showChartTooltip)
         else
           $chart.text('Analytics data is not available yet.')
       )
