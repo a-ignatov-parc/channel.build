@@ -9,6 +9,7 @@ SyncedCron.add({
     return parser.text('at 00:00');
   },
   job: function () {
+    console.log('+++DEBUG+++', process.env.MONGO_URL);
     var mongodump = process.env.MONGODUMP_PATH,
         database = process.env.MONGO_DATABASE || 'meteor',
         appname = 'channel.build',
