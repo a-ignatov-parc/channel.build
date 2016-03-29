@@ -25,10 +25,12 @@ template(name="analyticsPage")
               +loadingChart
 
 template(name="chartUniqueUsers")
-  .chart-unique-users
+  .chart-unique-users.chart
+  .chart-unique-users-tooltip.chart-tooltip
 
 template(name="chartVideoViews")
-  .chart-video-views
+  .chart-video-views.chart
+  .chart-video-views-tooltip.chart-tooltip
 
 template(name="loadingChart")
   img.img-responsive.center-block(src="/img/loading.gif", alt="loading")
