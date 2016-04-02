@@ -5,11 +5,7 @@ function isUserInvited() {
 
 Router.route('/', {
   action: function () {
-    if (isUserInvited()) {
-      this.redirect('/dashboard');
-    } else {
-      this.render('home');
-    }
+    this.render('home');
   },
   waitOn: function() {
     Accounts.loginServicesConfigured();
@@ -22,7 +18,10 @@ if (Meteor.isClient) {
       Meteor.loginWithGoogle({
         requestPermissions: ['email']
       }, function (err) {
-        if (err) alert('error : ' + err.message);
+        if (err) {
+          alert('error : ' + err.message);
+          return;
+        }
       });
     }
   });
@@ -43,7 +42,12 @@ if (Meteor.isClient) {
 
   Template.mainMenu.events({
     'click div': function () {
-      Session.set('showMenu', !Session.get('showMenu'));
+      if (isUserInvited()) {
+        Router.go('/dashboard/edit');
+      }
+      else {
+        Session.set('showMenu', !Session.get('showMenu'));
+      }
     }
   });
 
