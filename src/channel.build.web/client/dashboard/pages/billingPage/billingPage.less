@@ -1,3 +1,6 @@
+@border-focus: 1px solid #66afe9;
+@border-transparent: 1px solid transparent;
+
 .top15 {
   margin-top: 15px;
 }
@@ -7,22 +10,45 @@
   padding-right: 0;
 }
 
-input[name="number"] {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.input-group.number {
+  input {
+    border-bottom: @border-transparent;
+    border-bottom-right-radius: 0;
+
+    &:focus {
+      position: relative;
+      z-index: 10;
+      border-bottom: @border-focus;
+    }
+  }
+
+  .input-group-addon {
+    border-bottom: @border-transparent;
+    border-bottom-left-radius: 0;
+  }
 }
 
-input[name="expire"] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-top: 0;
+.input-group.expire {
+  margin-right: -0.5px;
+
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .input-group-addon {
+    border-top-left-radius: 0;
+  }
 }
 
-input[name="cvc"] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top: 0;
-  border-left: 0;
+.input-group.cvc {
+  input {
+    border-top-right-radius: 0;
+  }
+
+  .input-group-addon {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
