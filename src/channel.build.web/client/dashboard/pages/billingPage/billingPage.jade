@@ -33,11 +33,14 @@ template(name="billingForm")
             span.glyphicon.glyphicon-lock
           +afFieldInput(name="cvc" type="text" placeholder="CVC")
     .row.top15
-      button.btn.btn-primary.center-block(type="submit")
+      button.btn.btn-primary.center-block(type="submit" disabled=isSubmitting)
         | Pay with Card
     .row.top15
-      .alert(class=alertClass)
-        | #{alertMessage}
+      if isSubmitting
+        img.img-responsive.center-block(src="/img/loading.gif", alt="loading")
+      else
+        .alert(class=alertClass)
+          | #{alertMessage}
 
 template(name="planOptions")
   .text-center
