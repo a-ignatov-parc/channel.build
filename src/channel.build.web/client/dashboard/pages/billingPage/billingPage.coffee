@@ -25,30 +25,37 @@ billingFormSchema = new SimpleSchema(
       type: 'payments/creditCardCVC'
 )
 
+startSubmitting = () ->
+  Session.set('billing.submit', true)
+  return
+
+endSubmitting = () ->
+  Session.set('billing.submit', false)
+  return
+
 showErrorAlert = (message) ->
   Session.set('billing.status', 'error')
   Session.set('billing.message', message)
+  return
 
 showSuccessAlert = () ->
   Session.set('billing.status', 'success')
-  Session.set('billing.message', 'Success!')
+  Session.set('billing.message', 'The payment was successful! Thanks for subscription!')
+  return
 
 hideAlert = () ->
   Session.set('billing.status', null)
   Session.set('billing.message', null)
+  return
 
 Meteor.startup(() ->
   key = Meteor.settings.public.stripePublishableKey
   Stripe.setPublishableKey(key)
-  StripeCheckout.configure(
-    key: key
-    token: (token) ->
-      console.log('token', token)
-  )
 )
 
 Template.billingForm.helpers(
   billingFormSchema: () -> billingFormSchema
+  isSubmitting: () -> !!Session.get('billing.submit')
   alertMessage: () -> Session.get('billing.message')
   alertClass: () -> switch Session.get('billing.message') && Session.get('billing.status')
                     when 'error' then 'alert-danger'
@@ -61,15 +68,36 @@ Template.billingForm.onRendered(() ->
   AutoForm.hooks(
     billingForm:
       beginSubmit: () ->
+        startSubmitting()
         hideAlert()
+        return
       onSubmit: (params) ->
-        console.log(params)
-        this.done()
-        this.event.preventDefault()
-      onSuccess: (formType, result) ->
+        done = this.done
+        [expMonth, expYear] = params.expiry.split('/')
+
+        Stripe.card.createToken(
+          number: params.number,
+          cvc: params.cvc,
+          exp_month: expMonth,
+          exp_year: expYear,
+        , (status, response) ->
+          if response.error?
+            done(response.error)
+          else
+            done(null, response.id)
+        )
+
+        return false
+      onSuccess: (formType, token) ->
+        # Meteor.call('chargeCard', token)
         showSuccessAlert()
+        return
       onError: (formType, error) ->
         showErrorAlert(error.message)
+        return
+      endSubmit: () ->
+        endSubmitting()
+        return
   )
 )
 
