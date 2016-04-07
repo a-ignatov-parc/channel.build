@@ -43,3 +43,5 @@ coffeescript
 fortawesome:fontawesome
 mquandalle:jade
 flot:flot
+mrgalaxy:stripe
+aldeed:autoform

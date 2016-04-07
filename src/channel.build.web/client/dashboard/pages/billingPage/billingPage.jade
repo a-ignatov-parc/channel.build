@@ -1,0 +1,36 @@
+template(name="billingPage")
+  #page-wrapper
+    .row
+      .col-lg-12
+        h1.page-header Billing
+    .row
+      .col-lg-4.col-lg-offset-4
+        +billingForm
+
+template(name="billingForm")
+  +autoForm(schema=billingFormSchema id="billingForm")
+    .row
+      +planOptions
+    .row.top15
+      +afFieldInput(name="email" type="email" placeholder="Email")
+    .row.top15
+      +afFieldInput(name="number" type="text" placeholder="Card number")
+    .row
+      .col-lg-6.no-pad
+        +afFieldInput(name="expire" type="text" placeholder="MM/YY")
+      .col-lg-6.no-pad
+        +afFieldInput(name="cvc" type="text" placeholder="CVC")
+    .row.top15
+      button.btn.btn-primary.center-block(type="submit")
+        | Pay with Card
+
+template(name="planOptions")
+  .text-center
+    .btn-group.plan-options(data-toggle="buttons")
+      .btn.btn-default.active
+        input(type="radio" value="basic")
+        | Basic Plan (29.99$)
+      .btn.btn-default
+        input(type="radio" value="pro")
+        | Pro Plan (99.99$)
+  +afFieldInput(name="plan" type="hidden" value="basic")
