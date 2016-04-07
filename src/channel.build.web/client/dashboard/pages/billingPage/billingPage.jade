@@ -35,6 +35,9 @@ template(name="billingForm")
     .row.top15
       button.btn.btn-primary.center-block(type="submit")
         | Pay with Card
+    .row.top15
+      .alert(class=alertClass)
+        | #{alertMessage}
 
 template(name="planOptions")
   .text-center
