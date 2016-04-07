@@ -12,14 +12,26 @@ template(name="billingForm")
     .row
       +planOptions
     .row.top15
-      +afFieldInput(name="email" type="email" placeholder="Email")
+      .input-group.email
+        .input-group-addon
+          span.glyphicon.glyphicon-envelope
+        +afFieldInput(name="email" type="email" placeholder="Email")
     .row.top15
-      +afFieldInput(name="number" type="text" placeholder="Card number")
+      .input-group.number
+        .input-group-addon
+          span.glyphicon.glyphicon-credit-card
+        +afFieldInput(name="number" type="text" placeholder="Card number")
     .row
       .col-lg-6.no-pad
-        +afFieldInput(name="expire" type="text" placeholder="MM/YY")
+        .input-group.expire
+          .input-group-addon
+            span.glyphicon.glyphicon-calendar
+          +afFieldInput(name="expire" type="text" placeholder="MM/YY")
       .col-lg-6.no-pad
-        +afFieldInput(name="cvc" type="text" placeholder="CVC")
+        .input-group.cvc
+          .input-group-addon
+            span.glyphicon.glyphicon-lock
+          +afFieldInput(name="cvc" type="text" placeholder="CVC")
     .row.top15
       button.btn.btn-primary.center-block(type="submit")
         | Pay with Card
