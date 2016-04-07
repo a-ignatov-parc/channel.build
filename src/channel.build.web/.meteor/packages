@@ -33,7 +33,6 @@ npm-container
 percolate:synced-cron
 izzilab:shelljs
 vsivsi:job-collection
-meteorhacks:cluster
 meteorhacks:kadira
 zimme:collection-timestampable
 aldeed:collection2
@@ -45,3 +44,4 @@ mquandalle:jade
 flot:flot
 mrgalaxy:stripe
 aldeed:autoform
+package-manager
