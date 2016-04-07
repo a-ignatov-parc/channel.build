@@ -1,8 +1,12 @@
 # NOTE: Use http://www.getcreditcardnumbers.com/ to generate fake credit cards.
 
 billingFormSchema = new SimpleSchema(
+  plan:
+    label: 'Subscription plan'
+    type: String
+    allowedValues: ['basic', 'pro']
   email:
-    label: 'Email address'
+    label: 'E-mail address'
     type: String
     regEx: SimpleSchema.RegEx.Email
   number:
@@ -71,29 +75,25 @@ Template.billingForm.onRendered(() ->
         startSubmitting()
         hideAlert()
         return
-      onSubmit: (params) ->
+      onSubmit: ({plan, email, number, expiry, cvc}) ->
         done = this.done
-        [expMonth, expYear] = params.expiry.split('/')
+        [exp_month, exp_year] = expiry.split('/')
 
-        Stripe.card.createToken(
-          number: params.number,
-          cvc: params.cvc,
-          exp_month: expMonth,
-          exp_year: expYear,
-        , (status, response) ->
-          if response.error?
-            done(response.error)
+        Stripe.card.createToken({number, cvc, exp_month, exp_year}, (_, {id, error}) ->
+          if error?
+            done(error)
           else
-            done(null, response.id)
+            Meteor.call('subscribeStripePlan', {plan, email, token: id}, (error) ->
+              done(error)
+            )
         )
 
         return false
-      onSuccess: (formType, token) ->
-        # Meteor.call('chargeCard', token)
+      onSuccess: (formType) ->
         showSuccessAlert()
         return
-      onError: (formType, error) ->
-        showErrorAlert(error.message)
+      onError: (formType, {message}) ->
+        showErrorAlert(message)
         return
       endSubmit: () ->
         endSubmitting()
@@ -102,7 +102,7 @@ Template.billingForm.onRendered(() ->
 )
 
 Template.billingForm.events(
-  'click .plan-options>.btn': (e) ->
-    value = $('input:radio', e.target).val()
+  'click .plan-options>.btn': ({target}) ->
+    value = $('input:radio', target).val()
     $('input:hidden').val(value)
 )
