@@ -1,5 +1,6 @@
 {
   "public": {
     "stripePublishableKey": "pk_test_qTGsTFDSHjRtOEq0439bmN0L"
-  }
+  },
+  "stripeSecretKey": "sk_test_rXA1P98olYUbyzyF45LiHC4X"
 }
