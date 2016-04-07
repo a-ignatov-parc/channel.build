@@ -11,7 +11,7 @@ billingFormSchema = new SimpleSchema(
     custom: PaymentsHelpers.CreditCardValidation
     autoform:
       type: 'payments/creditCard'
-  expire:
+  expiry:
     label: 'Expiration date'
     type: String
     custom: PaymentsHelpers.CCExpiryValidation
