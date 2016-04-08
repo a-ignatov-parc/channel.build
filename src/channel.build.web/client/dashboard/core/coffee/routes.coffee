@@ -3,6 +3,7 @@ navRoutes = [
   new NavRoute('assets', 'fa-image', { label: 'Assets', template: 'assetsPage' })
   new NavRoute('import', 'fa-download', { label: 'Import', template: 'importPage' })
   new NavRoute('content', 'fa-television', { label: 'Content', template: 'contentPage' })
+  new NavRoute('advertisements', 'fa-bullhorn', { label: 'Advertisements', template: 'advertisementsPage' })
   new NavRoute('analytics', 'fa-line-chart', { label: 'Analytics', template: 'analyticsPage' })
   new NavRoute('billing', 'fa-credit-card', { label: 'Billing', template: 'billingPage' })
 ]

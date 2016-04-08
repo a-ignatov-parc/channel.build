@@ -4,7 +4,7 @@ if (Meteor.isClient) {
 
     },
     videos: function() {
-      return Videos.find({}, {sort: {position: 1}}).fetch().map(function(e) {
+      return Videos.find({importType: this.importType}, {sort: {position: 1}}).fetch().map(function(e) {
         e.hasThumbnail = e.thumbnails && e.thumbnails.medium && e.thumbnails.medium.url ? true : false;
         return e;
       })

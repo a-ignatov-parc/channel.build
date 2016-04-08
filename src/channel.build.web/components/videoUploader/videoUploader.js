@@ -29,7 +29,7 @@ if (Meteor.isClient) {
         else {
           addVideos([
             {
-              importType: 'youtube',
+              importType: this.importType,
               importId: null,
               title: "",
               description: "",
