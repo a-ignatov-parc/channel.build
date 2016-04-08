@@ -1,0 +1,21 @@
+<template name="advertisementsPage">
+  <div id="page-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">
+          Manage Advertisements
+        </h1>
+        <p>
+          Use this page to optionally add and manage the advertisements.
+          An random advertisement from the list bellow will be played at the end of each video.
+          <form class="app-form">
+            {{>videoUploader importType="advertisement"}}
+          </form>
+          <form class="app-form advertisement-list">
+            {{>content importType="advertisement"}}
+          </form>
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
