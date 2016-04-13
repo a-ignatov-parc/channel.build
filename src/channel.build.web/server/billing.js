@@ -13,14 +13,30 @@ Meteor.methods({
     check(token, String);
 
     let createCustomer = Meteor.wrapAsync((done) => {
-      Stripe.customers.create({plan, email, source: token}, (error, customer) => {
+      console.log(`User ${email} (${Meteor.userId()}) is ordering a ${plan} subscription with token ${token}...`);
+      Stripe.customers.create({plan, email, source: token}, Meteor.bindEnvironment((error, customer) => {
         if (error) {
+          console.log(`An error occured while ordering a subscription with token ${token}: ${error.message}`);
           done(new Meteor.Error(error.type, error.message, error.detail));
         } else {
-          console.log('+++++++ STRIPE CUSTOMER +++++++', customer);
+          // Check whether it is an additional payment for subsequent month or new/renew subscription.
+          let sub = Meteor.user().subscription,
+              start = sub && sub.activeUntil ? moment(sub.activeUntil) : moment(),
+              activeUntil = start.add(1, 'months').toDate();
+
+          console.log(`A payment for subscription with token ${token} was successful! customerId: ${customer.id}, plan: ${plan}, activeUntil: ${activeUntil}`);
+
+          Meteor.users.update({ _id: Meteor.userId() }, {
+            $set: {
+              subscription: {
+                customerId: customer.id,
+                plan, activeUntil,
+              }
+            }
+          });
           done();
         }
-      });
+      }));
     });
 
     createCustomer();
