@@ -1,6 +1,17 @@
 {
   "public": {
-    "stripePublishableKey": "pk_test_qTGsTFDSHjRtOEq0439bmN0L"
+    "stripePublishableKey": "pk_test_qTGsTFDSHjRtOEq0439bmN0L",
+    "plans": [{
+      "name": "basic",
+      "title": "Basic Plan (29.99$)",
+      "interval": "month"
+    }, {
+      "name": "pro",
+      "title": "Pro Plan (99.99$)",
+      "interval": "month"
+    }]
   },
-  "stripeSecretKey": "sk_test_rXA1P98olYUbyzyF45LiHC4X"
+  "private": {
+    "stripeSecretKey": "sk_test_rXA1P98olYUbyzyF45LiHC4X"
+  }
 }

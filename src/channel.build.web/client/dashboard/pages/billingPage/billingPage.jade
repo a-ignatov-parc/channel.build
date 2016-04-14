@@ -40,15 +40,13 @@ template(name="billingForm")
         img.img-responsive.center-block(src="/img/loading.gif", alt="loading")
       else
         .alert(class=alertClass)
-          | #{alertMessage}
+          = alertMessage
 
 template(name="planOptions")
   .text-center
     .btn-group.plan-options(data-toggle="buttons")
-      .btn.btn-default.active
-        input(type="radio" value="basic")
-        | Basic Plan (29.99$)
-      .btn.btn-default
-        input(type="radio" value="pro")
-        | Pro Plan (99.99$)
-  +afFieldInput(name="plan" type="hidden" value="basic")
+      each p in plans
+        .btn.btn-default
+          input(type="radio" value=p.name)
+          = p.title
+  +afFieldInput(name="plan" type="hidden" value=firstPlan.name)
