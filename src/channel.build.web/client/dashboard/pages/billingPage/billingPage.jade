@@ -5,7 +5,13 @@ template(name="billingPage")
         h1.page-header Billing
     .row
       .col-lg-4.col-lg-offset-4
-        +billingForm
+        if Template.subscriptionsReady
+          if isSubscriptionActive
+            +billingDetails
+          else
+            +billingForm
+        else
+          +loadingBilling
 
 template(name="billingForm")
   +autoForm(schema=billingFormSchema id="billingForm")
@@ -33,11 +39,10 @@ template(name="billingForm")
             span.glyphicon.glyphicon-lock
           +afFieldInput(name="cvc" type="text" placeholder="CVC")
     .row.top15
-      button.btn.btn-primary.center-block(type="submit" disabled=isSubmitting)
-        | Pay with Card
+      button.btn.btn-primary.center-block(type="submit" disabled=isSubmitting) Pay with Card
     .row.top15
       if isSubmitting
-        img.img-responsive.center-block(src="/img/loading.gif", alt="loading")
+        +loadingBilling
       else
         .alert(class=alertClass)
           = alertMessage
@@ -50,3 +55,10 @@ template(name="planOptions")
           input(type="radio" value=p.name)
           = p.title
   +afFieldInput(name="plan" type="hidden" value=firstPlan.name)
+
+template(name="billingDetails")
+  p You are currently subscribed for <strong>#{plan}</strong> plan until <strong>#{activeUntil}</strong>. You will be charged for another month of subscription after this date.
+  button.btn.btn-primary.center-block(type="submit") Cancel Subscription
+
+template(name="loadingBilling")
+  img.img-responsive.center-block(src="/img/loading.gif", alt="loading")

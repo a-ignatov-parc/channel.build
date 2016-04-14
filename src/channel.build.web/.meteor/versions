@@ -81,6 +81,7 @@ meteorhacks:kadira@2.28.5
 meteorhacks:meteorx@1.4.1
 meteorhacks:npm@1.5.0
 meteorhacks:picker@1.0.3
+meteortoys:toykit@2.2.1
 minifiers@1.1.7
 minimongo@1.0.10
 mizzao:bootstrap-3@3.3.1_1
@@ -94,6 +95,7 @@ mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
 mrgalaxy:stripe@2.2.2
 mrt:later@1.6.1
+msavin:mongol@1.6.2
 npm-bcrypt@0.7.8_2
 npm-container@1.2.0
 npm-mongo@1.4.39_1

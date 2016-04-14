@@ -57,6 +57,14 @@ Meteor.startup(() ->
   Stripe.setPublishableKey(key)
 )
 
+###
+Helpers
+###
+
+Template.billingPage.helpers(
+  isSubscriptionActive: () -> moment() < moment(Meteor.user().subscription?.activeUntil)
+)
+
 Template.billingForm.helpers(
   billingFormSchema: () -> billingFormSchema
   isSubmitting: () -> !!Session.get('billing.submit')
@@ -65,6 +73,24 @@ Template.billingForm.helpers(
                     when 'error' then 'alert-danger'
                     when 'success' then 'alert-success'
                     else 'hidden'
+)
+
+Template.planOptions.helpers(
+  firstPlan: () -> Meteor.settings.public.plans[0]
+  plans: () -> Meteor.settings.public.plans
+)
+
+Template.billingDetails.helpers(
+  plan: () -> Meteor.user().subscription?.plan
+  activeUntil: () -> Meteor.user().subscription?.activeUntil.toDateString()
+)
+
+###
+Handlers
+###
+
+Template.billingPage.onCreated(() ->
+  this.subscribe('userData');
 )
 
 Template.billingForm.onRendered(() ->
@@ -105,13 +131,12 @@ Template.planOptions.onRendered(() ->
   $('.plan-options>.btn').first().addClass('active')
 )
 
+###
+Events
+###
+
 Template.planOptions.events(
   'click .plan-options>.btn': ({target}) ->
     value = $('input:radio', target).val()
     $('input:hidden').val(value)
-)
-
-Template.planOptions.helpers(
-  firstPlan: () -> Meteor.settings.public.plans[0]
-  plans: () -> Meteor.settings.public.plans
 )
