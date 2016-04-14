@@ -1,5 +1,7 @@
-const key = Meteor.settings.stripeSecretKey,
+const key = Meteor.settings.private.stripeSecretKey,
       Stripe = StripeAPI(key);
+
+Match.Plans = Match.OneOf(...Meteor.settings.public.plans.map((p) => p.name));
 
 Match.Email = Match.Where((value) => {
   check(value, String);
@@ -8,7 +10,7 @@ Match.Email = Match.Where((value) => {
 
 Meteor.methods({
   subscribeStripePlan({plan, email, token}) {
-    check(plan, Match.OneOf('basic', 'pro'));
+    check(plan, Match.Plans);
     check(email, Match.Email);
     check(token, String);
 

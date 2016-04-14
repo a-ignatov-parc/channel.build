@@ -101,8 +101,17 @@ Template.billingForm.onRendered(() ->
   )
 )
 
-Template.billingForm.events(
+Template.planOptions.onRendered(() ->
+  $('.plan-options>.btn').first().addClass('active')
+)
+
+Template.planOptions.events(
   'click .plan-options>.btn': ({target}) ->
     value = $('input:radio', target).val()
     $('input:hidden').val(value)
+)
+
+Template.planOptions.helpers(
+  firstPlan: () -> Meteor.settings.public.plans[0]
+  plans: () -> Meteor.settings.public.plans
 )
