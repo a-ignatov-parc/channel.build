@@ -57,8 +57,12 @@ template(name="planOptions")
   +afFieldInput(name="plan" type="hidden" value=firstPlan.name)
 
 template(name="billingDetails")
-  p You are currently subscribed for <strong>#{plan}</strong> plan until <strong>#{activeUntil}</strong>. You will be charged for another month of subscription after this date.
-  button.btn.btn-primary.center-block(type="submit") Cancel Subscription
+  .row
+    p You are currently subscribed for <strong>#{plan}</strong> plan until <strong>#{activeUntil}</strong>. You will be charged for another month of subscription after this date.
+    button.btn.btn-primary.center-block.cancel Cancel Subscription
+  .row.top15
+    if isSubmitting
+      +loadingBilling
 
 template(name="loadingBilling")
   img.img-responsive.center-block(src="/img/loading.gif", alt="loading")

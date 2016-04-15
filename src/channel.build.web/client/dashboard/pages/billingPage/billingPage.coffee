@@ -62,7 +62,11 @@ Helpers
 ###
 
 Template.billingPage.helpers(
-  isSubscriptionActive: () -> moment() < moment(Meteor.user().subscription?.activeUntil)
+  isSubscriptionActive: () ->
+    subscription = Meteor.user().subscription
+    status = subscription?.status
+    activeUntil = subscription?.activeUntil
+    return (status == 'active' || status == 'trialing') && moment() < moment(activeUntil || null)
 )
 
 Template.billingForm.helpers(
@@ -81,6 +85,7 @@ Template.planOptions.helpers(
 )
 
 Template.billingDetails.helpers(
+  isSubmitting: () -> !!Session.get('billing.submit')
   plan: () -> Meteor.user().subscription?.plan
   activeUntil: () -> Meteor.user().subscription?.activeUntil.toDateString()
 )
@@ -95,6 +100,10 @@ Template.billingPage.onCreated(() ->
 
 Template.billingForm.onRendered(() ->
   template = Template.instance()
+
+  endSubmitting()
+  hideAlert()
+
   AutoForm.hooks(
     billingForm:
       beginSubmit: () ->
@@ -131,6 +140,11 @@ Template.planOptions.onRendered(() ->
   $('.plan-options>.btn').first().addClass('active')
 )
 
+Template.billingDetails.onRendered(() ->
+  endSubmitting()
+  hideAlert()
+)
+
 ###
 Events
 ###
@@ -139,4 +153,16 @@ Template.planOptions.events(
   'click .plan-options>.btn': ({target}) ->
     value = $('input:radio', target).val()
     $('input:hidden').val(value)
+)
+
+Template.billingDetails.events(
+  'click .btn.cancel': ({target}) ->
+    startSubmitting()
+    $(target).prop('disabled', true)
+    Meteor.call('cancelStripePlan', (error) ->
+      endSubmitting()
+      $(target).prop('disabled', false)
+      if error?
+        console.log("An error occured while trying to cancel the subscription: #{error.message}")
+    )
 )
