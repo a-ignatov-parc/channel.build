@@ -40,8 +40,26 @@ function createStripeSubscription({customerId, plan}) {
   return createSubscription.wait();
 }
 
+function cancelStripeSubscription({customerId, subscriptionId}) {
+  let cancelSubscription = new Future();
+
+  Stripe.customers.cancelSubscription(customerId, subscriptionId, (error, subscription) => {
+    if (error) {
+      console.log(`An error occured while canceling a Stripe subscription ${subscriptionId} for customer ${customerId}: ${error.message}`);
+      cancelSubscription.throw(error);
+    } else {
+      cancelSubscription.return(subscription);
+    }
+  });
+
+  return cancelSubscription.wait();
+}
+
 function updateUserSubscription({userId, subscription}) {
   let updateUser = new Future();
+
+  let activeUntilTime = subscription.status === 'canceled' ? subscription.canceled_at :
+                                                             subscription.current_period_end;
 
   Meteor.users.update(userId ? { _id: userId } : { customerId: subscription.customer }, {
     $set: {
@@ -50,7 +68,7 @@ function updateUserSubscription({userId, subscription}) {
         id: subscription.id,
         plan: subscription.plan.id,
         status: subscription.status,
-        activeUntil: moment(subscription.current_period_end * 1000).toDate(),
+        activeUntil: moment(activeUntilTime * 1000).toDate(),
       }
     }
   }, (error, response) => {
@@ -92,7 +110,9 @@ Meteor.methods({
 
     try {
       let customerId = user.customerId,
-          isActive = user.subscription && moment() < moment(user.subscription.activeUntil);
+          status = user.subscription && user.subscription.status,
+          activeUntil = user.subscription && user.subscription.activeUntil,
+          isActive = (status === 'active' || status === 'trialing') && moment() < moment(activeUntil || null);
 
       // If Stripe customer doesn't exist, create the new customer.
       if (!customerId) {
@@ -115,6 +135,25 @@ Meteor.methods({
       throw new Meteor.Error(error.type || 'InternalError', error.message, error.detail);
     }
   },
+  cancelStripePlan() {
+    let user = Meteor.user(),
+        userId = Meteor.userId(),
+        customerId = user.customerId,
+        subscriptionId = user.subscription && user.subscription.id;
+
+    console.log(`User ${userId} is canceling her subscription...`);
+
+    if (customerId && subscriptionId) {
+      try {
+        let subscription = cancelStripeSubscription({customerId, subscriptionId});
+        updateUserSubscription({subscription});
+      } catch (error) {
+        throw new Meteor.Error(error.type || 'InternalError', error.message, error.detail);
+      }
+    } else {
+      console.log(`User ${userId} has no subscription. Skipping...`);
+    }
+  },
 });
 
 Router.route('/stripe/webhook', { where: 'server' })
@@ -128,6 +167,7 @@ Router.route('/stripe/webhook', { where: 'server' })
         switch (event.type) {
           case 'customer.subscription.created':
           case 'customer.subscription.updated':
+          case 'customer.subscription.deleted':
             console.log(`Verifying and processing Stripe event with ID ${event.id} of type ${event.type}...`);
             event = verifyStripeEvent(event.id);
             let subscription = event.data.object;
