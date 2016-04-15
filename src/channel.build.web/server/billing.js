@@ -156,7 +156,7 @@ Meteor.methods({
   },
 });
 
-Router.route('/stripe/webhook', { where: 'server' })
+Router.route('/webhooks/stripe', { where: 'server' })
   .post(function () {
     let self = this,
         event = self.request.body;
