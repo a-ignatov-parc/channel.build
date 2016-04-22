@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TVApplicationControllerDe
     appControllerContext.launchOptions["channelId"] = Config.channelID
     appControllerContext.launchOptions["deviceId"] = UIDevice.currentDevice().identifierForVendor!.UUIDString
     
+    // Initialize native modules for the app controller context.
+    appControllerContext.launchOptions["Purchases"] = PurchasesAPI.instance()
+    
     // Create an app controller.
     appController = TVApplicationController(context: appControllerContext, window: window, delegate: self)
     
