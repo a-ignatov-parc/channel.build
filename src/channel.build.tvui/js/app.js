@@ -8,7 +8,7 @@ import ChannelApi from './channel-api';
 import DataController from './data-controller';
 import Presenter from './presenter';
 
-App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId}) => {
+App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId, Purchases}) => {
   const resourceLoaderNetworkController = new NetworkController(tvjsClientUrl);
   const channelApiNetworkController = new NetworkController(webApiUrl);
   const resourceLoader = new ResourceLoader(resourceLoaderNetworkController);
@@ -22,4 +22,8 @@ App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId}) => {
   });
 
   presenter.presentRoot(Settings.rootTemplate);
+
+  // Purchases.purchaseProductCallback('com.caffeinelabs.channel.video_youtube_I6qoDJQ5Uz4', (res, error) => {
+  //   console.log('It works!!!', res, error);
+  // });
 };
