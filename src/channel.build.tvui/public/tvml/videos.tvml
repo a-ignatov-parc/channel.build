@@ -2,11 +2,33 @@
 <document>
   <head>
     <style>
-      .imageWithGradient {
-        tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,64,0,0.7), rgba(0,64,0,1.0));
+      .top150 {
+        margin: 150 0 0 0;
       }
-      .showTextOnHighlight {
+      .gradient {
+        tv-tint-color: linear-gradient(top, 0, rgba(0,0,0,0.9), rgba(0,0,0,0.6), 0.2, transparent, 0.8, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      }
+      .highlight {
         tv-text-highlight-style: show-on-highlight;
+      }
+      .position-header {
+        tv-position: header;
+      }
+      .position-footer {
+        tv-position: footer;
+      }
+      .align-right {
+        tv-align: right;
+      }
+      .paid-badge-large {
+        width: 128;
+        height: 128;
+        margin: -30 -60 0 0;
+      }
+      .paid-badge-small {
+        width: 64;
+        height: 64;
+        margin: -25 -20 0 0;
       }
     </style>
   </head>
@@ -14,15 +36,18 @@
   <stackTemplate>
     <!-- Featured content. -->
     <collectionList>
-      <carousel>
+      <carousel class="top150">
         <section>
           {{#.}}
             {{#thumbnails.maxres}}
             <lockup data='{"id": "{{_id}}", "title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
                     present-method="presentVideo">
-              <img src="{{url}}" width="{{width}}" height="{{height}}" />
+              <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
               <overlay>
-                <title>{{title}}</title>
+                {{#paid}}
+                <badge src="resource://paid" class="paid-badge-large position-header align-right"/>
+                {{/paid}}
+                <title class="position-footer">{{title}}</title>
               </overlay>
             </lockup>
             {{/thumbnails.maxres}}
@@ -40,8 +65,13 @@
             {{#thumbnails.high}}
             <lockup data='{"id": "{{_id}}", "title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
                     present-method="presentVideo">
-              <img src="{{url}}" width="{{width}}" height="{{height}}" />
-              <title class="showTextOnHighlight">{{title}}</title>
+              <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
+              <overlay>
+                {{#paid}}
+                <badge src="resource://paid" class="paid-badge-small position-header align-right"/>
+                {{/paid}}
+              </overlay>
+              <title class="highlight">{{title}}</title>
             </lockup>
             {{/thumbnails.high}}
           {{/.}}

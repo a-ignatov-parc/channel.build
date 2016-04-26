@@ -1,7 +1,12 @@
 {{#thumbnails.high}}
 <lockup data='{"id": "{{_id}}", "title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
         present-method="presentVideo">
-  <img src="{{url}}" width="{{width}}" height="{{height}}" />
-  <title class="showTextOnHighlight">{{title}}</title>
+  <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
+  <overlay>
+    {{#paid}}
+    <badge src="resource://paid" class="paid-badge-small position-header align-right"/>
+    {{/paid}}
+  </overlay>
+  <title class="highlight">{{title}}</title>
 </lockup>
 {{/thumbnails.high}}
