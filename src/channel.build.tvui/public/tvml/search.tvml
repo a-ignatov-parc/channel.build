@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
+  <head>
+    <!-- TODO: Avoid duplication of styles. -->
+    <style>
+      .top150 {
+        margin: 150 0 0 0;
+      }
+      .gradient {
+        tv-tint-color: linear-gradient(top, 0, rgba(0,0,0,0.9), rgba(0,0,0,0.6), 0.2, transparent, 0.8, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      }
+      .highlight {
+        tv-text-highlight-style: show-on-highlight;
+      }
+      .position-header {
+        tv-position: header;
+      }
+      .position-footer {
+        tv-position: footer;
+      }
+      .align-right {
+        tv-align: right;
+      }
+      .paid-badge-large {
+        width: 128;
+        height: 128;
+        margin: -30 -60 0 0;
+      }
+      .paid-badge-small {
+        width: 64;
+        height: 64;
+        margin: -25 -20 0 0;
+      }
+    </style>
+  </head>
+
   <searchTemplate>
     <searchField result-partial="_search-result.tvml"></searchField>
     <collectionList>
