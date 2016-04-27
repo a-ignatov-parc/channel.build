@@ -22,6 +22,20 @@ class DataController {
     query = query.toLowerCase();
     return videos.filter((video) => fuzzysearch(query, video.title.toLowerCase()));
   }
+
+  getVideos() {
+    return new Promise((resolve, reject) => {
+      this.channelApi.getVideos().then((videos) => {
+        resolve(videos.map((video) => {
+          // TODO: Make Purchases native calls here...
+          video.isPurchased = true;
+          video.isPurchasable = video.isPaid && !video.isPurchased;
+          video.price = '1.99$';
+          return video;
+        }));
+      });
+    });
+  }
 }
 
 module.exports = DataController;
