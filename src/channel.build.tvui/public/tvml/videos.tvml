@@ -44,9 +44,9 @@
                     present-method="presentVideo">
               <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
               <overlay>
-                {{#paid}}
+                {{#isPurchasable}}
                 <badge src="resource://paid" class="paid-badge-large position-header align-right"/>
-                {{/paid}}
+                {{/isPurchasable}}
                 <title class="position-footer">{{title}}</title>
               </overlay>
             </lockup>
@@ -67,9 +67,9 @@
                     present-method="presentVideo">
               <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
               <overlay>
-                {{#paid}}
+                {{#isPurchasable}}
                 <badge src="resource://paid" class="paid-badge-small position-header align-right"/>
-                {{/paid}}
+                {{/isPurchasable}}
               </overlay>
               <title class="highlight">{{title}}</title>
             </lockup>
