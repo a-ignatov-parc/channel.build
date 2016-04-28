@@ -28,7 +28,7 @@ class DataController {
       this.channelApi.getVideos().then((videos) => {
         resolve(videos.map((video) => {
           const productId = video.productId;
-          video.isPurchased = video.isPaid ? Purchases.isProductPurchased(productId) : false;
+          video.isPurchased = false;//video.isPaid ? Purchases.isProductPurchased(productId) : false;
           video.isPurchasable = video.isPaid && !video.isPurchased;
           video.price = Purchases.getLocalizedPrice(productId);
           return video;

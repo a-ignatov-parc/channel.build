@@ -8,14 +8,16 @@
           {{description}}
         </description>
         <row>
-          <buttonLockup type="play">
+          <buttonLockup type="play" data="{{{json}}}" present-method="presentPlay">
             <badge src="resource://button-play" />
             <title>Play</title>
           </buttonLockup>
+          {{^isPurchased}}
           <buttonLockup type="buy">
             <text>{{price}}</text>
             <title>Buy</title>
           </buttonLockup>
+          {{/isPurchased}}
         </row>
       </stack>
       {{#thumbnails.high}}

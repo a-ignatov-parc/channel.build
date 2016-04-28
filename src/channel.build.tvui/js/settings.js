@@ -4,7 +4,7 @@
 
 const Settings = {
   rootTemplate: 'root.tvml',
-  tvmlPath: 'tvml/'
+  tvmlPath: 'tvml/',
 };
 
 module.exports = Settings;

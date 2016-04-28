@@ -2,6 +2,15 @@
  * A set of helper methods.
  */
 
+const ESCAPE_MAP = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': '&quot;',
+  "'": '&#39;',
+  "/": '&#x2F;'
+};
+
 const Utility = {
   /**
    * Checks whether a string is a valid URL.
@@ -17,7 +26,19 @@ const Utility = {
     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
     return pattern.test(str);
-  }
+  },
+
+  /**
+   * Escapes a string for HTML.
+   * NOTE: http://stackoverflow.com/a/12034334/1211780
+   * @param  {string} str String to escape.
+   * @return {string}     Escaped string.
+   */
+  escapeHtml(str) {
+    return String(str).replace(/[&<>"'\/]/g, (s) => {
+      return ESCAPE_MAP[s];
+    });
+  },
 };
 
 module.exports = Utility;
