@@ -12,8 +12,9 @@ import JavaScriptCore
 
 @objc protocol PurchasesAPIExport: JSExport {
   static func instance() -> PurchasesAPIExport
-  func purchaseProduct(productId: String, callback: JSValue?)
-  func isProductPurchased(productId: String) -> Bool
+  @objc(purchaseProduct::) func purchaseProduct(productId: String, jsCallback: JSValue?)
+  @objc(isProductPurchased:) func isProductPurchased(productId: String) -> Bool
+  @objc(getLocalizedPrice:) func getLocalizedPrice(productId: String) -> String
 }
 
 @objc class PurchasesAPI: NSObject, PurchasesAPIExport {
@@ -32,22 +33,36 @@ import JavaScriptCore
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
   }
   
-  func purchaseProduct(productId: String, callback: JSValue?) {
+  /*
+  / Public API.
+  */
+  
+  @objc(purchaseProduct::) func purchaseProduct(productId: String, jsCallback: JSValue?) {
     print("Purchasing product with ID \(productId)...")
     
     self.getProducts([productId], completion: { products, error in
       guard let product = products?.first else {
         print("Purchase error: \(error)")
+        self.resetRequest(errorMessage: error?.localizedDescription)
         return
       }
       
       self.queuePayment(product)
-    }, jsCallback: callback)
+    }, jsCallback: jsCallback)
   }
   
-  func isProductPurchased(productId: String) -> Bool {
+  @objc(isProductPurchased:) func isProductPurchased(productId: String) -> Bool {
     return NSUserDefaults.standardUserDefaults().boolForKey(productId)
   }
+  
+  @objc(getLocalizedPrice:) func getLocalizedPrice(productId: String) -> String {
+    // TODO: Implement showing localized price string.
+    return "1.99$"
+  }
+  
+  /*
+   / Private helper methods.
+   */
   
   private func getProducts(productIds: [String], completion: ([SKProduct]?, NSError?) -> Void, jsCallback: JSValue?) {
     guard self.request == nil else { return }
@@ -68,28 +83,31 @@ import JavaScriptCore
     SKPaymentQueue.defaultQueue().addPayment(payment)
   }
   
-  // TODO: The alert message is empty...
-  //       JS callback doesn't work...
   private func onProductPurchaseSuccess(productId: String) {
     print("Purchase of product with ID \(productId) was successful!")
     
     NSUserDefaults.standardUserDefaults().setBool(true, forKey: productId)
-    NSNotificationCenter.defaultCenter().postNotificationName("Thanks for purchasing!", object: nil)
-    self.jsCallback?.callWithArguments([productId, NSNull()])
-    self.resetRequest()
+    
+    self.resetRequest(productId)
   }
   
-  private func onProductPurchaseFailure(error: String) {
+  private func onProductPurchaseFailure(errorMessage: String? = nil) {
     print("Purchase failed!")
     
-    self.jsCallback?.callWithArguments([NSNull(), error])
-    self.resetRequest()
+    self.resetRequest(errorMessage: errorMessage)
   }
   
-  private func resetRequest() {
+  private func resetRequest(result: AnyObject = NSNull(), errorMessage: String? = nil) {
+    self.callJsCallback(result, errorMessage: errorMessage)
+    
     self.request = nil
     self.completion = nil
     self.jsCallback = nil
+  }
+  
+  private func callJsCallback(result: AnyObject = NSNull(), errorMessage: String? = nil) {
+    let error = errorMessage != nil ? ["message": errorMessage] as! AnyObject : NSNull()
+    self.jsCallback?.callWithArguments([result, error])
   }
 }
 
@@ -109,13 +127,10 @@ extension PurchasesAPI: SKProductsRequestDelegate {
   // Called if the request failed to execute.
   func request(request: SKRequest, didFailWithError error: NSError) {
     self.completion?(nil, error)
-    self.jsCallback?.callWithArguments([NSNull(), error.description])
-    self.resetRequest()
   }
   
   // Called when the request has completed.
   func requestDidFinish(request: SKRequest) {
-    self.resetRequest()
   }
 }
 
@@ -124,13 +139,15 @@ extension PurchasesAPI: SKPaymentTransactionObserver {
   func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     for transaction in transactions {
       switch transaction.transactionState {
+      case .Purchasing:
+        break;
       case .Purchased:
         self.completeTransaction(transaction)
       case .Failed:
         self.failTransaction(transaction)
       case .Restored:
         self.restoreTransaction(transaction)
-      default:
+      case .Deferred:
         break;
       }
     }
@@ -147,9 +164,9 @@ extension PurchasesAPI: SKPaymentTransactionObserver {
     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
     
     if transaction.error!.code != SKErrorCode.PaymentCancelled.rawValue {
-      let error = "Purchase error: (transaction \(transaction.transactionIdentifier)) \(transaction.error!.description)"
-      print(error)
-      self.onProductPurchaseFailure(error)
+      let errorMessage = "Purchase error: (transaction \(transaction.transactionIdentifier)) \(transaction.error!.description)"
+      print(errorMessage)
+      self.onProductPurchaseFailure(errorMessage)
     }
   }
   
@@ -157,9 +174,9 @@ extension PurchasesAPI: SKPaymentTransactionObserver {
     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
     
     guard let original = transaction.originalTransaction else {
-      let error = "Purchase error: unable to restore transaction \(transaction.transactionIdentifier)"
-      print(error)
-      self.onProductPurchaseFailure(error)
+      let errorMessage = "Purchase error: unable to restore transaction \(transaction.transactionIdentifier)"
+      print(errorMessage)
+      self.onProductPurchaseFailure(errorMessage)
       return
     }
     

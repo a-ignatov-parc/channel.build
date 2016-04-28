@@ -27,10 +27,10 @@ class DataController {
     return new Promise((resolve, reject) => {
       this.channelApi.getVideos().then((videos) => {
         resolve(videos.map((video) => {
-          // TODO: Make Purchases native calls here...
-          video.isPurchased = true;
+          const productId = video.productId;
+          video.isPurchased = video.isPaid ? Purchases.isProductPurchased(productId) : false;
           video.isPurchasable = video.isPaid && !video.isPurchased;
-          video.price = '1.99$';
+          video.price = Purchases.getLocalizedPrice(productId);
           return video;
         }));
       });
