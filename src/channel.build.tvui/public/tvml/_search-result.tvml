@@ -1,6 +1,6 @@
 {{#thumbnails.high}}
-<lockup data='{"id": "{{_id}}", "title": "{{title}}", "description": "{{description}}", "url": "{{video}}"}'
-        present-method="presentVideo">
+<lockup data="{{{json}}}" present-method="presentVideo"
+        purchase-template="purchase.tvml">
   <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
   <overlay>
     {{#isPurchasable}}

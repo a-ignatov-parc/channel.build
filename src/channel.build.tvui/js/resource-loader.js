@@ -2,7 +2,7 @@
  * Exposes API to load app's resources.
  */
 
-import Mustache from 'mustache';
+import Mustache from './xmustache';
 import Settings from './settings';
 
 class ResourceLoader {

@@ -7,13 +7,17 @@ class Presenter {
     this.resourceLoader = resourceLoader;
     this.dataController = dataController;
     this.onSelect = this.onSelect.bind(this);
+    this.onVideoSearch = this.onVideoSearch.bind(this);
+    this.attachDefaultBehaviour = this.attachDefaultBehaviour.bind(this);
   }
 
   presentRoot(name) {
-    return this.resourceLoader.getTvml(name).then((doc) => {
-      doc.addEventListener('select', this.onSelect);
-      navigationDocument.pushDocument(doc);
-    });
+    return this.resourceLoader.getTvml(name).then(this.attachDefaultBehaviour);
+  }
+
+  attachDefaultBehaviour(doc) {
+    doc.addEventListener('select', this.onSelect);
+    this.presentDoc(doc);
   }
 
   onSelect(event) {
@@ -32,14 +36,14 @@ class Presenter {
                              .map((handler) => this[handler] ? this[handler].bind(this) : null)
                              .filter((handler) => handler !== null);
 
-    console.log(`Selecting ${target} with template="${template}", data="${data}",
-                 data-method="${dataMethod}, data-args="${dataArgs}", present-method="${presentMethod}"...`);
+    console.log(`Selecting ${target.tagName} with template="${template}", data=${data}",
+                 data-method="${dataMethod}", data-args="${dataArgs}", present-method="${presentMethod}"...`);
 
     if (this[presentMethod]) {
       const present = this[presentMethod].bind(this);
-      console.log(`Requesting data for ${target}...`);
+      console.log(`Requesting data for ${target.tagName}...`);
       dataPromise.then((data) => {
-        console.log(`Received data for ${target}: ${data}`);
+        console.log(`Received data for ${target.tagName}:`, data);
         // Store target to access it in present methods.
         data.target = target;
 
@@ -80,17 +84,11 @@ class Presenter {
     });
   }
 
-  presentDoc({doc, data}) {
+  presentDoc(doc) {
     navigationDocument.pushDocument(doc);
   }
 
-  /**
-   * Presents template as a modal dialog.
-   * @param  {string}  name Name of TVML file with the template.
-   * @param  {object}  data Data for the template.
-   * @return {promise}      Promise with empty result.
-   */
-  presentModal({doc, data}) {
+  presentModal(doc) {
     navigationDocument.presentModal(doc);
   }
 
@@ -104,8 +102,16 @@ class Presenter {
   }
 
   presentVideo({data}) {
+    if (data.isPurchasable) {
+      this.presentPurchase({data});
+    } else {
+      this.presentPlay({data});
+    }
+  }
+
+  presentPlay({data}) {
     let player = new Player(),
-        video = new MediaItem('video', data.url);
+        video = new MediaItem('video', data.video);
 
     video.title = data.title;
     video.description = data.description;
@@ -118,8 +124,13 @@ class Presenter {
     // Register video playback for analytics.
     this.dataController.channelApi.postAnalytics({
       operation: 'play',
-      target: data.id
+      target: data._id
     });
+  }
+
+  presentPurchase({data}) {
+    const template = data.target.getAttribute('purchase-template');
+    this.resourceLoader.getTvml(template, data).then(this.attachDefaultBehaviour);
   }
 
   setSelectEventHandler({doc}) {

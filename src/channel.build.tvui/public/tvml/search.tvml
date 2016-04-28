@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
   <head>
-    <!-- TODO: Avoid duplication of styles. -->
     <style>
       .gradient {
         tv-tint-color: linear-gradient(top, 0, rgba(0,0,0,0.9), rgba(0,0,0,0.6), 0.2, transparent, 0.8, rgba(0,0,0,0.6), rgba(0,0,0,0.9));

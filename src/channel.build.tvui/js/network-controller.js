@@ -19,6 +19,16 @@ class NetworkController {
   }
 
   /**
+   * Parses JSON as native JSON.parse, but handles empty string.
+   * @param  {string} str JSON string.
+   * @return {object}     Corresponding object.
+   */
+  parseJson(str) {
+    str = String(str);
+    return str === "" ? {} : JSON.parse(str);
+  }
+
+  /**
    * Main method to make AJAX request.
    * @param  {string}  method The HTTP method to use, such as "GET", "POST", "PUT", "DELETE", etc.
    * @param  {string}  url    URL or path of URL to send the request to.
@@ -27,14 +37,14 @@ class NetworkController {
    */
   ajax(method, url, data) {
     url = Utility.isUrl(url) ? url : this.pathToUrl(url);
-    console.log(`Sending ${method} ${url} request with data: ${data}...`);
+    console.log(`Sending ${method} ${url} request with data:`, data);
 
     return new Promise((resolve, reject) => {
       let req = new XMLHttpRequest();
       req.open(method, url);
 
       req.onload = () => {
-        console.log(`Received response for ${method} ${url} with status ${req.status} (${req.statusText}): ${req.response}`);
+        console.log(`Received response for ${method} ${url} with status ${req.status} (${req.statusText}):`, req.response);
         if (req.status === 200) {
           resolve(req.response);
         } else {
@@ -76,7 +86,7 @@ class NetworkController {
    * @return {promise}     The result of promise contains response as JSON or an error.
    */
   getJson(path) {
-    return this.get(path).then(JSON.parse);
+    return this.get(path).then(this.parseJson);
   }
 
   /**
@@ -87,7 +97,7 @@ class NetworkController {
    */
   postJson(path, data) {
     const json = JSON.stringify(data);
-    return this.post(path, json).then(JSON.parse);
+    return this.post(path, json).then(this.parseJson);
   }
 }
 
