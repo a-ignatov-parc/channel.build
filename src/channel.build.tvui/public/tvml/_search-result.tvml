@@ -4,7 +4,7 @@
   <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
   <overlay>
     {{#isPurchasable}}
-    <badge src="resource://paid" class="paid-badge-small position-header align-right"/>
+    <badge src="resource://paid" class="paid-badge-small"/>
     {{/isPurchasable}}
   </overlay>
   <title class="highlight">{{title}}</title>

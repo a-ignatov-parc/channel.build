@@ -2,7 +2,7 @@
 <document>
   <head>
     <style>
-      .top150 {
+      .featured-videos {
         margin: 150 0 0 0;
       }
       .gradient {
@@ -11,21 +11,19 @@
       .highlight {
         tv-text-highlight-style: show-on-highlight;
       }
-      .position-header {
-        tv-position: header;
-      }
-      .position-footer {
+      .video-title: {
         tv-position: footer;
       }
-      .align-right {
-        tv-align: right;
-      }
       .paid-badge-large {
+        tv-position: header;
+        tv-align: right;
         width: 128;
         height: 128;
         margin: -30 -60 0 0;
       }
       .paid-badge-small {
+        tv-position: header;
+        tv-align: right;
         width: 64;
         height: 64;
         margin: -25 -20 0 0;
@@ -36,7 +34,7 @@
   <stackTemplate>
     <!-- Featured content. -->
     <collectionList>
-      <carousel class="top150">
+      <carousel class="featured-videos">
         <section>
           {{#.}}
             {{#thumbnails.maxres}}
@@ -45,9 +43,9 @@
               <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
               <overlay>
                 {{#isPurchasable}}
-                <badge src="resource://paid" class="paid-badge-large position-header align-right"/>
+                <badge src="resource://paid" class="paid-badge-large"/>
                 {{/isPurchasable}}
-                <title class="position-footer">{{title}}</title>
+                <title class="video-title">{{title}}</title>
               </overlay>
             </lockup>
             {{/thumbnails.maxres}}
@@ -68,7 +66,7 @@
               <img src="{{url}}" width="{{width}}" height="{{height}}" class="gradient"/>
               <overlay>
                 {{#isPurchasable}}
-                <badge src="resource://paid" class="paid-badge-small position-header align-right"/>
+                <badge src="resource://paid" class="paid-badge-small"/>
                 {{/isPurchasable}}
               </overlay>
               <title class="highlight">{{title}}</title>
