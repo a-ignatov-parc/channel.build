@@ -2,26 +2,39 @@
 <document>
   <productTemplate>
     <banner>
+      <infoList>
+        <info>
+          <header>
+            <title>Author</title>
+          </header>
+          <text>{{author}}</text>
+        </info>
+      </infoList>
+
       <stack>
         <title>{{title}}</title>
-        <description allowsZooming="true" moreLabel="more">
-          {{description}}
-        </description>
+        <description allowsZooming="true" moreLabel="more" template="details.tvml"
+                     data='{"title": "{{title}}", "text": "{{description}}"}'
+                     present-method="presentModal">{{description}}</description>
         <row>
-          <buttonLockup type="play" data="{{{json}}}" present-method="presentPlay">
+          {{#isPurchased}}
+          <buttonLockup type="play" data="{{{json}}}" present-method="onPlaySelect">
             <badge src="resource://button-play" />
             <title>Play</title>
           </buttonLockup>
+          {{/isPurchased}}
           {{^isPurchased}}
-          <buttonLockup type="buy">
+          <buttonLockup type="buy" data="{{{json}}}" present-method="onBuySelect"
+                        success-alert-template="purchase-success-alert.tvml">
             <text>{{price}}</text>
             <title>Buy</title>
           </buttonLockup>
           {{/isPurchased}}
         </row>
       </stack>
+
       {{#thumbnails.high}}
-      <heroImg src="{{url}}" width="{{width}}" height="{{height}}" />
+      <heroImg src="{{url}}" width="{{width}}" height="{{height}}"/>
       {{/thumbnails.high}}
     </banner>
   </productTemplate>

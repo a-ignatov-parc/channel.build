@@ -2,8 +2,8 @@
 <document>
   <alertTemplate>
     <title>{{title}}</title>
-    <description>{{description}}</description>
-    <button>
+    <description>{{text}}</description>
+    <button data="{{{json}}}" present-method="presentPlay" onrender="navigateBack">
       <text>OK</text>
     </button>
   </alertTemplate>

@@ -15,6 +15,7 @@ struct Config {
   static let TVJSAppURL = Config.getKey("TVJS App URL") as! String
   static let webAPIURL = Config.getKey("Web API URL") as! String
   static let channelID = Config.getKey("Channel ID") as! String
+  static let channelName = Config.getKey("CFBundleName") as! String
   
   private static func getKey(key: String) -> AnyObject? {
     return NSBundle.mainBundle().objectForInfoDictionaryKey(key)

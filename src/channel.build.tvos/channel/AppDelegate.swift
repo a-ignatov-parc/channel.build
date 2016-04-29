@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TVApplicationControllerDe
   func appController(appController: TVApplicationController, evaluateAppJavaScriptInContext jsContext: JSContext) {
     // Initialize native modules for the JS context.
     jsContext.setObject(PurchasesAPI.instance(), forKeyedSubscript: "Purchases")
+    jsContext.setObject(Config.channelName, forKeyedSubscript: "ChannelName")
   }
 }
 
