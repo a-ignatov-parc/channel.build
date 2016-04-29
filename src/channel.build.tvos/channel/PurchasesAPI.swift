@@ -14,7 +14,7 @@ import JavaScriptCore
   static func instance() -> PurchasesAPIExport
   @objc(purchaseProduct::) func purchaseProduct(productId: String, jsCallback: JSValue?)
   @objc(isProductPurchased:) func isProductPurchased(productId: String) -> Bool
-  @objc(getLocalizedPrice:) func getLocalizedPrice(productId: String) -> String
+  @objc(getLocalizedPrices::) func getLocalizedPrices(productIds: [String], jsCallback: JSValue?)
 }
 
 @objc class PurchasesAPI: NSObject, PurchasesAPIExport {
@@ -55,9 +55,21 @@ import JavaScriptCore
     return NSUserDefaults.standardUserDefaults().boolForKey(productId)
   }
   
-  @objc(getLocalizedPrice:) func getLocalizedPrice(productId: String) -> String {
-    // TODO: Implement showing localized price string.
-    return "1.99$"
+  @objc(getLocalizedPrices::) func getLocalizedPrices(productIds: [String], jsCallback: JSValue?) {
+    self.getProducts(productIds, completion: { products, error in
+      if (products == nil) {
+        print("Purchase error: \(error)")
+        self.resetRequest(errorMessage: error?.localizedDescription)
+        return
+      }
+      
+      var prices = [String: String]()
+      for product in products! {
+        prices[product.productIdentifier] = product.localizedPrice()
+      }
+
+      self.resetRequest(prices)
+    }, jsCallback: jsCallback)
   }
   
   /*

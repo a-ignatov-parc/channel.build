@@ -39,6 +39,14 @@ const Utility = {
       return ESCAPE_MAP[s];
     });
   },
+
+  /**
+   * Calls function as soon as possible in a separate fiber.
+   * @param  {function} func Function to call.
+   */
+  asap(func) {
+    setTimeout(func, 0);
+  }
 };
 
 module.exports = Utility;

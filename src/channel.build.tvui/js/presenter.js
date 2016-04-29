@@ -2,6 +2,8 @@
  * Presenter for the application. Handles models data and presents it as a view.
  */
 
+import Utility from './utility';
+
 class Presenter {
   constructor(resourceLoader, dataController) {
     this.resourceLoader = resourceLoader;
@@ -9,6 +11,7 @@ class Presenter {
     this.onSelect = this.onSelect.bind(this);
     this.onVideoSearch = this.onVideoSearch.bind(this);
     this.attachDefaultBehaviour = this.attachDefaultBehaviour.bind(this);
+    this.attachModalDefaultBehaviour = this.attachModalDefaultBehaviour.bind(this);
   }
 
   presentRoot(name) {
@@ -17,7 +20,12 @@ class Presenter {
 
   attachDefaultBehaviour(doc) {
     doc.addEventListener('select', this.onSelect);
-    this.presentDoc(doc);
+    this.presentDoc({doc});
+  }
+
+  attachModalDefaultBehaviour(doc) {
+    doc.addEventListener('select', this.onSelect);
+    this.presentModal({doc});
   }
 
   onSelect(event) {
@@ -84,12 +92,16 @@ class Presenter {
     });
   }
 
-  presentDoc(doc) {
+  presentDoc({doc}) {
     navigationDocument.pushDocument(doc);
   }
 
-  presentModal(doc) {
+  presentModal({doc}) {
     navigationDocument.presentModal(doc);
+  }
+
+  dismissModal() {
+    navigationDocument.dismissModal();
   }
 
   presentMenuBarItem({doc, data}) {
@@ -130,7 +142,34 @@ class Presenter {
 
   presentPurchase({data}) {
     const template = data.target.getAttribute('purchase-template');
+    data.author = ChannelName; // Name of tvOS application.
     this.resourceLoader.getTvml(template, data).then(this.attachDefaultBehaviour);
+  }
+
+  onPlaySelect({data}) {
+    presentPlay({data});
+  }
+
+  onBuySelect({data}) {
+    Purchases.purchaseProduct(data.productId, (productId, error) => {
+      if (error) {
+        console.log(`An error occured while purchasing a product: ${error.message}`);
+      } else {
+        console.log(`A product with ID ${productId} was successfully purchased!`);
+        Utility.asap(() => this.presentPurchaseSuccessAlert({
+          title: 'Thank you',
+          text: 'Your purchase was successfull.\nClick OK to play the video.',
+          data
+        }));
+      }
+    });
+  }
+
+  presentPurchaseSuccessAlert({title, text, data}) {
+    const template = data.target.getAttribute('success-alert-template');
+    data.title = title;
+    data.text = text;
+    this.resourceLoader.getTvml(template, data).then(this.attachModalDefaultBehaviour);
   }
 
   setSelectEventHandler({doc}) {
@@ -142,6 +181,11 @@ class Presenter {
           partial = searchField.getAttribute('result-partial');
     let keyboard = searchField.getFeature('Keyboard');
     keyboard.onTextChange = this.onVideoSearch.bind(this, {keyboard, partial, doc, data});
+  }
+
+  navigateBack() {
+    navigationDocument.dismissModal();
+    navigationDocument.popDocument();
   }
 }
 

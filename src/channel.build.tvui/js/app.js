@@ -22,8 +22,4 @@ App.onLaunch = ({tvjsClientUrl, webApiUrl, channelId, deviceId}) => {
   });
 
   presenter.presentRoot(Settings.rootTemplate);
-
-  // Purchases.purchaseProduct('com.caffeinelabs.channel.video_test', (res, error) => {
-  //   console.log('It works!!!', res, error);
-  // });
 };
