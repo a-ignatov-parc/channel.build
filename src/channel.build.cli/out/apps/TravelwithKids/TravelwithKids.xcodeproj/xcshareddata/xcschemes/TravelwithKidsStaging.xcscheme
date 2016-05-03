@@ -17,13 +17,13 @@
                BlueprintIdentifier = "2F3DE6AC1C720DEF007F630C"
                BuildableName = "Travel with Kids.app"
                BlueprintName = "Travel with Kids"
-               ReferencedContainer = "container:Travel with Kids.xcodeproj">
+               ReferencedContainer = "container:TravelwithKids.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Debug Staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -35,14 +35,14 @@
             BlueprintIdentifier = "2F3DE6AC1C720DEF007F630C"
             BuildableName = "Travel with Kids.app"
             BlueprintName = "Travel with Kids"
-            ReferencedContainer = "container:Travel with Kids.xcodeproj">
+            ReferencedContainer = "container:TravelwithKids.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Debug Staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -58,14 +58,14 @@
             BlueprintIdentifier = "2F3DE6AC1C720DEF007F630C"
             BuildableName = "Travel with Kids.app"
             BlueprintName = "Travel with Kids"
-            ReferencedContainer = "container:Travel with Kids.xcodeproj">
+            ReferencedContainer = "container:TravelwithKids.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Release Staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -77,15 +77,15 @@
             BlueprintIdentifier = "2F3DE6AC1C720DEF007F630C"
             BuildableName = "Travel with Kids.app"
             BlueprintName = "Travel with Kids"
-            ReferencedContainer = "container:Travel with Kids.xcodeproj">
+            ReferencedContainer = "container:TravelwithKids.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "Debug Staging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Release Staging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -32,11 +32,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, TVApplicationControllerDe
     appControllerContext.launchOptions["tvjsClientUrl"] = Config.TVJSClientURL
     appControllerContext.launchOptions["webApiUrl"] = Config.webAPIURL
     appControllerContext.launchOptions["channelId"] = Config.channelID
+    appControllerContext.launchOptions["deviceId"] = Config.deviceID
+    
+    print("Client version of TravelwithKids \(Config.channelID) is v\(Config.TVJSClientVersion)")
     
     // Create an app controller.
     appController = TVApplicationController(context: appControllerContext, window: window, delegate: self)
-    
+
     return true
+  }
+  
+  func appController(appController: TVApplicationController, evaluateAppJavaScriptInContext jsContext: JSContext) {
+    // Initialize native modules for the JS context.
+    jsContext.setObject(PurchasesAPI.instance(), forKeyedSubscript: "Purchases")
+    jsContext.setObject(Config.channelName, forKeyedSubscript: "ChannelName")
   }
 }
 
