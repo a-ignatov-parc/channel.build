@@ -20,14 +20,14 @@ module CaffeineLabs
         },
 
         :project_settings => OpenStruct.new(
-          :local_client_url => 'http://localhost:3000/'
+          :local_tvjs_client_url => 'http://localhost:3000/tvos/v%N/',
+          :tvjs_client_url => 'http://channel.build/tvos/v%N/',
+          :tvjs_app_path => 'tvjs/app.js',
+          :web_api_url => 'http://channel.build/api/'
         ),
 
         :create => OpenStruct.new(
-          :output_path => Dir.getwd,
-          :tvjs_client_url => 'http://channel.build/',
-          :tvjs_app_path => 'tvjs/app.js',
-          :web_api_url => 'http://channel.build/api/'
+          :output_path => Dir.getwd
         ),
 
         :generate => OpenStruct.new(
