@@ -14,11 +14,11 @@ module CaffeineLabs
       method_option 'output', type: :string, desc: 'Output path', aliases: '-o',
                     default: @@config.create.output_path
       method_option 'jsurl', type: :string, desc: 'TVJS client URL',
-                    default: @@config.create.tvjs_client_url
+                    default: @@config.project_settings.tvjs_client_url
       method_option 'jspath', type: :string, desc: 'TVJS application path',
-                    default: @@config.create.tvjs_app_path
+                    default: @@config.project_settings.tvjs_app_path
       method_option 'apiurl', type: :string, desc: 'Web API URL',
-                    default: @@config.create.web_api_url
+                    default: @@config.project_settings.web_api_url
       def create(channel_id)
         # Get the channel info from Web API using channel ID.
         all_channels_url = URI.escape("#{@@config.api_url}admin").to_s
@@ -103,6 +103,9 @@ module CaffeineLabs
               convert << '-resize' << "#{icon.size}^"
               convert << '-gravity' << 'center'
               convert << '-extent' << icon.size
+              convert << '-background' << 'white'
+              convert << '-alpha' << 'remove'
+              convert << '-alpha' << 'off'
               convert << icon.path
             end
           end
@@ -209,7 +212,7 @@ module CaffeineLabs
           release_staging_settings = project.build_configuration_list['Release Staging'].build_settings
           development_project_settings = {
             'CL_CHANNEL_ID' => channel_id,
-            'CL_TVJS_CLIENT_URL' => @@config.project_settings.local_client_url,
+            'CL_TVJS_CLIENT_URL' => @@config.project_settings.local_tvjs_client_url,
             'CL_TVJS_APP_PATH' => tvjs_app_path,
             'CL_WEB_API_URL' => web_api_url
           }
