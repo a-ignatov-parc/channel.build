@@ -18,6 +18,7 @@ import JavaScriptCore
 }
 
 @objc class PurchasesAPI: NSObject, PurchasesAPIExport {
+  let iCloudStore = NSUbiquitousKeyValueStore()
   var request: SKProductsRequest?
   var completion: (([SKProduct]?, NSError?) -> Void)?
   
@@ -30,6 +31,7 @@ import JavaScriptCore
   
   override init() {
     super.init()
+    self.iCloudStore.synchronize()
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
   }
   
@@ -52,7 +54,7 @@ import JavaScriptCore
   }
   
   @objc(isProductPurchased:) func isProductPurchased(productId: String) -> Bool {
-    return NSUserDefaults.standardUserDefaults().boolForKey(productId)
+    return self.iCloudStore.boolForKey(productId)
   }
   
   @objc(getLocalizedPrices::) func getLocalizedPrices(productIds: [String], jsCallback: JSValue?) {
@@ -98,7 +100,8 @@ import JavaScriptCore
   private func onProductPurchaseSuccess(productId: String) {
     print("Purchase of product with ID \(productId) was successful!")
     
-    NSUserDefaults.standardUserDefaults().setBool(true, forKey: productId)
+    self.iCloudStore.setBool(true, forKey: productId)
+    self.iCloudStore.synchronize()
     
     self.resetRequest(productId)
   }
