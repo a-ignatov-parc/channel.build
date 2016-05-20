@@ -1,7 +1,7 @@
 {
   "name": "channel",
   "version": "1.0.0",
-  "description": "Channel app client for Apple TV.",
+  "description": "Channel TVML/TVJS app for Apple TV.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
