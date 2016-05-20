@@ -1,3 +1,9 @@
+/**
+ * Worker for Channel CLI jobs.
+ * Passes 'host' and 'port' parameters to the base class constructor using $WORKER_HOST and
+ * $WORKER_PORT environment variables respectively.
+ */
+
 (function () {
   'use strict';
 
@@ -5,6 +11,9 @@
       JobsWorker = require('./jobs-worker'),
       Shell = require('shelljs');
 
+  /**
+   * Runs 'chan import' command for apps to download videos to Amazon S3 storage and update the database.
+   */
   var chanWorker = new JobsWorker(process.env.WORKER_HOST, process.env.WORKER_PORT);
   chanWorker.connect(function () {
     return Job.processJobs('chan', 'import', {

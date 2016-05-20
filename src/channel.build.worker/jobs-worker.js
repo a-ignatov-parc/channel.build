@@ -1,3 +1,10 @@
+/**
+ * Base class for workers.
+ * Establishes a DDP connection to the server with login and password
+ * provided by $WORKER_ACCOUNT and $WORKER_PASS environment variables.
+ * Uses 'host' and 'port' constructor parameters for DPP connection to the server.
+ */
+
 (function () {
   'use strict';
 
