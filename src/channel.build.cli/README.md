@@ -4,29 +4,21 @@ CLI for managing applications created by users of Channel app. See more info her
 
 ## Installation
 
-Add this line to your application's Gemfile:
+You can install it on the target machine with `rake`. But first you need to install `bundler` gem
+and gem dependencies.
 
-```ruby
-gem 'channel-cli'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install channel-cli
+    $ gem install bundler
+    $ bundle install
+    $ rake install
+    $ chan help
 
 ## Usage
 
 ```shell
-$ sudo gem install bundler
-$ bundle install
-$ ./chan help create
-$ ./chan help generate
-$ ./chan create Wok55EFCerwSna5PR # outputs ./MachineLearning.chr
-$ ./chan generate MachineLearning.chr # outputs Xcode project in ./MachineLearning
+$ chan help create
+$ chan create Wok55EFCerwSna5PR # outputs ./MachineLearning.chr
+$ chan help generate
+$ chan generate MachineLearning.chr # outputs Xcode project in ./MachineLearning
 ```
 
 ## Configuration
@@ -34,6 +26,10 @@ $ ./chan generate MachineLearning.chr # outputs Xcode project in ./MachineLearni
 The following environment variables allow to setup CLI behavior:
 - `CHAN_API_URL` - Channel Web API URL. Default is `http://channel.build/api/`.
 - `CHAN_PROJECT_DIR` - Channel tvOS project directory. Default is `$HOME/Projects/channel.build/src/channel.build.tvos`.
+- `CHAN_AWS_BUCKET` - AWS S3 bucket name used by `import` command.
+- `CHAN_AWS_REGION` - AWS region name, e.g. us-west-2.
+- `CHAN_AWS_ACCESS_KEY_ID` - AWS access key ID.
+- `CHAN_AWS_SECRET_ACCESS_KEY` - AWS secret access key.
 
 ## Development
 
