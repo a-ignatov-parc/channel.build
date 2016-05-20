@@ -13,7 +13,7 @@
 
       <stack>
         <title>{{title}}</title>
-        <description allowsZooming="true" moreLabel="more" template="details.tvml"
+        <description allowsZooming="true" moreLabel="more" template="details-alert.tvml"
                      data='{"title": "{{title}}", "text": "{{description}}"}'
                      present-method="presentModal">{{description}}</description>
         <row>
