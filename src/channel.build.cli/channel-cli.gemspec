@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   end
 
   s.files         = Dir.glob('{lib/**/*,bin/*}').select(&File.method(:file?))
-  s.test_files    = Dir.glob('test/**/*').select(&File.method(:file?))
+  s.test_files    = Dir.glob('spec/**/*').select(&File.method(:file?))
   s.bindir        = 'bin'
   s.executables   = %w(chan)
   s.require_paths = %w(lib)
