@@ -9,7 +9,7 @@ and gem dependencies.
 
     $ gem install bundler
     $ bundle install
-    $ rake install
+    $ bundle exec rake install
     $ chan help
 
 ## Usage
