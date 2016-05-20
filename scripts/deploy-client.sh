@@ -35,9 +35,11 @@ CLIENT_PATH=$REPO_ROOT_PATH/src/channel.build.tvui
 TARGET_HOST=ubuntu@channel.build
 TARGET_CLIENT_PATH=/home/ubuntu/app/channel.build.tvui/$CLIENT_VERSION
 
-# Remote shell command and remote copy command.
-alias rsh='ssh $TARGET_HOST'
-alias rcpdir='scp -r'
+# Enable the aliases expansion.
+# Define aliases for remote shell command and remote copy command.
+shopt -s expand_aliases
+alias rsh="ssh $TARGET_HOST"
+alias rcpdir="scp -r"
 
 # Create all necessary directories on the target machine,
 # copy the TVML/TVJS code and build it.

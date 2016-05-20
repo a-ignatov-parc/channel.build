@@ -28,8 +28,10 @@ TARGET_WORKER_PATH=/home/ubuntu/app/channel.build/source/src/channel.build.worke
 ECOSYSTEM_NAME=chan-ecosystem.json
 ENVIRONMENT=production
 
-# Remote shell command.
-alias rsh='ssh $TARGET_HOST'
+# Enable the aliases expansion.
+# Define alias for remote shell command.
+shopt -s expand_aliases
+alias rsh="ssh $TARGET_HOST"
 
 # Deploy the worker app code to the target machine with pm2.
 # Use `pm2 deploy` only if this is the first deployment.
