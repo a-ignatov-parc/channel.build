@@ -9,14 +9,13 @@ SyncedCron.add({
     return parser.text('at 00:00');
   },
   job: function () {
-    console.log('+++DEBUG+++', process.env.MONGO_URL);
     var mongodump = process.env.MONGODUMP_PATH,
         database = process.env.MONGO_DATABASE || 'meteor',
         appname = 'channel.build',
         mongoUrl = process.env.MONGO_URL,
         host = mongoUrl.match(new RegExp(`mongodb://(.*)/${database}`))[1],
         timestamp = shell.exec('date +%F-%H%M').output.trim(),
-        backupsPath = `${process.env.HOME}/backups/${appname}`,
+        backupsPath = process.env.MONGO_BACKUP_PATH,
         archivePath = `${backupsPath}/${appname}-${timestamp}.gzip`;
 
     shell.mkdir('-p', backupsPath);
