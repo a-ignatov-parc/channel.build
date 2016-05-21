@@ -1,5 +1,6 @@
 # NOTE: Use http://www.getcreditcardnumbers.com/ to generate fake credit cards.
 
+# SimpleSchema to validate input of the billing form.
 billingFormSchema = new SimpleSchema(
   plan:
     label: 'Subscription plan'
@@ -29,6 +30,11 @@ billingFormSchema = new SimpleSchema(
       type: 'payments/creditCardCVC'
 )
 
+###
+Helper methods to control progress of the billing form submission.
+Show loading animation and error/success messages to a user.
+###
+
 startSubmitting = () ->
   Session.set('billing.submit', true)
   return
@@ -51,6 +57,10 @@ hideAlert = () ->
   Session.set('billing.status', null)
   Session.set('billing.message', null)
   return
+
+###
+Startup
+###
 
 Meteor.startup(() ->
   key = Meteor.settings.public.stripePublishableKey
@@ -104,6 +114,8 @@ Template.billingForm.onRendered(() ->
   endSubmitting()
   hideAlert()
 
+  # Billing form submission scenario, which subscribes a user for
+  # a plan using provided credit card details (card token).
   AutoForm.hooks(
     billingForm:
       beginSubmit: () ->
