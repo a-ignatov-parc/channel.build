@@ -1,3 +1,20 @@
+/**
+ * Special endpoints to access TVML/TVJS files with versioning support:
+ *
+ * /tvos/v{version}/{type}/{filepath}
+ * OR
+ * /tvos/{type}/{filepath}
+ *
+ * Where:
+ * {version}  - a version of the TVML/TVJS. If omitted then defaults to 1.
+ * {type}     - either 'tvml' or 'tvjs'.
+ * {filepath} - path to the file.
+ *
+ * E.g.:
+ * /tvos/v1/tvml/root.tvml
+ * /tvos/v2/tvjs/app.js
+ */
+
 var fs = Meteor.npmRequire('fs');
 
 function redirectToDefault() {
