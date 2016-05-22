@@ -14,7 +14,7 @@
     "url": "git+https://github.com/caffeinelabs/channel.build.git"
   },
   "author": "Michael Kalygin",
-  "license": "ISC",
+  "license": "AGPLv3",
   "dependencies": {
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.2",
