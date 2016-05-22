@@ -1,5 +1,9 @@
-class ResizeSensor
+###
+Helper class for Dashboard.
+NOTE: https://github.com/lmaccherone/sb-admin-2-meteor
+###
 
+class ResizeSensor
   @toSense = []
 
   @add: (id) ->

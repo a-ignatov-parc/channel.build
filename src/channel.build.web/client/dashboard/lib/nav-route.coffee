@@ -1,3 +1,8 @@
+###
+Helper classes for Dashboard routes.
+NOTE: https://github.com/lmaccherone/sb-admin-2-meteor
+###
+
 DEFAULT_MAIN_LAYOUT = 'dashboardPage'
 
 class NavRoute
