@@ -11,7 +11,7 @@
     "url": "git+https://github.com/caffeinelabs/channel.build.git"
   },
   "author": "Michael Kalygin",
-  "license": "ISC",
+  "license": "AGPLv3",
   "bugs": {
     "url": "https://github.com/caffeinelabs/channel.build.git/issues"
   },
