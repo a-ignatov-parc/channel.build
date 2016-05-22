@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.platform      = Gem::Platform::CURRENT
   s.authors       = ['Michael Kalygin']
   s.email         = ['michael.kalygin@gmail.com']
+  s.licenses      = ['AGPLv3']
 
   s.summary       = 'Automate apps creation for the Channel app.'
   s.description   = 'CLI for managing applications created by users of the Channel app.'
