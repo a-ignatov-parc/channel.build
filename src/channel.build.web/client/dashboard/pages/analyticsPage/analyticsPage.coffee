@@ -1,3 +1,10 @@
+###*
+ * Event handler for Flot.js 'plothover' event.
+ * Show a tooltip with values in a selected point of a plot.
+ * @param  {event}  event 'plothover' event object.
+ * @param  {object} pos   Mouse position.
+ * @param  {object} item  Item of Flot.js plot.
+###
 showChartTooltip = (event, pos, item) ->
   $tooltip = $(this).data('tooltip')
   offset = $(this).offset()
@@ -11,6 +18,10 @@ showChartTooltip = (event, pos, item) ->
       .fadeIn(200)
   else
     $tooltip.hide()
+
+###
+Handlers
+###
 
 Template.analyticsPage.onCreated(() ->
   appId = Session.get('appId')
