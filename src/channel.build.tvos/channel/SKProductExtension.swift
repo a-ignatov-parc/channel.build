@@ -9,6 +9,7 @@
 import Foundation
 import StoreKit
 
+// Extension for SKProduct with helper methods.
 // NOTE: https://bendodson.com/weblog/2014/12/10/skproduct-localized-price-in-swift/
 extension SKProduct {
   func localizedPrice() -> String {

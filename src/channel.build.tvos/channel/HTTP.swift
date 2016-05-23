@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+// Exposes helper HTTP requests methods for JSON APIs.
+// Automatically parses JSON and returns result in completeion callback.
 class HTTP {
   static let instance = HTTP()
   private init() {}

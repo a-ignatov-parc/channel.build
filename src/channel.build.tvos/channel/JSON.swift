@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Exposes helper methods to parse/deparse JSON data.
 class JSON {
   static let instance = JSON()
   private init() {}

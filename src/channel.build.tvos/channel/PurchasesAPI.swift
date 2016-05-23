@@ -10,6 +10,8 @@ import Foundation
 import StoreKit
 import JavaScriptCore
 
+// Inherits from JSExport so that these methods may be exposed
+// to JavaScript context on app start.
 @objc protocol PurchasesAPIExport: JSExport {
   static func instance() -> PurchasesAPIExport
   @objc(purchaseProduct::) func purchaseProduct(productId: String, jsCallback: JSValue?)
@@ -17,12 +19,16 @@ import JavaScriptCore
   @objc(getLocalizedPrices::) func getLocalizedPrices(productIds: [String], jsCallback: JSValue?)
 }
 
+// Represents In-App Purchases API for JavaScript.
 @objc class PurchasesAPI: NSObject, PurchasesAPIExport {
   let iCloudStore = NSUbiquitousKeyValueStore()
   var request: SKProductsRequest?
   var completion: (([SKProduct]?, NSError?) -> Void)?
   
-  // function (response, error) { ... }
+  // JavaScript callback runs on both success and failure of API requests
+  // if provided by a user of the API.
+  // The callback has the following JavaScript signature:
+  // function (response, error) { ... }.
   var jsCallback: JSValue?
   
   static func instance() -> PurchasesAPIExport {
@@ -35,10 +41,11 @@ import JavaScriptCore
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
   }
   
-  /*
-  / Public API.
-  */
+  /**
+   * Public API.
+   */
   
+  // Makes a product purchase by its ID.
   @objc(purchaseProduct::) func purchaseProduct(productId: String, jsCallback: JSValue?) {
     print("Purchasing product with ID \(productId)...")
     
@@ -53,10 +60,12 @@ import JavaScriptCore
     }, jsCallback: jsCallback)
   }
   
+  // Checks whether a product has been bought by a user of the app.
   @objc(isProductPurchased:) func isProductPurchased(productId: String) -> Bool {
     return self.iCloudStore.boolForKey(productId)
   }
   
+  // Gets localized prices for products with the given IDs.
   @objc(getLocalizedPrices::) func getLocalizedPrices(productIds: [String], jsCallback: JSValue?) {
     self.getProducts(productIds, completion: { products, error in
       if (products == nil) {
@@ -74,10 +83,11 @@ import JavaScriptCore
     }, jsCallback: jsCallback)
   }
   
-  /*
-   / Private helper methods.
+  /**
+   * Private helper methods.
    */
   
+  // Gets an array of SKProducts from an array of product IDs using StoreKit.
   private func getProducts(productIds: [String], completion: ([SKProduct]?, NSError?) -> Void, jsCallback: JSValue?) {
     guard self.request == nil else { return }
     
@@ -90,6 +100,7 @@ import JavaScriptCore
     self.request?.start()
   }
   
+  // Queues a payment transaction for a given SKProduct.
   private func queuePayment(product: SKProduct) {
     print("Queueing a payment transaction for product \(product)...")
     
@@ -97,6 +108,7 @@ import JavaScriptCore
     SKPaymentQueue.defaultQueue().addPayment(payment)
   }
   
+  // Runs on product purchase success.
   private func onProductPurchaseSuccess(productId: String) {
     print("Purchase of product with ID \(productId) was successful!")
     
@@ -106,12 +118,14 @@ import JavaScriptCore
     self.resetRequest(productId)
   }
   
+  // Runs on product purchase failure.
   private func onProductPurchaseFailure(errorMessage: String? = nil) {
     print("Purchase failed!")
     
     self.resetRequest(errorMessage: errorMessage)
   }
   
+  // Resets current request. Only one request may be handled at time.
   private func resetRequest(result: AnyObject = NSNull(), errorMessage: String? = nil) {
     self.callJsCallback(result, errorMessage: errorMessage)
     
@@ -120,6 +134,7 @@ import JavaScriptCore
     self.jsCallback = nil
   }
   
+  // Wrapper around JavaScript callback.
   private func callJsCallback(result: AnyObject = NSNull(), errorMessage: String? = nil) {
     let error = errorMessage != nil ? ["message": errorMessage] as! AnyObject : NSNull()
     self.jsCallback?.callWithArguments([result, error])

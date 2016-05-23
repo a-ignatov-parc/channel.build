@@ -11,13 +11,13 @@ import UIKit
 // Helper structure to store app settings extracted from Info.plist.
 // NOTE: Some of the settings are different for different Xcode build schemes.
 struct Config {
-  static let deviceID = UIDevice.currentDevice().identifierForVendor!.UUIDString
-  static let channelName = Config.getKey("CFBundleName") as! String
-  static let channelID = Config.getKey("Channel ID") as! String
+  static let deviceID          = UIDevice.currentDevice().identifierForVendor!.UUIDString
+  static let channelName       = Config.getKey("CFBundleName") as! String
+  static let channelID         = Config.getKey("Channel ID") as! String
   static let TVJSClientVersion = Config.getClientVersion()
-  static let TVJSClientURL = Config.getKeyWithSub("TVJS Client URL", target: "%N", sub: TVJSClientVersion)
-  static let TVJSAppURL = Config.getKeyWithSub("TVJS App URL", target: "%N", sub: TVJSClientVersion)
-  static let webAPIURL = Config.getKey("Web API URL") as! String
+  static let TVJSClientURL     = Config.getKeyWithSub("TVJS Client URL", target: "%N", sub: TVJSClientVersion)
+  static let TVJSAppURL        = Config.getKeyWithSub("TVJS App URL", target: "%N", sub: TVJSClientVersion)
+  static let webAPIURL         = Config.getKey("Web API URL") as! String
   
   private static func getKey(key: String) -> AnyObject? {
     return NSBundle.mainBundle().objectForInfoDictionaryKey(key)
