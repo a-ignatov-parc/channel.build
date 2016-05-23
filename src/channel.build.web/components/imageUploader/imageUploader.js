@@ -54,27 +54,33 @@ if (Meteor.isServer) {
     maxSize: 10 * 1024 * 1024 // 10 MB (use null for unlimited).
   });
 
-  Slingshot.createDirective("imageUploader", Slingshot.S3Storage, {
-    bucket: Meteor.settings.private.awsBucket,
-    region: Meteor.settings.private.awsRegion,
-    acl: "public-read",
-    AWSAccessKeyId: Meteor.settings.private.awsAccessKeyId,
-    AWSSecretAccessKey: Meteor.settings.private.awsSecretAccessKey,
+  try {
+    Slingshot.createDirective("imageUploader", Slingshot.S3Storage, {
+      bucket: Meteor.settings.private.awsBucket,
+      region: Meteor.settings.private.awsRegion,
+      acl: "public-read",
+      AWSAccessKeyId: Meteor.settings.private.awsAccessKeyId,
+      AWSSecretAccessKey: Meteor.settings.private.awsSecretAccessKey,
 
-    authorize: function () {
-      //Deny uploads if user is not logged in.
-      if (!this.userId) {
-        var message = "Please login before posting files";
-        throw new Meteor.Error("Login Required", message);
+      authorize: function () {
+        //Deny uploads if user is not logged in.
+        if (!this.userId) {
+          var message = "Please login before posting files";
+          throw new Meteor.Error("Login Required", message);
+        }
+
+        return true;
+      },
+
+      key: function (file) {
+        //Store file into a directory by the user's username.
+        var user = Meteor.users.findOne(this.userId);
+        return this.userId + "/" + file.name;
       }
-
-      return true;
-    },
-
-    key: function (file) {
-      //Store file into a directory by the user's username.
-      var user = Meteor.users.findOne(this.userId);
-      return this.userId + "/" + file.name;
-    }
-  });
+    });
+  } catch (error) {
+    console.log(`An error occured while trying to use AWS S3 credentials. ` +
+                `Please fill the correct values for AWS S3 credentials in Meteor settings file. ` +
+                `${error.message}`);
+  }
 }
