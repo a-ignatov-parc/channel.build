@@ -1,0 +1,27 @@
+{
+  "public": {
+    "gaTrackingId": "",
+    "stripePublishableKey": "",
+    "plans": [{
+      "name": "basic",
+      "title": "Basic Plan (29.99$)",
+      "interval": "month"
+    }, {
+      "name": "pro",
+      "title": "Pro Plan (99.99$)",
+      "interval": "month"
+    }]
+  },
+  "private": {
+    "stripeSecretKey": "",
+    "googleClientId": "",
+    "googleSecret": "",
+    "youtubeApiKey": "",
+    "awsBucket": "",
+    "awsRegion": "",
+    "awsAccessKeyId": "",
+    "awsSecretAccessKey": "",
+    "kadiraAppId": "",
+    "kadiraAppSecret": ""
+  }
+}

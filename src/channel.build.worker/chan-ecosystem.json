@@ -1,0 +1,48 @@
+{
+  /**
+   * Application configuration section
+   * http://pm2.keymetrics.io/docs/usage/application-declaration/
+   */
+  "apps": [
+    {
+      "name": "channel.build.worker",
+      "script": "chan-worker.js",
+      "env": {
+        "NODE_ENV": "development",
+        "WORKER_HOST": "localhost",
+        "WORKER_PORT": "3000",
+        "WORKER_ACCOUNT": "worker",
+        "WORKER_PASS": "password",
+        "CHAN_PATH": `${process.env.GEM_HOME}/bin/chan`,
+        "CHAN_API_URL": "http://localhost:3000/api/"
+      },
+      "env_production": {
+        "NODE_ENV": "production",
+        "WORKER_HOST": "channel.build",
+        "WORKER_PORT": "80",
+        "WORKER_ACCOUNT": "worker",
+        "WORKER_PASS": "password",
+        "CHAN_PATH": `${process.env.GEM_HOME}/bin/chan`,
+        "CHAN_API_URL": "http://channel.build/api/"
+      }
+    }
+  ],
+
+  /**
+   * Deployment section
+   * http://pm2.keymetrics.io/docs/usage/deployment/
+   */
+  "deploy": {
+    "production": {
+      "key": "~/.ssh/channel.build_rsa",
+      "user": "ubuntu",
+      "host": "jobs.channel.build",
+      "ref": "origin/master",
+      "repo": "git@github.com:caffeinelabs/channel.build.git",
+      "path": "/home/ubuntu/app/channel.build",
+      "post-deploy": "pushd src/channel.build.worker; npm install; " +
+                     "pm2 startOrRestart chan-ecosystem.json --env production --log-date-format 'YYYY-MM-DD HH:mm Z'; " +
+                     "popd; pushd src/channel.build.cli; bundle install; rake install;"
+    }
+  }
+}

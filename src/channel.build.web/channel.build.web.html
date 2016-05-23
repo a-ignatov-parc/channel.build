@@ -1,0 +1,94 @@
+<head>
+  <title>channel.build</title>
+  <link href="/vendor/bootstrap-social/css/font-awesome.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+</head>
+
+<body>
+</body>
+
+<template name="home">
+  {{#if currentUser}}
+    {{#if showMenuContent}}
+      <div class="preview-container">
+        {{> preview}}
+      </div>
+      <div class="import-container">
+        <h1 class="header-greeting">Welcome {{currentUser.services.google.given_name}}!</h1>
+        {{> import}}
+      </div>
+    {{/if}}
+    {{#unless userIsInvited}}
+      {{#unless hideNoInviteContent}}
+        {{> notInvited}}
+      {{/unless}}
+    {{/unless}}
+  {{/if}}
+  {{> mainMenu}}
+  {{> landingPage}}
+
+  {{> googleAnalytics}}
+</template>
+
+<template name="mainMenu">
+  <div class="fa fa-bars main-menu">
+  </div>
+  {{#if showMenuContent}}
+    <div class="main-menu-wrapper">
+      <div class="main-menu-contents">
+        <h3>Welcome to Channel</h3>
+        <p>
+          Please sign-in to manage your account. If you haven't been invited yet,
+          we will add you to our waiting list automatically.
+        </p>
+        {{> googleLogin}}
+      </div>
+    </div>
+  {{/if}}
+</template>
+
+<template name="landingPage">
+  <iframe src="http://channel.caffeinelabs.co/" class="landing-page">
+  </iframe>
+</template>
+
+<template name="import">
+  <div class="import-grouping">
+    {{> loader}}
+  </div>
+</template>
+
+<template name="googleLogin">
+  <div class="btn btn-block btn-social btn-google google-login-button">
+    <i class="fa fa-google">
+    </i>
+    Sign in with Google
+  </div>
+</template>
+
+<template name="notInvited">
+  {{#unless hideNoInviteContent}}
+  <div class="not-invited-wrapper">
+    <div class="alert alert-success not-invited-block">
+      <h3>Hello {{currentUser.profile.givenName}}!</h3>
+      <p>
+        You are currently not invited to this alpha program. We will give you an update
+        very soon.
+      </p>
+    </div>
+  </div>
+  {{/unless}}
+</template>
+
+<template name="googleAnalytics">
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', Meteor.settings.public.gaTrackingId, 'auto');
+  ga('send', 'pageview');
+
+  </script>
+</template>
