@@ -1,4 +1,4 @@
-# CaffeineLabs::ChannelCli
+# channel.build.cli
 
 CLI for managing applications created by users of Channel app. See more info here: http://channel.build/.
 
