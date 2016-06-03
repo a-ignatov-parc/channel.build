@@ -1,6 +1,6 @@
 # channel.build
 
-A platform to help anyone build their own Apple TV channel.
+A platform to help anyone build their own Apple TV channel. Read about Channel in Medium [article](https://medium.com/@mkalygin/apple-tv-and-meteor-first-impressions-23ddeef673ba).
 
 ## Quick Start
 
